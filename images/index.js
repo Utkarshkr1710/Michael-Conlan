@@ -1,0 +1,11 @@
+export { default as fox } from './fox.jpeg';
+export { default as cat } from './cat.jpg';
+export { default as background } from './background.jpg';
+export { default as element } from './element.jpg';
+export { default as lion } from './lion.jpg';
+export { default as Mic1 } from './Mic1.jpg';
+export { default as Mic2 } from './Mic2.jpg';
+export { default as Mic3 } from './Mic3.jpg';
+export { default as Mic4 } from './Mic4.jpg';
+export { default as Mic5 } from './Mic5.jpg';
+export { default as new_gall_two} from './new_gall_two.jpg';

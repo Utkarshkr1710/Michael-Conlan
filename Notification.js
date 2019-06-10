@@ -1,18 +1,24 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from "react";
+import { View, Text, StyleSheet,ScrollView } from "react-native";
 
 export default class Notification extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
     return (
-      <View>
-        <Text> Notification </Text>
+     <View style={styles.container}>
+      
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+ container:{
+   flex:1,
+   backgroundColor:'black'
+ }
+});

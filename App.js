@@ -11,13 +11,15 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import Home from "./Home";
 import SplashSreen from "./SplashSreen";
 import Navigation from "./Navigation";
-
+import HomeScreen from "./HomeScreen";
+import Match from "./Match";
 export default class App extends Component {
   render() {
     return (
-     //<Home />
+      // <Home />
      //<SplashSreen />
-     <Navigation />
+     <HomeScreen />
+    //  <Match />
     );
   }
 }

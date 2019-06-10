@@ -8,6 +8,8 @@ import {
   Animated, 
   StatusBar,Image
 } from "react-native";
+export const { width, height } = Dimensions.get("window");
+import Shimmer from 'react-native-shimmer';
 
 class FadeInView extends React.Component {
   state = {
@@ -19,7 +21,7 @@ class FadeInView extends React.Component {
       this.state.fadeAnim,            // The animated value to drive
       {
         toValue: 1,                   // Animate to opacity: 1 (opaque)
-        duration: 3000,              // Make it take a while
+        duration: 5000,              // Make it take a while
       }
     ).start();                        // Starts the animation
   }
@@ -43,26 +45,31 @@ class FadeInView extends React.Component {
 export default class App extends Component {
   render() {
     return (
+      
       <ImageBackground
-        source={require('./bcg.png')}
+        source={require('./Mick.jpg')}
         style={styles.container}>
         <FadeInView>
-       <ImageBackground
-       source={require('./logo.png')}
-       style={styles.logo}>
-         
-         <View style={{width:350}}>
-         <Text style={{color:'white',fontSize:30,fontWeight:'bold',marginTop:200}}>
-          The Fighting Pride of Eire
+       {/* <ImageBackground
+        source={require('./logoo.jpg')}
+        style={styles.logo}>
+           </ImageBackground> */}
+       </FadeInView>
+         <View style={{width:350,marginTop:400}}>
+         <Shimmer animationOpacity={2} pauseDuration={100} duration={2000}	>
+         <Text style={{color:'white',fontSize:30,marginTop:200,fontFamily:'sans-serif-light',textAlign:'center'}}>
+          The Fighting Pride of Éire
         </Text>
+        </Shimmer>
         <StatusBar
           barStyle="light-content"
           backgroundColor="black"
         />
         </View>
        </ImageBackground>
-       </FadeInView>
-       </ImageBackground>
+      //  </FadeInView>
+      //  </ImageBackground>
+      
     );
   }
 }
@@ -73,16 +80,16 @@ const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined,
-    backgroundColor:'transparent',
+    //backgroundColor:'transparent',
     justifyContent: 'center',
     alignItems: 'center',
   },
   logo:{
-    width:120,
-    height:120,
+    width:140,
+    height:150,
     backgroundColor:'transparent',
     justifyContent:'center',
     alignItems:'center',
-    marginTop: 380,
+    marginTop: 600,
   }
 });

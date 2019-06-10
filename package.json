@@ -7,14 +7,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-af-video-player": "^0.2.1",
+    "react-native-card-carousel": "^1.1.0",
+    "react-native-card-media": "^0.1.2",
+    "react-native-cardview": "^2.0.2",
+    "react-native-color-palette": "^2.0.3",
     "react-native-elastic-image-slider": "^1.0.0",
+    "react-native-elements": "^1.1.0",
     "react-native-fading-slides": "^0.3.1",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-image-slider": "^2.0.3",
+    "react-native-image-view": "^2.1.4",
+    "react-native-image-zoom-viewer": "^2.2.26",
+    "react-native-progress": "^3.6.0",
+    "react-native-shimmer": "^0.5.0",
     "react-native-slideshow": "^1.0.1",
+    "react-native-swiper-flatlist": "^1.0.10",
     "react-native-vector-icons": "^6.4.2",
+    "react-native-video": "^4.4.1",
     "react-navigation": "^3.6.1"
   },
   "devDependencies": {

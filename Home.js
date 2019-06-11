@@ -23,7 +23,7 @@ export const { width, height } = Dimensions.get("window");
 // import Video from "react-native-video";
 import Icon from "react-native-vector-icons/Entypo";
 import Icons from "react-native-vector-icons/FontAwesome";
-import Iconss from 'react-native-vector-icons/MaterialCommunityIcons'
+import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
 const newImage = [Mic2, Mic1, Mic3, Mic4, Mic5];
 
 const image = index => ({ image: newImage[index % newImage.length] });
@@ -44,14 +44,13 @@ export default class Home extends Component {
       progress: 0,
       duration: 0,
       cap: [
-        { img: require('./images/Mic1.jpg') ,buy:'View Details'},
-        { img: require('./images/Mic2.jpg'), buy:'View Details' },
-        { img: require('./images/Mic3.jpg'), buy:'View Details' },
-        { img: require('./images/Mic4.jpg'), buy:'View Details' },
-        { img: require('./images/Mic5.jpg') ,buy:'View Details' }
+        { img: require("./images/Mic1.jpg"), buy: "View Details" }
+        // { img: require('./images/Mic2.jpg'), buy:'View Details' },
+        // { img: require('./images/Mic3.jpg'), buy:'View Details' },
+        // { img: require('./images/Mic4.jpg'), buy:'View Details' },
+        // { img: require('./images/Mic5.jpg') ,buy:'View Details' }
       ]
     };
-    
   }
   renderItemComponent = ({ item }) => (
     <View>
@@ -66,7 +65,7 @@ export default class Home extends Component {
   render() {
     const { error } = this.state;
     const { navigate } = this.props.navigation;
-    
+    console.warn("wdhgkkkkkj", this.props.navigation);
 
     return (
       <ScrollView>
@@ -76,7 +75,7 @@ export default class Home extends Component {
             <SwiperFlatList
               autoplay
               autoplayDelay={5}
-             // index={0}
+              // index={0}
               autoplayLoop
               data={items}
               renderItem={this.renderItemComponent}
@@ -97,51 +96,30 @@ export default class Home extends Component {
             <View>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 20,
                   paddingLeft: 20,
                   color: "white"
                 }}
               >
-                Upcoming Matches
+                Next Fight
               </Text>
             </View>
-            <TouchableWithoutFeedback onPress={() => navigate("SeeAll")}>
-              <View>
-                <Text style={{ fontSize: 18, color: "white",paddingRight:20 }}>
-                  See all
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
           </View>
 
           <View>
-          
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              {this.state.cap.map((item, i) => (
-              <View style={{flex:1, margin: 20 }}>
-                <Image
-                      source={item.img}
+            {this.state.cap.map((item, i) => (
+              <View style={{ flex: 1, margin: 20 }}>
+                <TouchableOpacity onPress={() => navigate("Details")}>
+                  <Image
+                    source={item.img}
                     style={{
-                      flex: 1,
-                      width: 250,
-                      height: 180,
-                      resizeMode: "cover"
+                      width: "100%",
+                      height: 200
                     }}
                   />
-                  <TouchableWithoutFeedback onPress={() => navigate("Details")}>
-                <View style={{marginTop:20}}>
-                <Text style={{ fontSize: 20, color: "white",textAlign:'center' }}>
-                    View Details</Text>
-                </View>
-              </TouchableWithoutFeedback> 
-               
+                </TouchableOpacity>
               </View>
-             ))}
-            </ScrollView>
-            
+            ))}
           </View>
 
           {/* {Watch Videos} */}
@@ -164,9 +142,11 @@ export default class Home extends Component {
                 Latest Videos
               </Text>
             </View>
-            <TouchableWithoutFeedback onPress={() => navigate("Videos")} >
+            <TouchableWithoutFeedback onPress={() => navigate("Videos")}>
               <View>
-                <Text style={{ fontSize: 18, color: "white",paddingRight:20 }}>
+                <Text
+                  style={{ fontSize: 18, color: "white", paddingRight: 20 }}
+                >
                   See all
                 </Text>
               </View>
@@ -175,7 +155,7 @@ export default class Home extends Component {
 
           <View>
             <ScrollView horizontal={true}>
-              <View style={{ padding:20 }}>
+              <View style={{ padding: 20 }}>
                 <TouchableOpacity activeOpacity={0.8}>
                   <Image
                     source={require("./images/Match.jpg")}
@@ -184,7 +164,7 @@ export default class Home extends Component {
                 </TouchableOpacity>
               </View>
 
-              <View style={{  padding:20  }}>
+              <View style={{ padding: 20 }}>
                 <TouchableOpacity activeOpacity={0.8}>
                   <Image
                     source={require("./images/Train.jpg")}
@@ -193,7 +173,7 @@ export default class Home extends Component {
                 </TouchableOpacity>
               </View>
 
-              <View style={{  padding:20  }}>
+              <View style={{ padding: 20 }}>
                 <TouchableOpacity activeOpacity={0.8}>
                   <Image
                     source={require("./images/Gym.jpg")}
@@ -204,10 +184,9 @@ export default class Home extends Component {
             </ScrollView>
           </View>
 
+          {/* {Fun Facts} */}
 
-        {/* {Fun Facts} */}
-
-        <View
+          <View
             style={{
               flex: 1,
               flexDirection: "row",
@@ -223,40 +202,67 @@ export default class Home extends Component {
                   color: "white"
                 }}
               >
-                Do  You Know?
+                Do You Know?
               </Text>
             </View>
             <TouchableWithoutFeedback onPress={() => navigate("Fun")}>
               <View>
-                <Text style={{ fontSize: 18, color: "white",paddingRight:20 }}>
+                <Text
+                  style={{ fontSize: 18, color: "white", paddingRight: 20 }}
+                >
                   See all
                 </Text>
               </View>
             </TouchableWithoutFeedback>
           </View>
 
-          <View style={{justifyContent:'center',alignItems:'center'}}>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
             {/* <ScrollView horizontal={true} pagingEnabled={true} > */}
-              <View style={{height:300,width:"90%",backgroundColor:'#433D3E',marginTop:20,borderRadius:20,}}>
-              <View style={{alignItems:'center',margin:20}}>
-                  <Text style={{fontSize:24,fontFamily:'AppleSDGothicNeo-Bold',textAlign:'justify',color:'#D0CFCF'}}>What is Michael Conlan favourite song to walk out to on Fight Night?</Text>
-                </View>
-                <View style={{alignItems:'center'}}>
-                <Image
-                    source={require("./images/music-icon.jpg")}
-                    style={{ height: 70, width: 70, borderRadius: 10 }}
-                  />
-                </View>
-                <View style={{alignItems:'center',marginTop:30}}>
-                  <Text style={{fontSize:20,fontFamily:'AppleSDGothicNeo-Bold',color:'#D0CFCF'}}>Grace -by Jim McCann</Text>
-                </View>
+            <View
+              style={{
+                height: 300,
+                width: "90%",
+                backgroundColor: "#433D3E",
+                marginTop: 20,
+                borderRadius: 20
+              }}
+            >
+              <View style={{ alignItems: "center", margin: 20 }}>
+                <Text
+                  style={{
+                    fontSize: 24,
+                    fontFamily: "AppleSDGothicNeo-Bold",
+                    textAlign: "justify",
+                    color: "#D0CFCF"
+                  }}
+                >
+                  What is Michael Conlan favourite song to walk out to on Fight
+                  Night?
+                </Text>
               </View>
-
+              <View style={{ alignItems: "center" }}>
+                <Image
+                  source={require("./images/music-icon.jpg")}
+                  style={{ height: 70, width: 70, borderRadius: 10 }}
+                />
+              </View>
+              <View style={{ alignItems: "center", marginTop: 30 }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontFamily: "AppleSDGothicNeo-Bold",
+                    color: "#D0CFCF"
+                  }}
+                >
+                  Grace -by Jim McCann
+                </Text>
+              </View>
+            </View>
           </View>
-          
-                {/* {Social Icons} */}
 
-                <View style={{ marginTop: 50, marginBottom: 20 }}>
+          {/* {Social Icons} */}
+
+          <View style={{ marginTop: 50, marginBottom: 20 }}>
             <View
               style={{
                 flex: 1,
@@ -267,21 +273,10 @@ export default class Home extends Component {
               <Icon
                 name="facebook"
                 size={30}
-                color="#ffaa3e"
+                color="#159B62"
                 onPress={() =>
                   Linking.openURL(
                     "https://www.facebook.com/MichaelConlanBoxer/"
-                  )
-                }
-              />
-
-              <Icon
-                name="twitter"
-                size={30}
-                color="white"
-                onPress={() =>
-                  Linking.openURL(
-                    "https://twitter.com/mickconlan11?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
                   )
                 }
               />
@@ -296,19 +291,21 @@ export default class Home extends Component {
                   )
                 }
               />
+
               <Icon
-                name="youtube"
+                name="twitter"
                 size={30}
-                color="#159B62"
+                color="#ffaa3e"
                 onPress={() =>
-                  Linking.openURL("https://www.youtube.com/watch?v=-2KpoMRb2KA")
+                  Linking.openURL(
+                    "https://twitter.com/mickconlan11?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                  )
                 }
               />
             </View>
           </View>
-
-          </View>
-          </ScrollView>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -364,9 +361,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   backgroundVideo: {
-   
-    width:"100%",
-    height:200,
-  },
+    width: "100%",
+    height: 200
+  }
 });
-

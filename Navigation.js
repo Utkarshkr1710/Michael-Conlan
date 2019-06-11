@@ -48,24 +48,44 @@ const CustomDrawerComponent = props => (
       style={{
         height: 130,
         backgroundColor: "#159B62",
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems:'center'
       }}
     >
-      <Text
+    <View>
+    <Text
         style={{
           color: "white",
           fontSize: 24,
           fontWeight: "bold",
           textAlign:'center',
-          fontFamily: 'monospace',
+          fontFamily: 'roboto',
         }}
       >
         {" "}
-        Michael Conlan App{" "}
+        #TheConlanRevolution{" "}
       </Text>
     </View>
+      
+      
+    <View>
+      <Text
+        style={{
+          color: "white",
+          fontSize: 20,
+          textAlign:'center',
+          fontFamily: 'roboto',
+        }}
+      >
+        {" "}
+        Professional Record 11-0(6KOs)
+        {" "}
+      </Text>
+      
+    </View>
+    </View>
+
     <ScrollView>
       <DrawerItems
         activeBackgroundColor="#159B62"
@@ -146,7 +166,8 @@ const HomeTabNavigator = createBottomTabNavigator(
           fontWeight: "bold",
           justifyContent:'center',
           alignItems: 'center',
-          flex: 1
+          flex: 1,
+          fontFamily: 'roboto',
         }
       };
     }
@@ -179,15 +200,15 @@ const HomeStackNavigator = createStackNavigator(
             onPress={() => navigation.openDrawer()}
           />
         ),
-        // headerRight: (
-        //   <Icon
-        //     style={{ paddingRight: 10 }}
-        //     name="shopping-cart"
-        //     size={30}
-        //     color="white"
-        //     onPress={() => navigation.navigate("Cart")}
-        //   />
-        // )
+        headerRight: (
+          <Icon
+            style={{ paddingRight: 10 }}
+            name="shopping-cart"
+            size={30}
+            color="white"
+            onPress={() => navigation.navigate("Cart")}
+          />
+        )
       };
     }
   }

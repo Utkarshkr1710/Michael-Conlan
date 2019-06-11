@@ -55,7 +55,7 @@ export default class App extends Component {
         style={styles.logo}>
            </ImageBackground> */}
        </FadeInView>
-         <View style={{width:350,marginTop:400}}>
+         <View style={{width:350,marginTop:750}}>
          <Shimmer animationOpacity={2} pauseDuration={100} duration={2000}	>
          <Text style={{color:'white',fontSize:30,marginTop:200,fontFamily:'sans-serif-light',textAlign:'center'}}>
           The Fighting Pride of Éire

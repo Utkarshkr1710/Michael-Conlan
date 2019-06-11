@@ -1,6 +1,7 @@
 import Video, { Container } from 'react-native-af-video-player'
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Alert, Text } from 'react-native'
+import Videos from "./Videos"
+import { StyleSheet, View, ScrollView, Alert, Text,BackHandler } from 'react-native'
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -10,7 +11,24 @@ const styles = StyleSheet.create({
   }
 })
 
-export default class App extends Component {
+export default class Match extends Component {
+  constructor(props) {
+    super(props)
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+}
+
+componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+}
+
+handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
+}
 
   render() {
     const url = 'https://www.radiantmediaplayer.com/media/bbb-360p.mp4'

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import Icons from "react-native-vector-icons/Ionicons";
+// import console = require("console");
 
 export default class seematches extends Component {
   static navigationOptions = {
@@ -19,7 +20,7 @@ export default class seematches extends Component {
         name="back"
         size={30}
         color="white"
-        onPress={() => navigate.openDrawer()}
+        onPress={() =>this.props.navigation.navigate("Home")}
       />
     ),
     headerTitle: "Upcoming Matches",
@@ -69,6 +70,7 @@ export default class seematches extends Component {
   }
 
   render() {
+   
     return (
       <View style={styles.container}>
         <View style={styles.MainContainer}>
@@ -87,6 +89,7 @@ export default class seematches extends Component {
                 <View>
                   <Text
                     style={styles.item}
+                    onPress={()=>this.props.navigation.navigate("Videos")}
                     //onPress={this.GetItem.bind(this, item.key)}
                   >
                     {" "}

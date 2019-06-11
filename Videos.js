@@ -68,7 +68,7 @@ export default class Videos extends Component {
           <View>
             <ScrollView horizontal={true}>
               {data.map((item, i) => (
-                <View style={{ paddingLeft: 20 }}>
+                <View key={i} style={{ paddingLeft: 20 }}>
                   <TouchableOpacity activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {

@@ -65,7 +65,6 @@ export default class Home extends Component {
   render() {
     const { error } = this.state;
     const { navigate } = this.props.navigation;
-    console.warn("wdhgkkkkkj", this.props.navigation);
 
     return (
       <ScrollView>
@@ -108,7 +107,7 @@ export default class Home extends Component {
 
           <View>
             {this.state.cap.map((item, i) => (
-              <View style={{ flex: 1, margin: 20 }}>
+              <View key={i} style={{ flex: 1, margin: 20 }}>
                 <TouchableOpacity onPress={() => navigate("Details")}>
                   <Image
                     source={item.img}
@@ -197,23 +196,14 @@ export default class Home extends Component {
             <View>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 20,
                   paddingLeft: 20,
                   color: "white"
                 }}
               >
-                Do You Know?
+                Fun Facts
               </Text>
             </View>
-            <TouchableWithoutFeedback onPress={() => navigate("Fun")}>
-              <View>
-                <Text
-                  style={{ fontSize: 18, color: "white", paddingRight: 20 }}
-                >
-                  See all
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
           </View>
 
           <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -262,6 +252,9 @@ export default class Home extends Component {
 
           {/* {Social Icons} */}
 
+          <View style={{justifyContent:'center',alignItems:'center',marginTop:30}}>
+            <Text style={{color:'white',fontFamily:'sans-serif',fontSize:22}}>FOLLOW ME ON</Text>
+          </View>
           <View style={{ marginTop: 50, marginBottom: 20 }}>
             <View
               style={{

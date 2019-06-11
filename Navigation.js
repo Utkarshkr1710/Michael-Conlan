@@ -22,7 +22,10 @@ import Videos from './Videos';
 import Match from "./Match";
 import All from "./All";
 import About from "./About";
-import Fun from "./Fun"
+import Fun from "./Fun";
+import Bio from "./Bio";
+import Gall from "./Gall";
+import Sponsers from "./Sponsers"
 import {
   createDrawerNavigator,
   createSwitchNavigator,
@@ -60,7 +63,7 @@ const CustomDrawerComponent = props => (
           fontSize: 24,
           fontWeight: "bold",
           textAlign:'center',
-          fontFamily: 'roboto',
+          fontFamily: 'sans-serif',
         }}
       >
         {" "}
@@ -75,7 +78,7 @@ const CustomDrawerComponent = props => (
           color: "white",
           fontSize: 20,
           textAlign:'center',
-          fontFamily: 'roboto',
+          fontFamily: 'sans-serif',
         }}
       >
         {" "}
@@ -145,7 +148,7 @@ const HomeTabNavigator = createBottomTabNavigator(
     tabBarOptions: {
       activeTintColor: "white",
       activeBackgroundColor: "#159B62",
-      inactiveTintColor: "#159B62",
+      inactiveTintColor: "#FF883E",
       inactiveBackgroundColor: "white",
       labelStyle: {
         fontSize: 15,
@@ -159,7 +162,7 @@ const HomeTabNavigator = createBottomTabNavigator(
         headerTitle: routeName,
         headerStyle: {
           marginTop: 0,
-          backgroundColor: "#159B62"
+          backgroundColor: "#159B62",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
@@ -167,7 +170,7 @@ const HomeTabNavigator = createBottomTabNavigator(
           justifyContent:'center',
           alignItems: 'center',
           flex: 1,
-          fontFamily: 'roboto',
+          fontFamily: 'sans-serif',
         }
       };
     }
@@ -185,7 +188,10 @@ const HomeStackNavigator = createStackNavigator(
     SeeAll: { screen: seematches },
     Facts:{screen:Facts},
     AllVideos:{screen:All},
-    Fun:{screen:Fun}
+    Fun:{screen:Fun},
+    Bio:{screen:Bio},
+    Gallery:{screen:Gall},
+    Sponsers:{screen:Sponsers}
   },
 
   {
@@ -203,10 +209,10 @@ const HomeStackNavigator = createStackNavigator(
         headerRight: (
           <Icon
             style={{ paddingRight: 10 }}
-            name="shopping-cart"
+            name="share"
             size={30}
             color="white"
-            onPress={() => navigation.navigate("Cart")}
+           // onPress={() => navigation.navigate("Cart")}
           />
         )
       };
@@ -217,9 +223,11 @@ const HomeStackNavigator = createStackNavigator(
 const AppDrawerNavigator = createDrawerNavigator(
   {
     Home: { screen: HomeStackNavigator},
+    Gallery:{screen:Gall},
+    Bio:{screen:Bio},
     Videos: { screen: Videos },
-    Notification: { screen: Notification },
-    About:{screen:About}
+    Sponsers:{screen:Sponsers}
+   
   },
   {
     contentComponent: CustomDrawerComponent,

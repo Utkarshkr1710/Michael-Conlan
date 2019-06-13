@@ -5,15 +5,7 @@ export const { width, height } = Dimensions.get("window");
 
 export default class Legal extends Component {
     static navigationOptions = {
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="ios-menu"
-            size={30}
-            color="white"
-            onPress={() => this.props.navigation.navigate.openDrawer()}
-          />
-        ),
+     
         headerTitle: "Legal Policies",
         headerRight: null,
     

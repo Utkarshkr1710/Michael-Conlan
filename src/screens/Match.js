@@ -1,462 +1,151 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  PixelRatio,
+  Dimensions,
+  Platform
+} from "react-native";
+import YouTube, {
+  YouTubeStandaloneIOS,
+  YouTubeStandaloneAndroid
+} from "react-native-youtube";
+import Icon from "react-native-vector-icons/Entypo";
+import { white } from "ansi-colors";
 
 export default class Match extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+  static navigationOptions = {
+    headerLeft: (
+      <Icon
+        style={{ paddingLeft: 10 }}
+        name="back"
+        size={30}
+        color="white"
+        onPress={() => this.props.navigation.navigate.openDrawer()}
+        // onPress={() => navigate("Home")}
+      />
+    ),
+    headerTitle: "Videos",
+    headerRight: null,
+
+    headerStyle: {
+      backgroundColor: "#159B62"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold",
+      textAlign: "center"
+      //flex: 1
+    }
+  };
+  state = {
+    isReady: false,
+    status: null,
+    quality: null,
+    error: null,
+    isPlaying: true,
+    isLooping: true,
+    duration: 0,
+    currentTime: 0,
+    fullscreen: true,
+    containerMounted: false,
+    containerWidth: null
+  };
 
   render() {
     return (
-      <View>
-        <Text> Match </Text>
-      </View>
+      <ScrollView
+        style={styles.container}
+        onLayout={({
+          nativeEvent: {
+            layout: { width }
+          }
+        }) => {
+          if (!this.state.containerMounted)
+            this.setState({ containerMounted: true });
+          if (this.state.containerWidth !== width)
+            this.setState({ containerWidth: width });
+        }}
+      >
+        {this.state.containerMounted && (
+          <YouTube
+            ref={component => {
+              this._youTubeRef = component;
+            }}
+            // You must have an API Key for the player to load in Android
+            apiKey="AIzaSyDzFa-lZN3AqogAa_EndIXWg6CNSR7Agyo"
+            // Un-comment one of videoId / videoIds / playlist.
+            // You can also edit these props while Hot-Loading in development mode to see how
+            // it affects the loaded native module
+            videoId="tlxOGZMZ_Bc"
+            // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
+            // playlistId="PLF797E961509B4EB5"
+            play={this.state.isPlaying}
+            loop={this.state.isLooping}
+            fullscreen={this.state.fullscreen}
+            controls={1}
+            style={[
+              {
+                height: PixelRatio.roundToNearestPixel(
+                  this.state.containerWidth / (16 / 9)
+                )
+              },
+              styles.player
+            ]}
+            onError={e => this.setState({ error: e.error })}
+            onReady={e => this.setState({ isReady: true })}
+            onChangeState={e => this.setState({ status: e.state })}
+            onChangeQuality={e => this.setState({ quality: e.quality })}
+            onChangeFullscreen={e =>
+              this.setState({ fullscreen: e.isFullscreen })
+            }
+            onProgress={e =>
+              this.setState({
+                duration: e.duration,
+                currentTime: e.currentTime
+              })
+            }
+          />
+        )}
+      </ScrollView>
     );
   }
 }
-// import Video, { Container } from 'react-native-af-video-player'
-// import React, { Component } from 'react'
-// import Videos from "./Videos"
-// import { StyleSheet, View, ScrollView, Alert, Text,BackHandler } from 'react-native'
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1
-//   },
-//   videoContainer: {
-//     margin: 10
-//   }
-// })
-
-// export default class Match extends Component {
-//   constructor(props) {
-//     super(props)
-//     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-// }
-
-// componentWillMount() {
-//     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-// }
-
-// componentWillUnmount() {
-//     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-// }
-
-// handleBackButtonClick() {
-//     this.props.navigation.goBack(null);
-//     return true;
-// }
-
-//   render() {
-//     const url = 'https://www.radiantmediaplayer.com/media/bbb-360p.mp4'
-//     const logo = 'https://your-url.com/logo.png'
-//     const placeholder = 'https://your-url.com/placeholder.png'
-//     const title = 'My video title'
-//     return (
-//       <ScrollView style={styles.container}>
-
-      
-//         {/* Or use without the Container */}
-//         <Video
-//           autoPlay
-//           url={url}
-//           title={title}
-//           logo={logo}
-//           placeholder={logo}
-//           rotateToFullScreen
-//         />
-
-//         <Text>Some content below</Text>
-
-//       </ScrollView>
-//     )
-//   }
-// }
-
-
-
-// // import React, { PureComponent } from "react";
-// // import {
-// //   AlertIOS,
-// //   AppRegistry,
-// //   Platform,
-// //   StyleSheet,
-// //   Text,
-// //   TouchableOpacity,
-// //   Button,
-// //   View,
-// //   StatusBar
-// // } from "react-native";
-// // import Video from "react-native-video";
-// // export default class Match extends PureComponent {
-// //   constructor(props) {
-// //     super(props);
-// //     // this.onLoad = this.onLoad.bind(this);
-// //     // this.onProgress = this.onProgress.bind(this);
-// //     // this.onBuffer = this.onBuffer.bind(this);
-// //   }
-// //   state = {
-// //     rate: 1,
-// //     volume: 1,
-// //     muted: false,
-// //     resizeMode: "contain",
-// //     duration: 0.0,
-// //     currentTime: 0.0,
-// //     controls: false,
-// //     paused: false,
-// //     skin: "custom",
-// //     ignoreSilentSwitch: null,
-// //     isBuffering: false
-// //   };
-// //   onLoad = (data) =>{
-// //     console.log("On load fired!");
-// //     this.setState({ duration: data.duration });
-// //   }
-// //   onProgress = (data) =>{
-// //     this.setState({ currentTime: data.currentTime });
-// //   }
-// //   onBuffer = ({ isBuffering }) => {
-// //     this.setState({ isBuffering });
-// //   }
-// //   getCurrentTimePercentage = () => {
-// //     if (this.state.currentTime > 0) {
-// //       return (
-// //         parseFloat(this.state.currentTime) / parseFloat(this.state.duration)
-// //       );
-// //     } else {
-// //       return 0;
-// //     }
-// //   }
-// //   renderSkinControl = (skin) => {
-// //     const isSelected = this.state.skin == skin;
-// //     const selectControls = skin == "native" || skin == "embed";
-// //     return (
-// //       <TouchableOpacity
-// //         onPress={() => {
-// //           this.setState({
-// //             controls: selectControls,
-// //             skin: skin
-// //           });
-// //         }}
-// //       >
-// //         <Text
-// //           style={[
-// //             styles.controlOption,
-// //             { fontWeight: isSelected ? "bold" : "normal" }
-// //           ]}
-// //         >
-// //           {skin}
-// //         </Text>
-// //       </TouchableOpacity>
-// //     );
-// //   }
-// //   renderRateControl = (rate) =>{
-// //     const isSelected = this.state.rate == rate;
-// //     return (
-// //       <TouchableOpacity
-// //         onPress={() => {
-// //           this.setState({ rate: rate });
-// //         }}
-// //       >
-// //         <Text
-// //           style={[
-// //             styles.controlOption,
-// //             { fontWeight: isSelected ? "bold" : "normal" }
-// //           ]}
-// //         >
-// //           {rate}x
-// //         </Text>
-// //       </TouchableOpacity>
-// //     );
-// //   }
-// //   renderResizeModeControl = (resizeMode) =>{
-// //     const isSelected = this.state.resizeMode == resizeMode;
-// //     return (
-// //       <TouchableOpacity
-// //         onPress={() => {
-// //           this.setState({ resizeMode: resizeMode });
-// //         }}
-// //       >
-// //         <Text
-// //           style={[
-// //             styles.controlOption,
-// //             { fontWeight: isSelected ? "bold" : "normal" }
-// //           ]}
-// //         >
-// //           {resizeMode}
-// //         </Text>
-// //       </TouchableOpacity>
-// //     );
-// //   }
-// //   renderVolumeControl = (volume) => {
-// //     const isSelected = this.state.volume == volume;
-// //     return (
-// //       <TouchableOpacity
-// //         onPress={() => {
-// //           this.setState({ volume: volume });
-// //         }}
-// //       >
-// //         <Text
-// //           style={[
-// //             styles.controlOption,
-// //             { fontWeight: isSelected ? "bold" : "normal" }
-// //           ]}
-// //         >
-// //           {volume * 100}%
-// //         </Text>
-// //       </TouchableOpacity>
-// //     );
-// //   }
-// //   renderIgnoreSilentSwitchControl = (ignoreSilentSwitch) =>{
-// //     const isSelected = this.state.ignoreSilentSwitch == ignoreSilentSwitch;
-// //     return (
-// //       <TouchableOpacity
-// //         onPress={() => {
-// //           this.setState({ ignoreSilentSwitch: ignoreSilentSwitch });
-// //         }}
-// //       >
-// //         <Text
-// //           style={[
-// //             styles.controlOption,
-// //             { fontWeight: isSelected ? "bold" : "normal" }
-// //           ]}
-// //         >
-// //           {ignoreSilentSwitch}
-// //         </Text>
-// //       </TouchableOpacity>
-// //     );
-// //   }
-// //   renderCustomSkin = () =>{
-// //     const flexCompleted = this.getCurrentTimePercentage() * 100;
-// //     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
-// //  const   VideoPath =this.props.navigation.getParam("videoId", "NO-ID")
-// //  const path = `http://172.245.17.145:5000/uploads/posts/${VideoPath}`
-
-// //     return (
-// //       <View style={styles.container}>
-// //         <TouchableOpacity
-// //           style={styles.fullScreen}
-// //           onPress={() => {
-// //             this.setState({ paused: !this.state.paused });
-// //           }}
-// //         >
-// //           <Video
-// //             source={{uri: path }}
-// //             style={styles.fullScreen}
-// //             rate={this.state.rate}
-// //             paused={this.state.paused}
-// //             volume={this.state.volume}
-// //             muted={this.state.muted}
-// //             ignoreSilentSwitch={this.state.ignoreSilentSwitch}
-// //             resizeMode={this.state.resizeMode}
-// //             onLoad={this.onLoad}
-// //             onBuffer={this.onBuffer}
-// //             onProgress={this.onProgress}
-// //             onEnd={() => {
-// //               AlertIOS.alert("Completed");
-// //             }}
-// //             repeat={true}
-// //           />
-// //         </TouchableOpacity>
-// //         <View style={styles.controls}>
-// //           {/* <View style={styles.generalControls}>
-// //             <View style={styles.skinControl}>
-// //               {this.renderSkinControl("custom")}
-// //               {this.renderSkinControl("native")}
-// //               {this.renderSkinControl("embed")}
-// //             </View>
-// //           </View> */}
-// //           <View style={styles.generalControls}>
-// //             <View style={styles.rateControl}>
-// //               {this.renderRateControl(0.5)}
-// //               {this.renderRateControl(1.0)}
-// //               {this.renderRateControl(2.0)}
-// //             </View>
-// //             <View style={styles.volumeControl}>
-// //               {this.renderVolumeControl(0.5)}
-// //               {this.renderVolumeControl(1)}
-// //               {this.renderVolumeControl(1.5)}
-// //             </View>
-// //             <View style={styles.resizeModeControl}>
-// //               {this.renderResizeModeControl("cover")}
-// //               {this.renderResizeModeControl("contain")}
-// //               {this.renderResizeModeControl("stretch")}
-// //             </View>
-// //           </View>
-// //           <View style={styles.generalControls}>
-// //             {Platform.OS === "ios" ? (
-// //               <View style={styles.ignoreSilentSwitchControl}>
-// //                 {this.renderIgnoreSilentSwitchControl("ignore")}
-// //                 {this.renderIgnoreSilentSwitchControl("obey")}
-// //               </View>
-// //             ) : null}
-// //           </View>
-// //           <View style={styles.trackingControls}>
-// //             <View style={styles.progress}>
-// //               <View
-// //                 style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
-// //               />
-// //               <View
-// //                 style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
-// //               />
-// //             </View>
-// //           </View>
-// //         </View>
-// //       </View>
-// //     );
-// //   }
-// //   renderNativeSkin = () =>{
-// //     const videoStyle =
-// //       this.state.skin == "embed"
-// //         ? styles.nativeVideoControls
-// //         : styles.fullScreen;
-// //     return (
-// //       <View style={styles.container}>
-// //         <View style={styles.fullScreen}>
-// //           <Video
-// //             source={require("./Videos/Mc.mp4")}
-// //             style={videoStyle}
-// //             rate={this.state.rate}
-// //             paused={this.state.paused}
-// //             volume={this.state.volume}
-// //             muted={this.state.muted}
-// //             ignoreSilentSwitch={this.state.ignoreSilentSwitch}
-// //             resizeMode={this.state.resizeMode}
-// //             onLoad={this.onLoad}
-// //             onBuffer={this.onBuffer}
-// //             onProgress={this.onProgress}
-// //             onEnd={() => {
-// //               AlertIOS.alert("Done!");
-// //             }}
-// //             repeat={true}
-// //             controls={this.state.controls}
-// //           />
-// //         </View>
-// //         <View style={styles.controls}>
-// //           <View style={styles.generalControls}>
-// //             <View style={styles.skinControl}>
-// //               {this.renderSkinControl("custom")}
-// //               {this.renderSkinControl("native")}
-// //               {this.renderSkinControl("embed")}
-// //             </View>
-// //           </View>
-// //           <View style={styles.generalControls}>
-// //             <View style={styles.rateControl}>
-// //               {this.renderRateControl(0.5)}
-// //               {this.renderRateControl(1.0)}
-// //               {this.renderRateControl(2.0)}
-// //             </View>
-// //             <View style={styles.volumeControl}>
-// //               {" "}
-// //               {this.renderVolumeControl(0.5)}
-// //               {this.renderVolumeControl(1)}
-// //               {this.renderVolumeControl(1.5)}
-// //             </View>
-// //             <View style={styles.resizeModeControl}>
-// //               {this.renderResizeModeControl("cover")}
-// //               {this.renderResizeModeControl("contain")}
-// //               {this.renderResizeModeControl("stretch")}
-// //             </View>
-// //           </View>
-// //           <View style={styles.generalControls}>
-// //             {Platform.OS === "ios" ? (
-// //               <View style={styles.ignoreSilentSwitchControl}>
-// //                 {this.renderIgnoreSilentSwitchControl("ignore")}
-// //                 {this.renderIgnoreSilentSwitchControl("obey")}
-// //               </View>
-// //             ) : null}
-// //           </View>
-// //         </View>
-// //       </View>
-// //     );
-// //   }
-// //   render() {
-
-// //     return this.state.controls
-// //       ? this.renderNativeSkin()
-// //       : this.renderCustomSkin();
-// //   }
-// // }
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     justifyContent: "center",
-// //     alignItems: "center",
-// //     backgroundColor: "black"
-// //   },
-// //   fullScreen: {
-// //     position: "absolute",
-// //     top: 0,
-// //     left: 0,
-// //     bottom: 0,
-// //     right: 0
-// //   },
-// //   controls: {
-// //     backgroundColor: "transparent",
-// //     borderRadius: 5,
-// //     position: "absolute",
-// //     bottom: 44,
-// //     left: 4,
-// //     right: 4
-// //   },
-// //   progress: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     borderRadius: 3,
-// //     overflow: "hidden"
-// //   },
-// //   innerProgressCompleted: {
-// //     height: 20,
-// //     backgroundColor: "#cccccc"
-// //   },
-// //   innerProgressRemaining: {
-// //     height: 20,
-// //     backgroundColor: "#2C2C2C"
-// //   },
-// //   generalControls: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     overflow: "hidden",
-// //     paddingBottom: 10
-// //   },
-// //   skinControl: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     justifyContent: "center"
-// //   },
-// //   rateControl: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     justifyContent: "center"
-// //   },
-// //   volumeControl: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     justifyContent: "center"
-// //   },
-// //   resizeModeControl: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     alignItems: "center",
-// //     justifyContent: "center"
-// //   },
-// //   ignoreSilentSwitchControl: {
-// //     flex: 1,
-// //     flexDirection: "row",
-// //     alignItems: "center",
-// //     justifyContent: "center"
-// //   },
-// //   controlOption: {
-// //     alignSelf: "center",
-// //     fontSize: 11,
-// //     color: "white",
-// //     paddingLeft: 2,
-// //     paddingRight: 2,
-// //     lineHeight: 12
-// //   },
-// //   nativeVideoControls: {
-// //     top: 184,
-// //     height: 300
-// //   }
-// // });
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "black"
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    alignSelf: "center"
+  },
+  button: {
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    alignSelf: "center"
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "blue"
+  },
+  buttonTextSmall: {
+    fontSize: 15
+  },
+  instructions: {
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
+  },
+  player: {
+    alignSelf: "stretch",
+    marginVertical: 10
+  }
+});

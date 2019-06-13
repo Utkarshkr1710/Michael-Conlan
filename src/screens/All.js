@@ -8,20 +8,20 @@ import {
   Image,
   Dimensions
 } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
+import Icon from "react-native-vector-icons/Feather";
 export const { width, height } = Dimensions.get("window");
 
 export default class componentName extends Component {
   static navigationOptions = {
-    headerLeft: (
-      <Icon
-        style={{ paddingLeft: 10 }}
-        name="back"
-        size={30}
-        color="white"
-        onPress={() => navigate.openDrawer()}
-      />
-    ),
+    // headerLeft: (
+    //   <Icon
+    //     style={{ paddingLeft: 10 }}
+    //     name="arrow-left"
+    //     size={30}
+    //     color="white"
+    //     onPress={() => navigate.openDrawer()}
+    //   />
+    // ),
     headerTitle: "Training Videos",
 
     headerStyle: {

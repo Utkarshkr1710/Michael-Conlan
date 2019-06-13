@@ -12,16 +12,13 @@ import {
   Animated,
   TouchableOpacity
 } from "react-native";
-// import Video, { Container } from "react-native-af-video-player";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
-//import ImageView from 'react-native-image-view';
 import ProgressBar from "react-native-progress/Bar";
 
 import { Mic1, Mic2, Mic3, Mic4, Mic5 } from "../../images";
 import { ScrollView } from "react-native-gesture-handler";
 export const { width, height } = Dimensions.get("window");
-// import Video from "react-native-video";
 import Icon from "react-native-vector-icons/Entypo";
 import Icons from "react-native-vector-icons/FontAwesome";
 import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
@@ -44,13 +41,34 @@ export default class Home extends Component {
       paused: false,
       progress: 0,
       duration: 0,
-      // cap: [
-      //   { img: require("./images/Mic1.jpg"), buy: "View Details" }
-      //   // { img: require('./images/Mic2.jpg'), buy:'View Details' },
-      //   // { img: require('./images/Mic3.jpg'), buy:'View Details' },
-      //   // { img: require('./images/Mic4.jpg'), buy:'View Details' },
-      //   // { img: require('./images/Mic5.jpg') ,buy:'View Details' }
-      // ]
+      cap: [{ img: require("../../images/Mic1.jpg"), buy: "View Details" }],
+      data: [
+        {
+          videoId: "1559651518089_mc_app.mp4",
+          img: require("../../images/Train.jpg")
+        },
+        {
+          videoId: "1559653301202_Mc.mp4",
+          img: require("../../images/Mic1.jpg")
+        },
+        {
+          videoId: "1559651518089_mc_app.mp4",
+          img: require("../../images/Mic2.jpg")
+        },
+        {
+          videoId: "1559651518089_mc_app.mp4",
+          img: require("../../images/Mic3.jpg")
+        },
+        {
+          videoId: "1559651518089_mc_app.mp4",
+          img: require("../../images/Mic4.jpg")
+        },
+        {
+          videoId: "1559651518089_mc_app.mp4",
+          img: require("../../images/Mic5.jpg")
+        }
+      ],
+     
     };
   }
   renderItemComponent = ({ item }) => (
@@ -64,12 +82,10 @@ export default class Home extends Component {
   );
 
   render() {
-    const { error } = this.state;
     const { navigate } = this.props.navigation;
-   
-    const logo = 'https://your-url.com/logo.png'
-    const placeholder = 'https://your-url.com/placeholder.png'
-    const title = '#ConlanVNikitin'
+    const { data } = this.state;
+    const { fact } = this.state;
+
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -87,31 +103,30 @@ export default class Home extends Component {
           </View>
 
           {/* {Upcoming Matches} */}
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 30
-            }}
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigate("Details")}
           >
-            <View>
-              <Text
-                style={{
-                  fontSize: 18,
-                  paddingLeft: 20,
-                  color: "white"
-                }}
-              >
-                Next Fight
-              </Text>
-            </View>
-            <View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigate("Details")}
-              >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 30
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    paddingLeft: 20,
+                    color: "white"
+                  }}
+                >
+                  Next Fight
+                </Text>
+              </View>
+              <View>
                 <Text
                   style={{
                     fontSize: 18,
@@ -121,54 +136,51 @@ export default class Home extends Component {
                 >
                   #ConlanVNikitin
                 </Text>
-              </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <View>
             {this.state.cap.map((item, i) => (
-              <View key={i} style={{ flex: 1,marginTop:20 }}>
-               <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigate("Details")}
-              >
-                <Image
+              <View key={i} style={{ flex: 1, marginTop: 20 }}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => navigate("Details")}
+                >
+                  <Image
                     source={require("../../images/9.jpg")}
                     style={{
                       width: "100%",
-                      height: 200,
-                      
+                      height: 200
                     }}
                   />
-              
-              </TouchableOpacity>
-             
-               
+                </TouchableOpacity>
               </View>
             ))}
           </View>
 
           {/* {Watch Videos} */}
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 20
-            }}
-          >
-            <View>
-              <Text
-                style={{
-                  fontSize: 18,
-                  paddingLeft: 20,
-                  color: "white"
-                }}
-              >
-                Latest Videos
-              </Text>
-            </View>
-            <TouchableWithoutFeedback onPress={() => navigate("Videos")}>
+          <TouchableWithoutFeedback onPress={() => navigate("Videos")}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 20
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    paddingLeft: 20,
+                    color: "white"
+                  }}
+                >
+                  Latest Videos
+                </Text>
+              </View>
+
               <View>
                 <Text
                   style={{ fontSize: 18, color: "white", paddingRight: 20 }}
@@ -176,37 +188,28 @@ export default class Home extends Component {
                   See all
                 </Text>
               </View>
-            </TouchableWithoutFeedback>
-          </View>
+            </View>
+          </TouchableWithoutFeedback>
 
-          <View>
+          <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
-              <View style={{ padding: 20 }}>
-                <TouchableOpacity activeOpacity={0.8}>
-                  <Image
-                    source={require("../../images/Match.jpg")}
-                    style={{ height: 120, width: 200, borderRadius: 10 }}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={{ padding: 20 }}>
-                <TouchableOpacity activeOpacity={0.8}>
-                  <Image
-                    source={require("../../images/Train.jpg")}
-                    style={{ height: 120, width: 200, borderRadius: 10 }}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={{ padding: 20 }}>
-                <TouchableOpacity activeOpacity={0.8}>
-                  <Image
-                    source={require("../../images/Gym.jpg")}
-                    style={{ height: 120, width: 200, borderRadius: 10 }}
-                  />
-                </TouchableOpacity>
-              </View>
+              {data.map((item, i) => (
+                <View key={i} style={{ paddingLeft: 20 }}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() =>
+                      this.props.navigation.navigate("Match1", {
+                        videoId: item.videoId
+                      })
+                    }
+                  >
+                    <Image
+                      source={item.img}
+                      style={{ height: 120, width: 200, borderRadius: 10 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
             </ScrollView>
           </View>
 
@@ -233,72 +236,47 @@ export default class Home extends Component {
             </View>
           </View>
 
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-             <ScrollView horizontal={true} >
-            <View
-              style={{
-                height: 280,
-                width: "35%",
-                backgroundColor: "#433D3E",
-                marginTop: 20,
-                borderRadius: 20,
-                margin:20
-              }}
-            >
-              <View style={{ alignItems: "center" }}>
-                <Image
-                  source={require("../../images/did1.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10,marginTop:10 }}
-                />
-              </View> 
-              <View style={{ alignItems: "center", margin: 30 }}>
-                <Text
-                  style={{
-                    fontSize: 24,
-                    fontFamily: "sans-serif",
-                    textAlign: "center",
-                    color: "white"
-                  }}
-                >I was 7 years old when I started boxing.
-                </Text>
-              </View>
-             
-            
-            </View>
-
-            <View
-              style={{
-                height: 280,
-                width: "35%",
-                backgroundColor: "#433D3E",
-                marginTop: 20,
-                borderRadius: 20
-              }}
-            >
-              <View style={{ alignItems: "center" }}>
-                <Image
-                  source={require("../../images/did1.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10,marginTop:10 }}
-                />
-              </View> 
-              <View style={{ alignItems: "center", margin: 30 }}>
-                <Text
-                  style={{
-                    fontSize: 24,
-                    fontFamily: "sans-serif",
-                    textAlign: "center",
-                    color: "white"
-                  }}
-                > My family is my main motivation for success.
-                </Text>
-              </View>
-             
-            
-            </View>
-            
-            
+          <View style={{ marginTop: 20 }}>
+            <ScrollView horizontal={true}>
+              {[1,2,3,4,5,6,7,8,9,9,90,1,2,3,4,5,6,7,8,9,9,90,1,2,3,4,5,6,7,8,9,9,90].map((item, i) => (
+                <View key={i} style={{ paddingLeft: 20 }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: "#433D3E",
+                      width: 320,
+                      borderRadius: 10
+                    }}
+                  >
+                    <View style={{ alignItems: "center" }}>
+                      <Image
+                        source={require("../../images/did1.jpg")}
+                        style={{
+                          height: 100,
+                          width: 150,
+                          borderRadius: 10,
+                          marginTop: 10
+                        }}
+                      />
+                    </View>
+                    <View style={{ alignItems: "center", margin: 30 }}>
+                      <Text
+                        style={{
+                          fontSize: 24,
+                          fontFamily: "sans-serif",
+                          textAlign: "center",
+                          color: "white"
+                        }}
+                      >
+                        I was 7 years old when I started boxing.
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
             </ScrollView>
           </View>
+        
 
           {/* {Social Icons} */}
 

@@ -4,16 +4,7 @@ import Icon from "react-native-vector-icons/Entypo";
 
 export default class Sponsers extends Component {
   static navigationOptions = {
-    headerLeft: (
-      <Icon
-        style={{ paddingLeft: 10 }}
-        name="back"
-        size={30}
-        color="white"
-        //  onPress={() =>this.props.navigation.navigate.openDrawer()}
-        onPress={() => navigate("Home")}
-      />
-    ),
+   
     headerTitle: "Sponsers",
     headerRight: null,
 

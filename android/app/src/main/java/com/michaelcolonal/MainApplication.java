@@ -3,15 +3,12 @@ package com.michaelcolonal;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import cl.json.RNSharePackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import com.corbt.keepawake.KCKeepAwakePackage;
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.oblador.shimmer.RNShimmerPackage;
+import cl.json.RNSharePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.kishanjvaghela.cardview.RNCardViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -32,15 +29,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNSharePackage(),
-            new LinearGradientPackage(),
-            new OrientationPackage(),
-            new KCKeepAwakePackage(),
+            new ReactNativeYouTube(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),
             new RNShimmerPackage(),
-            new RNGestureHandlerPackage(),
-            new RNCardViewPackage()
+            new RNSharePackage(),
+            new RNGestureHandlerPackage()
       );
     }
 

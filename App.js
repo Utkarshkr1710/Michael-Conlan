@@ -8,18 +8,14 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import Home from "./Home";
-import SplashSreen from "./SplashSreen";
-import Navigation from "./Navigation";
-import HomeScreen from "./HomeScreen";
-import Match from "./Match";
+
+import HomeScreen from "./src/screens/HomeScreen";
+
 export default class App extends Component {
   render() {
     return (
-      // <Home />
-     //<SplashSreen />
+     
      <HomeScreen />
-    //  <Match />
     );
   }
 }

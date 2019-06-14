@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -7,7 +8,8 @@ import {
   TouchableOpacity,
   PixelRatio,
   Dimensions,
-  Platform
+  Platform,
+  ActivityIndicator
 } from "react-native";
 import YouTube, {
   YouTubeStandaloneIOS,
@@ -15,7 +17,22 @@ import YouTube, {
 } from "react-native-youtube";
 import Icon from "react-native-vector-icons/Feather";
 
-export default class Details extends Component {
+class Details extends Component {
+ 
+  state = {
+    isReady: false,
+    status: null,
+    quality: null,
+    error: null,
+    isPlaying: true,
+    isLooping: true,
+    duration: 0,
+    currentTime: 0,
+    fullscreen: false,
+    containerMounted: false,
+    containerWidth: null
+  };
+
   static navigationOptions = {
     headerLeft: (
       <Icon
@@ -27,7 +44,7 @@ export default class Details extends Component {
         // onPress={() => navigate("Home")}
       />
     ),
-    headerTitle: "#ConlanVNikitin",
+    headerTitle: 'Next Fight',
     headerRight: null,
 
     headerStyle: {
@@ -40,22 +57,12 @@ export default class Details extends Component {
       //flex: 1
     }
   };
-  state = {
-    isReady: false,
-    status: null,
-    quality: null,
-    error: null,
-    isPlaying: true,
-    isLooping: true,
-    duration: 0,
-    currentTime: 0,
-    fullscreen: true,
-    containerMounted: false,
-    containerWidth: null
-  };
+
 
   render() {
-    return (
+    const { nextMatchData } = this.props;
+
+    return nextMatchData ? (
       <ScrollView
         style={styles.container}
         onLayout={({
@@ -79,7 +86,9 @@ export default class Details extends Component {
             // Un-comment one of videoId / videoIds / playlist.
             // You can also edit these props while Hot-Loading in development mode to see how
             // it affects the loaded native module
-            videoId="tlxOGZMZ_Bc"
+            videoId={
+              nextMatchData ? nextMatchData.data[0].ytVideoUrl : "tlxOGZMZ_Bc"
+            }
             // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
             // playlistId="PLF797E961509B4EB5"
             play={this.state.isPlaying}
@@ -122,11 +131,11 @@ export default class Details extends Component {
             style={{
               color: "white",
               fontSize: 20,
-              fontFamily: "Roboto",
+              // fontFamily: "Roboto",
               padding: 10
             }}
           >
-            Event Date & Time:
+            Event Date & Time: {nextMatchData.data[0].timeDate ? nextMatchData.data[0].timeDate : '22 Jun 2019'}
           </Text>
         </View>
 
@@ -141,12 +150,12 @@ export default class Details extends Component {
           <Text
             style={{
               padding: 10,
-              color: "blacks",
-              fontSize: 20,
-              fontFamily: "Roboto"
+              color: "#000",
+              fontSize: 20
+              // fontFamily: "Roboto"
             }}
           >
-            Venue:
+            Venue: {nextMatchData.data[0].venue}
           </Text>
         </View>
 
@@ -162,11 +171,11 @@ export default class Details extends Component {
             style={{
               padding: 10,
               color: "white",
-              fontSize: 20,
-              fontFamily: "Roboto"
+              fontSize: 20
+              // fontFamily: "Roboto"
             }}
           >
-            Head To Head:
+            Head To Head: {nextMatchData.data[0].h2hmatch}
           </Text>
         </View>
 
@@ -183,17 +192,25 @@ export default class Details extends Component {
               padding: 10,
               color: "white",
               fontSize: 20,
-              fontFamily: "Roboto",
+              // fontFamily: "Roboto",
               textAlign: "justify"
             }}
           >
-            Michael Conlan faces his Olympic Games nemesis Vladimir Nikitin in
-            his hometown of Belfast at Féile an Phobail Festival on August 3rd
-            2019. This highly anticipated fight will take place in The Falls
-            Park not far from where Conlan grew up.
+            {nextMatchData.data[0].matchDesc}
           </Text>
         </View>
       </ScrollView>
+    ) : (
+      <ActivityIndicator
+        style={{
+          flex: 1,
+          backgroundColor: "#000",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+        size={"large"}
+        color={"#fff"}
+      />
     );
   }
 }
@@ -233,3 +250,11 @@ const styles = StyleSheet.create({
     marginVertical: 10
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    nextMatchData: state.nextMatchData.data
+  };
+}
+
+export default connect(mapStateToProps)(Details);

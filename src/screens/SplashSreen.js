@@ -10,7 +10,7 @@ import {
   Image
 } from "react-native";
 export const { width, height } = Dimensions.get("window");
-import Shimmer from 'react-native-shimmer';
+// import Shimmer from 'react-native-shimmer';
 
 class FadeInView extends React.Component {
   state = {
@@ -54,13 +54,16 @@ export default class App extends Component {
         >
           <StatusBar barStyle="light-content" backgroundColor="black" />
           <FadeInView>
-            <Image source={require("../../images/logoo.jpg")} style={styles.logo} />
+            <Image
+              source={require("../../images/logoo.jpg")}
+              style={styles.logo}
+            />
           </FadeInView>
           <View style={{ width: 350, marginTop: 50 }}>
             {/* <Text style={{color: '#fff', fontSize: 30}}>Michael Conlan</Text> */}
-            <Shimmer animationOpacity={2} pauseDuration={100} duration={2000} style={{top:230}}	>
+            {/* <Shimmer animationOpacity={2} pauseDuration={100} duration={2000} style={{top:230}}	> */}
             <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
-            </Shimmer>
+            {/* </Shimmer> */}
           </View>
         </ImageBackground>
       </View>
@@ -93,5 +96,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
     // marginTop: 600,
   },
-  bottomText: { color: "white", fontSize: 24, textAlign: "center", top: "640%",fontFamily: 'sans-serif', }
+  bottomText: {
+    color: "white",
+    fontSize: 24,
+    textAlign: "center",
+    top: "640%",
+    // fontFamily: "sans-serif"
+  }
 });

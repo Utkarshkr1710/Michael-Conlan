@@ -35,7 +35,7 @@ export default class Bio extends Component {
           <Text
             style={{
               color: "white",
-              fontFamily: "roboto sans-serif",
+              // fontFamily: "roboto sans-serif",
               fontSize: 22,
               textAlign: "justify"
             }}
@@ -47,7 +47,7 @@ export default class Bio extends Component {
           <Text
             style={{
               color: "white",
-              fontFamily: "roboto sans-serif",
+              // fontFamily: "roboto sans-serif",
               fontSize: 20,
               textAlign: "justify"
             }}
@@ -61,7 +61,7 @@ export default class Bio extends Component {
           <Text
             style={{
               color: "white",
-              fontFamily: "roboto sans-serif",
+              // fontFamily: "roboto sans-serif",
               fontSize: 20,
               textAlign: "justify"
             }}

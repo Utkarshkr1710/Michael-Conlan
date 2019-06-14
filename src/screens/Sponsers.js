@@ -32,7 +32,7 @@ export default class Sponsers extends Component {
               style={{
                 color: "white",
                 fontSize: 22,
-                fontFamily: "sans-serif",
+                // fontFamily: "sans-serif",
                 fontWeight: "bold"
               }}
             >

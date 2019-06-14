@@ -80,8 +80,16 @@ export default class Shares extends Component {
             Share.open(shareImageBase64);
           }}
         >
-            <Text style={{ color: "white",fontSize:20,fontFamily:'sans-serif',fontWeight:'bold' }}>Share App</Text>
-
+          <Text
+            style={{
+              color: "white",
+              fontSize: 20,
+              // fontFamily: "sans-serif",
+              fontWeight: "bold"
+            }}
+          >
+            Share App
+          </Text>
         </TouchableOpacity>
 
         <ShareSheet
@@ -228,14 +236,14 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   button: {
-    alignItems: 'center',
-    backgroundColor: '#FF883E',
-    marginTop:40,
-    width:200,
-    height:50,
+    alignItems: "center",
+    backgroundColor: "#FF883E",
+    marginTop: 40,
+    width: 200,
+    height: 50,
     padding: 10,
-    borderRadius: 10,
-  },
+    borderRadius: 10
+  }
 });
 
 //  twitter icon

@@ -52,7 +52,7 @@ export default () => (
       <Image
         style={styles.carousel}
         resizeMode="contain"
-        source= {require("../../images/3.jpg")}      />
+        source= {require("../../images/3.jpg")} />
     </Lightbox>
    
   </ScrollView>

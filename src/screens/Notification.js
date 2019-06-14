@@ -10,7 +10,7 @@ export default class Notification extends Component {
   render() {
     return (
      <View style={styles.container}>
-      
+        <Text>Notification</Text>
       </View>
     );
   }

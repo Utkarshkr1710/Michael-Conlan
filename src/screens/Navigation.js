@@ -25,6 +25,9 @@ import Terms from "./Terms";
 import Policy from "./Policy";
 import Lisence from "./Lisence";
 import Shares from "./Shares";
+
+import Gallery from './Gallery'
+
 import {
   createDrawerNavigator,
   createSwitchNavigator,
@@ -69,7 +72,7 @@ const CustomDrawerComponent = props => (
             fontSize: 24,
             fontWeight: "bold",
             textAlign: "center",
-            fontFamily: "sans-serif",
+            // fontFamily: "sans-serif",
             marginTop: 10
           }}
         >
@@ -84,7 +87,7 @@ const CustomDrawerComponent = props => (
             color: "white",
             fontSize: 20,
             textAlign: "center",
-            fontFamily: "sans-serif"
+            // fontFamily: "sans-serif"
           }}
         >
           {" "}
@@ -117,9 +120,9 @@ const HomeTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Icon
             name="home"
-            size={20}
+            size={Platform.OS === 'ios' ? 20 : 20}
             color={tintColor}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: Platform.OS === 'ios' ? 1.5 : 20 }}
           />
         )
       }
@@ -130,22 +133,22 @@ const HomeTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Iconss
             name="video"
-            size={20}
+            size={Platform.OS === 'ios' ? 20 : 20}
             color={tintColor}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: Platform.OS === 'ios' ? 1.5 : 20 }}
           />
         )
       }
     },
     Gallery: {
-      screen: Gall,
+      screen: Gallery,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome
             name="photo"
-            size={20}
+            size={Platform.OS === 'ios' ? 20 : 20}
             color={tintColor}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: Platform.OS === 'ios' ? 1.5 : 20 }}
           />
         )
       }
@@ -158,7 +161,7 @@ const HomeTabNavigator = createBottomTabNavigator(
             name="md-notifications"
             size={24}
             color={tintColor}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: Platform.OS === 'ios' ? 2 : 20 }}
           />
         )
       }
@@ -176,7 +179,7 @@ const HomeTabNavigator = createBottomTabNavigator(
       labelStyle: {
         fontSize: 15,
         //padding: 10,
-        marginTop: 10
+        marginTop: Platform.OS === 'ios' ? 0 : 10
       }
     },
     navigationOptions: ({ navigation }) => {
@@ -193,7 +196,7 @@ const HomeTabNavigator = createBottomTabNavigator(
           justifyContent: "center",
           alignItems: "center",
           flex: 1,
-          fontFamily: "sans-serif"
+          // fontFamily: "sans-serif"
         }
       };
     }
@@ -239,7 +242,7 @@ const HomeStackNavigator = createStackNavigator(
         };
       }
     },
-    Gallery: { screen: Gall },
+    Gallery: { screen: Gallery },
     Sponsers: {
       screen: Sponsers,
       navigationOptions: ({ navigation }) => {
@@ -367,8 +370,9 @@ const HomeStackNavigator = createStackNavigator(
 
 const AppDrawerNavigator = createDrawerNavigator(
   {
+
     Home: { screen: HomeStackNavigator },
-    Gallery: { screen: Gall },
+    Gallery: { screen: Gallery },
     Bio: { screen: Bio },
     Videos: { screen: Videos },
     Sponsers: { screen: Sponsers },
@@ -382,7 +386,6 @@ const AppDrawerNavigator = createDrawerNavigator(
 
 const AppSwitchNavigator = createSwitchNavigator({
   //welcome: { screen: HomeScreen },
-
   Dashboard: { screen: AppDrawerNavigator },
   Match1: { screen: Match }
 });

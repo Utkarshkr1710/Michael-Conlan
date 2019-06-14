@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   PixelRatio,
   Dimensions,
-  Platform
+  Platform,
+  TouchableWithoutFeedback,
+  Image
 } from "react-native";
 import YouTube, {
   YouTubeStandaloneIOS,
@@ -46,18 +48,18 @@ export default class Match extends Component {
     status: null,
     quality: null,
     error: null,
-    isPlaying: true,
+    isPlaying: false,
     isLooping: true,
     duration: 0,
     currentTime: 0,
-    fullscreen: true,
+    fullscreen: false,
     containerMounted: false,
     containerWidth: null
   };
 
   render() {
     return (
-      <ScrollView
+      <View
         style={styles.container}
         onLayout={({
           nativeEvent: {
@@ -110,7 +112,29 @@ export default class Match extends Component {
             }
           />
         )}
-      </ScrollView>
+       
+          <ScrollView style={{ width: '100%', height: 600 ,flexDirection: 'row'}} >
+            {[1, 2, 3, 4].map((item, i) => (
+            <View
+            key={i}
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignItems: "center",
+              marginTop: 20
+            }}
+          >
+                <Image
+                  source={require("../../images/Train.jpg")}
+                  style={{ height: 120, width: 170, borderRadius: 10 }}
+                />
+          
+          </View>
+            ))}
+          </ScrollView>
+
+      </View>
     );
   }
 }

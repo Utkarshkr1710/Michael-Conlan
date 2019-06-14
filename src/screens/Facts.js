@@ -113,7 +113,7 @@ export default class Cart extends Component {
                       style={{
                         color: "black",
                         fontSize: 30,
-                        fontFamily: "vincHand"
+                        // fontFamily: "vincHand"
                       }}
                     >
                       Do You Know?
@@ -138,7 +138,7 @@ export default class Cart extends Component {
                       style={{
                         color: "black",
                         fontSize: 22,
-                        fontFamily: "vincHand",
+                        // fontFamily: "vincHand",
                         textAlign: "justify",
                         margin: 20
                       }}
@@ -224,7 +224,7 @@ export default class Cart extends Component {
                       style={{
                         color: "black",
                         fontSize: 30,
-                        fontFamily: "vincHand"
+                        // fontFamily: "vincHand"
                       }}
                     >
                       Do You Know?
@@ -258,7 +258,7 @@ export default class Cart extends Component {
                       style={{
                         color: "black",
                         fontSize: 22,
-                        fontFamily: "vincHand",
+                        // fontFamily: "vincHand",
                         textAlign: "justify",
                         margin: 20
                       }}

@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { getSlider } from "../redux/actions/slider";
+import { getNextMatch } from "../redux/actions/upcomingmatch";
+
 import {
   Text,
   Dimensions,
@@ -10,7 +15,8 @@ import {
   TouchableWithoutFeedback,
   StatusBar,
   Animated,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -22,6 +28,7 @@ export const { width, height } = Dimensions.get("window");
 import Icon from "react-native-vector-icons/Entypo";
 import Icons from "react-native-vector-icons/FontAwesome";
 import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
+
 const newImage = [Mic2, Mic1, Mic3, Mic4, Mic5];
 
 const image = index => ({ image: newImage[index % newImage.length] });
@@ -31,7 +38,7 @@ function secondsToTime(time) {
   return ~~(time / 60) + ":" + (time % 60 < 10 ? "0" : "") + (time % 60);
 }
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -67,24 +74,33 @@ export default class Home extends Component {
           videoId: "1559651518089_mc_app.mp4",
           img: require("../../images/Mic5.jpg")
         }
-      ],
-     
+      ]
     };
   }
-  renderItemComponent = ({ item }) => (
-    <View>
-      <Image
-        style={styles.image}
-        source={item.image}
-        // resizeMode={Image.resizeMode.cover}
-      />
-    </View>
-  );
+  renderItemComponent = ({ item }) => {
+    return (
+      <View>
+        <Image
+          // style={{ height: 300, width: 385 }}
+          style={styles.image}
+          source={{ uri: `http://172.245.17.145:5015${item.imgURL}` }}
+        />
+      </View>
+    );
+  };
+
+  componentWillMount = () => {
+    // const { dispatch } = this.props.dispatch;
+    this.props.dispatch(getSlider());
+    this.props.dispatch(getNextMatch());
+  };
 
   render() {
     const { navigate } = this.props.navigation;
-    const { data } = this.state;
-    const { fact } = this.state;
+    const { data, fact } = this.state;
+    const { sliderData, nextMatchData } = this.props;
+    const BASE_URL = `http://172.245.17.145:5015`;
+    // console.warn(nextMatchData && nextMatchData.data[0]);
 
     return (
       <ScrollView>
@@ -96,7 +112,16 @@ export default class Home extends Component {
               autoplayDelay={5}
               // index={0}
               autoplayLoop
-              data={items}
+              data={
+                sliderData
+                  ? sliderData.data
+                  : [
+                      {
+                        imgURL:
+                          "http://172.245.17.145:5015/uploads/gallery/1.jpg"
+                      }
+                    ]
+              }
               renderItem={this.renderItemComponent}
               //showPagination
             />
@@ -134,29 +159,45 @@ export default class Home extends Component {
                     color: "white"
                   }}
                 >
-                  #ConlanVNikitin
+                  {nextMatchData &&
+                    `#${nextMatchData.data[0].oppFirst}V${
+                      nextMatchData.data[0].oppSecond
+                    }`}
                 </Text>
               </View>
             </View>
           </TouchableOpacity>
 
           <View>
-            {this.state.cap.map((item, i) => (
-              <View key={i} style={{ flex: 1, marginTop: 20 }}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => navigate("Details")}
-                >
+            <View style={{ flex: 1, marginTop: 20 }}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigate("Details")}
+              >
+                {nextMatchData ? (
                   <Image
-                    source={require("../../images/9.jpg")}
+                    source={{
+                      uri: `${BASE_URL}${nextMatchData.data[0].bannerUrl}`
+                    }}
                     style={{
                       width: "100%",
                       height: 200
                     }}
                   />
-                </TouchableOpacity>
-              </View>
-            ))}
+                ) : (
+                  <ActivityIndicator
+                    style={{
+                      width: "100%",
+                      height: 200,
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}
+                    size="small"
+                    color={"#aaa"}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
 
           {/* {Watch Videos} */}
@@ -238,7 +279,7 @@ export default class Home extends Component {
 
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
-              {[1,2,3,4,5,6,7,8,9,9,90,1,2,3,4,5,6,7,8,9,9,90,1,2,3,4,5,6,7,8,9,9,90].map((item, i) => (
+              {[1, 2, 3, 4, 90].map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
                   <View
                     style={{
@@ -263,7 +304,7 @@ export default class Home extends Component {
                       <Text
                         style={{
                           fontSize: 24,
-                          fontFamily: "sans-serif",
+                          // fontFamily: "sans-serif",
                           textAlign: "center",
                           color: "white"
                         }}
@@ -276,7 +317,6 @@ export default class Home extends Component {
               ))}
             </ScrollView>
           </View>
-        
 
           {/* {Social Icons} */}
 
@@ -288,7 +328,10 @@ export default class Home extends Component {
             }}
           >
             <Text
-              style={{ color: "white", fontFamily: "sans-serif", fontSize: 22 }}
+              style={{
+                color: "white",
+                /*fontFamily: "sans-serif",*/ fontSize: 22
+              }}
             >
               FOLLOW ME ON
             </Text>
@@ -396,3 +439,12 @@ const styles = StyleSheet.create({
     height: 200
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    sliderData: state.sliderData.data,
+    nextMatchData: state.nextMatchData.data
+  };
+}
+
+export default connect(mapStateToProps)(Home);

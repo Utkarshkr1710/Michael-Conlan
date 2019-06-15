@@ -465,7 +465,8 @@ function mapStateToProps(state) {
     sliderData: state.sliderData.data,
     nextMatchData: state.nextMatchData.data,
     videoData: state.videoData,
-    funFacts: state.funFacts.data
+    funFacts: state.funFacts.data,
+    // gallery: state.gallery
   };
 }
 

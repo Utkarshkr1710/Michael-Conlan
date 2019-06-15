@@ -34,16 +34,6 @@ class Details extends Component {
   };
 
   static navigationOptions = {
-    headerLeft: (
-      <Icon
-        style={{ paddingLeft: 10 }}
-        name="arrow-left"
-        size={30}
-        color="white"
-        onPress={() => this.props.navigation.navigate.openDrawer()}
-        // onPress={() => navigate("Home")}
-      />
-    ),
     headerTitle: 'Next Fight',
     headerRight: null,
 

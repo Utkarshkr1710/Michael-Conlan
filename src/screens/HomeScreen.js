@@ -2,9 +2,14 @@ import React, { PureComponent } from "react";
 
 import { connect } from "react-redux";
 
+import { getSlider } from "../redux/actions/slider";
+import { getNextMatch } from "../redux/actions/upcomingmatch";
+import { getLatestVideo, getExclusiveVideo, getGymVideo, getTrainingVideo, getMatchVideo } from "../redux/actions/video";
+import { getFunfacts } from '../redux/actions/funfacts'
+
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
-import SplashSreen from "./SplashSreen";
+import SplashSceen from "./SplashSreen";
 import Navigation from "./Navigation";
 
 class HomeScreen extends PureComponent {
@@ -12,7 +17,18 @@ class HomeScreen extends PureComponent {
     super(props);
     this.state = { isLoading: true };
   }
-  componentWillUnmount() {}
+  
+  componentWillMount() {
+    this.props.dispatch(getSlider());
+    this.props.dispatch(getNextMatch());
+
+    this.props.dispatch(getLatestVideo());
+    this.props.dispatch(getExclusiveVideo());
+    this.props.dispatch(getGymVideo());
+    this.props.dispatch(getMatchVideo());
+    this.props.dispatch(getTrainingVideo());
+    this.props.dispatch(getFunfacts());
+  }
 
   performTimeConsumingTask = async () => {
     return new Promise(resolve =>
@@ -32,7 +48,7 @@ class HomeScreen extends PureComponent {
   render() {
     // console.warn(this.props.state);
     if (this.state.isLoading) {
-      return <SplashSreen />;
+      return <SplashSceen />;
     }
     return <Navigation />;
   }

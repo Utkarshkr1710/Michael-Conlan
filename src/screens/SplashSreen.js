@@ -9,10 +9,11 @@ import {
   StatusBar,
   Image
 } from "react-native";
+
 export const { width, height } = Dimensions.get("window");
 // import Shimmer from 'react-native-shimmer';
 
-class FadeInView extends React.Component {
+class FadeInView extends Component {
   state = {
     fadeAnim: new Animated.Value(0) // Initial value for opacity: 0
   };
@@ -26,6 +27,7 @@ class FadeInView extends React.Component {
         duration: 5000 // Make it take a while
       }
     ).start(); // Starts the animation
+
   }
 
   render() {
@@ -43,8 +45,7 @@ class FadeInView extends React.Component {
     );
   }
 }
-
-export default class App extends Component {
+class SplashSceen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: "#0b0b0d" }}>
@@ -104,3 +105,5 @@ const styles = StyleSheet.create({
     // fontFamily: "sans-serif"
   }
 });
+
+export default SplashSceen

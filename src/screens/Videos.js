@@ -9,78 +9,17 @@ import {
   Dimensions
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { connect } from "react-redux";
 export const { width, height } = Dimensions.get("window");
 
-export default class Videos extends Component {
+class Videos extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      training: [
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Train.jpg")
-        },
-        {
-          videoId: "1559653301202_Mc.mp4",
-          img: require("../../images/Mic1.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic2.jpg")
-        },
-      ],
-      match: [
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Train.jpg")
-        },
-        {
-          videoId: "1559653301202_Mc.mp4",
-          img: require("../../images/Mic1.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic2.jpg")
-        },
-      ],
-      gym: [
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Train.jpg")
-        },
-        {
-          videoId: "1559653301202_Mc.mp4",
-          img: require("../../images/Mic1.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic2.jpg")
-        },
-      ],
-      exclusive: [
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Train.jpg")
-        },
-        {
-          videoId: "1559653301202_Mc.mp4",
-          img: require("../../images/Mic1.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic2.jpg")
-        },
-      ],
-
-
-    };
+    this.state = {};
   }
 
   render() {
-    const { training } = this.state;
-    const { match } = this.state;
-    const { gym } = this.state;
-    const { exclusive } = this.state;
+    const { videoData } = this.props;
 
     return (
       <View style={styles.container}>
@@ -103,17 +42,22 @@ export default class Videos extends Component {
 
           <View>
             <ScrollView horizontal={true}>
-              {training.map((item, i) => (
+              {videoData.training.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity activeOpacity={0.8}
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.videoId
+                        videoId: item.url, category: 'training'
                       })
                     }
                   >
                     <Image
-                      source={ item.img }
+                      source={{
+                        uri: `https://img.youtube.com/vi/${
+                          item.url
+                        }/mqdefault.jpg`
+                      }}
                       style={{ height: 120, width: 200, borderRadius: 10 }}
                     />
                   </TouchableOpacity>
@@ -142,17 +86,22 @@ export default class Videos extends Component {
           {/* {Matches} */}
           <View>
             <ScrollView horizontal={true}>
-              {match.map((item, i) => (
+              {videoData.match.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity activeOpacity={0.8}
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.videoId
+                        videoId: item.url, category: 'match'
                       })
                     }
                   >
                     <Image
-                      source={ item.img }
+                      source={{
+                        uri: `https://img.youtube.com/vi/${
+                          item.url
+                        }/hqdefault.jpg`
+                      }}
                       style={{ height: 120, width: 200, borderRadius: 10 }}
                     />
                   </TouchableOpacity>
@@ -182,17 +131,22 @@ export default class Videos extends Component {
 
           <View>
             <ScrollView horizontal={true}>
-              {gym.map((item, i) => (
+              {videoData.gym.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity activeOpacity={0.8}
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.videoId
+                        videoId: item.url, category: 'gym'
                       })
                     }
                   >
                     <Image
-                      source={ item.img }
+                      source={{
+                        uri: `https://img.youtube.com/vi/${
+                          item.url
+                        }/hqdefault.jpg`
+                      }}
                       style={{ height: 120, width: 200, borderRadius: 10 }}
                     />
                   </TouchableOpacity>
@@ -223,19 +177,24 @@ export default class Videos extends Component {
 
           {/* {Videos} */}
 
-          <View style={{marginBottom:20}}>
+          <View style={{ marginBottom: 20 }}>
             <ScrollView horizontal={true}>
-              {exclusive.map((item, i) => (
+              {videoData.exclusive.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity activeOpacity={0.8}
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.videoId
+                        videoId: item.url, category: 'exclusive'
                       })
                     }
                   >
                     <Image
-                      source={ item.img }
+                      source={{
+                        uri: `https://img.youtube.com/vi/${
+                          item.url
+                        }/hqdefault.jpg`
+                      }}
                       style={{ height: 120, width: 200, borderRadius: 10 }}
                     />
                   </TouchableOpacity>
@@ -259,3 +218,13 @@ const styles = StyleSheet.create({
     margin: 20
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    sliderData: state.sliderData.data,
+    nextMatchData: state.nextMatchData.data,
+    videoData: state.videoData
+  };
+}
+
+export default connect(mapStateToProps)(Videos);

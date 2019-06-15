@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getSlider } from "../redux/actions/slider";
-import { getNextMatch } from "../redux/actions/upcomingmatch";
+// import { getSlider } from "../redux/actions/slider";
+// import { getNextMatch } from "../redux/actions/upcomingmatch";
+// import { getLatestVideo } from "../redux/actions/video";
 
 import {
   Text,
@@ -20,14 +21,11 @@ import {
 } from "react-native";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
-import ProgressBar from "react-native-progress/Bar";
 
 import { Mic1, Mic2, Mic3, Mic4, Mic5 } from "../../images";
 import { ScrollView } from "react-native-gesture-handler";
 export const { width, height } = Dimensions.get("window");
 import Icon from "react-native-vector-icons/Entypo";
-import Icons from "react-native-vector-icons/FontAwesome";
-import Iconss from "react-native-vector-icons/MaterialCommunityIcons";
 
 const newImage = [Mic2, Mic1, Mic3, Mic4, Mic5];
 
@@ -89,18 +87,11 @@ class Home extends Component {
     );
   };
 
-  componentWillMount = () => {
-    // const { dispatch } = this.props.dispatch;
-    this.props.dispatch(getSlider());
-    this.props.dispatch(getNextMatch());
-  };
-
   render() {
     const { navigate } = this.props.navigation;
     const { data, fact } = this.state;
-    const { sliderData, nextMatchData } = this.props;
+    const { sliderData, nextMatchData, videoData, funFacts } = this.props;
     const BASE_URL = `http://172.245.17.145:5015`;
-    // console.warn(nextMatchData && nextMatchData.data[0]);
 
     return (
       <ScrollView>
@@ -234,23 +225,40 @@ class Home extends Component {
 
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
-              {data.map((item, i) => (
-                <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() =>
-                      this.props.navigation.navigate("Match1", {
-                        videoId: item.videoId
-                      })
-                    }
-                  >
-                    <Image
-                      source={item.img}
-                      style={{ height: 120, width: 200, borderRadius: 10 }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ))}
+              {videoData ? (
+                videoData.latest.video.map((item, i) => (
+                  <View key={i} style={{ paddingLeft: 20 }}>
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      onPress={() =>
+                        this.props.navigation.navigate("Match1", {
+                          videoId: item.url,
+                          category: "latest"
+                        })
+                      }
+                    >
+                      <Image
+                        source={{
+                          uri: `https://img.youtube.com/vi/${
+                            item.url
+                          }/mqdefault.jpg`
+                        }}
+                        style={{ height: 120, width: 200, borderRadius: 10 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ))
+              ) : (
+                <ActivityIndicator
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                  size={"small"}
+                  color={"#aaa"}
+                />
+              )}
             </ScrollView>
           </View>
 
@@ -279,42 +287,54 @@ class Home extends Component {
 
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
-              {[1, 2, 3, 4, 90].map((item, i) => (
-                <View key={i} style={{ paddingLeft: 20 }}>
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: "#433D3E",
-                      width: 320,
-                      borderRadius: 10
-                    }}
-                  >
-                    <View style={{ alignItems: "center" }}>
-                      <Image
-                        source={require("../../images/did1.jpg")}
-                        style={{
-                          height: 100,
-                          width: 150,
-                          borderRadius: 10,
-                          marginTop: 10
-                        }}
-                      />
-                    </View>
-                    <View style={{ alignItems: "center", margin: 30 }}>
-                      <Text
-                        style={{
-                          fontSize: 24,
-                          // fontFamily: "sans-serif",
-                          textAlign: "center",
-                          color: "white"
-                        }}
-                      >
-                        I was 7 years old when I started boxing.
-                      </Text>
+              {funFacts ? (
+                funFacts.data.map((item, i) => (
+                  <View key={i} style={{ paddingLeft: 20 }}>
+                    <View
+                      style={{
+                        flex: 1,
+                        backgroundColor: "#433D3E",
+                        width: 320,
+                        borderRadius: 10
+                      }}
+                    >
+                      <View style={{ alignItems: "center" }}>
+                        <Image
+                          source={{ uri: `${BASE_URL}${item.imgURl}` }}
+                          style={{
+                            height: 100,
+                            width: 150,
+                            borderRadius: 10,
+                            marginTop: 10
+                          }}
+                        />
+                      </View>
+                      <View style={{ alignItems: "center", margin: 30 }}>
+                        <Text
+                          style={{
+                            fontSize: 22,
+                            // fontFamily: "sans-serif",
+                            textAlign: "center",
+                            color: "white"
+                          }}
+                        >
+                          {item.title}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              ))}
+                ))
+              ) : (
+                <ActivityIndicator
+                  size={"small"}
+                  color={"#aaa"}
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                />
+              )}
             </ScrollView>
           </View>
 
@@ -443,8 +463,12 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     sliderData: state.sliderData.data,
-    nextMatchData: state.nextMatchData.data
+    nextMatchData: state.nextMatchData.data,
+    videoData: state.videoData,
+    funFacts: state.funFacts.data
   };
 }
 
 export default connect(mapStateToProps)(Home);
+
+// https://img.youtube.com/vi/tlxOGZMZ_Bc/default.jpg

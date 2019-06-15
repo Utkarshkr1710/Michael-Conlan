@@ -11,6 +11,7 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 // import Gallery from './src/screens/Gallery'
 import { Provider } from 'react-redux'
 import store from './src/redux/store'
+import Match from './src/screens/Match'
 
 import HomeScreen from "./src/screens/HomeScreen";
 
@@ -20,6 +21,7 @@ export default class App extends Component {
      
       <Provider store={store}>
        <HomeScreen />
+       {/* <Match /> */}
     </Provider>
      
 

@@ -6,3 +6,5 @@ export const UPCOMING_MATCH_API = `${BASE_URL}/upcomingmatch`
 export const GALLERY_API = `${BASE_URL}/gallery`
 
 export const VIDEO_API = `${BASE_URL}/video`
+
+export const FUNFACTS_API = `${BASE_URL}/funfacts`

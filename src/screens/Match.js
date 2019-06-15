@@ -1,24 +1,23 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import {
   StyleSheet,
   View,
   Text,
   ScrollView,
-  TouchableOpacity,
   PixelRatio,
-  Dimensions,
-  Platform,
-  TouchableWithoutFeedback,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
+
+import { connect } from "react-redux";
+
 import YouTube, {
   YouTubeStandaloneIOS,
   YouTubeStandaloneAndroid
 } from "react-native-youtube";
 import Icon from "react-native-vector-icons/Entypo";
-import { white } from "ansi-colors";
 
-export default class Match extends Component {
+class Match extends PureComponent {
   static navigationOptions = {
     headerLeft: (
       <Icon
@@ -54,10 +53,21 @@ export default class Match extends Component {
     currentTime: 0,
     fullscreen: false,
     containerMounted: false,
-    containerWidth: null
+    containerWidth: null,
+    videoId: "tlxOGZMZ_Bc",
+    category: "latest"
   };
 
+  componentWillMount() {
+    const videoIdParam = this.props.navigation.getParam("videoId", "NO-ID");
+    const category = this.props.navigation.getParam("category", "NO-ID");
+    this.setState({ videoId: videoIdParam, category });
+  }
+
   render() {
+    const { category } = this.state;
+    const { videoData } = this.props;
+    const { latest, gym, match, exclusive, training } = videoData;
     return (
       <View
         style={styles.container}
@@ -82,7 +92,7 @@ export default class Match extends Component {
             // Un-comment one of videoId / videoIds / playlist.
             // You can also edit these props while Hot-Loading in development mode to see how
             // it affects the loaded native module
-            videoId="tlxOGZMZ_Bc"
+            videoId={this.state.videoId}
             // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
             // playlistId="PLF797E961509B4EB5"
             play={this.state.isPlaying}
@@ -112,28 +122,95 @@ export default class Match extends Component {
             }
           />
         )}
-       
-          <ScrollView style={{ width: '100%', height: 600 ,flexDirection: 'row'}} >
-            {[1, 2, 3, 4].map((item, i) => (
-            <View
-            key={i}
+        <ScrollView style={{ width: "100%", height: "100%" }}>
+          <View
             style={{
               flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-              marginTop: 20
+              paddingTop: 30,
+              borderTopColor: "#aeaeae",
+              borderTopWidth: 1,
+              paddingBottom: 500
             }}
           >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              {videoData ? (
+                (category === "latest"
+                  ? latest.video
+                  : category === "training"
+                  ? training.video
+                  : category === "gym"
+                  ? gym.video
+                  : category === "exclusive"
+                  ? exclusive.video
+                  : match.video
+                ).map(
+                  (item, i) =>
+                    item.url != this.state.videoId && (
+                      <View
+                        key={i}
+                        style={{
+                          width: "45%",
+                          height: 110,
+                          backgroundColor: "#555",
+                          borderRadius: 10,
+                          margin: "1.5%",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 10,
+                          shadowColor: "#aaa",
+                          shadowOffset: {
+                            width: 0.25,
+                            height: 0.75
+                          },
+                          shadowOpacity: 0.45
+                        }}
+                      >
+                        <TouchableOpacity
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            borderRadius: 10
+                          }}
+                          onPress={() => this.setState({ videoId: item.url })}
+                        >
+                          <Image
+                            source={{
+                              uri: `https://img.youtube.com/vi/${
+                                item.url
+                              }/hqdefault.jpg`
+                            }}
+                            style={{
+                              width: "99%",
+                              height: "99%",
+                              borderRadius: 10
+                            }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    )
+                )
+              ) : (
+                <ActivityIndicator
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                  size={"large"}
+                  color={"#fff"}
                 />
-          
+              )}
+            </View>
           </View>
-            ))}
-          </ScrollView>
-
+        </ScrollView>
       </View>
     );
   }
@@ -173,3 +250,11 @@ const styles = StyleSheet.create({
     marginVertical: 10
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    videoData: state.videoData
+  };
+}
+
+export default connect(mapStateToProps)(Match);

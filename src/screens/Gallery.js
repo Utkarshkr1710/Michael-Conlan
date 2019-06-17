@@ -6,12 +6,25 @@ import {
   TouchableOpacity,
   Platform,
   Image,
-  SafeAreaView
+  SafeAreaView,
+  Dimensions,
+  ActivityIndicator, StyleSheet
 } from "react-native";
 
 import { connect } from "react-redux";
 
+import { TabView, SceneMap } from 'react-native-tab-view';
+
 import Lightbox from "react-native-lightbox";
+const WINDOW_WIDTH = Dimensions.get("window").width;
+
+const FirstRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+);
+ 
+const SecondRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+);
 
 class Gallery extends Component {
   constructor(props) {
@@ -21,19 +34,28 @@ class Gallery extends Component {
       imgHeight: 110,
       imgWidth: 110,
       Lightbox: false,
-      topTabBar: false
+      topTabBar: false,
+      loading: false,
+      index: 0,
+    routes: [
+      { key: 'first', title: 'First' },
+      { key: 'second', title: 'Second' },
+    ]
     };
   }
 
-  _renderTopTab = () =>{
-    this.setState({topTabBar: !this.state.topTabBar})
-  }
+  _renderTopTab = () => {
+    this.setState({ loading: true, topTabBar: !this.state.topTabBar });
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 4000);
+  };
 
   render() {
     const BASE_URL = `http://172.245.17.145:5015`;
     const { gallery } = this.props;
     const { family, professional } = gallery;
-    const { topTabBar } = this.state;
+    const { topTabBar, loading } = this.state;
     return (
       <ScrollView style={{ flex: 1, backgroundColor: "#000" }}>
         <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
@@ -49,7 +71,10 @@ class Gallery extends Component {
               borderRadius: 5
             }}
           >
-            <TouchableOpacity style={{ width: "50%", height: "100%" }} onPress={()=>this._renderTopTab()}>
+            <TouchableOpacity
+              style={{ width: "50%", height: "100%" }}
+              onPress={() => this._renderTopTab()}
+            >
               <View
                 style={{
                   width: "100%",
@@ -59,10 +84,15 @@ class Gallery extends Component {
                   alignItems: "center"
                 }}
               >
-                <Text style={{ color: "white", fontSize: 18 }}>Professional</Text>
+                <Text style={{ color: "white", fontSize: 18 }}>
+                  Professional
+                </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={{ width: "50%", height: "100%" }} onPress={()=>this._renderTopTab()}>
+            <TouchableOpacity
+              style={{ width: "50%", height: "100%" }}
+              onPress={() => this._renderTopTab()}
+            >
               <View
                 style={{
                   width: "100%",
@@ -72,65 +102,154 @@ class Gallery extends Component {
                   alignItems: "center"
                 }}
               >
-                <Text style={{ color: "white", fontSize: 18  }}>Family</Text>
+                <Text style={{ color: "white", fontSize: 18 }}>Family</Text>
               </View>
             </TouchableOpacity>
           </View>
+          {!loading ? (
+            <View
+              style={{
+                flex: 1,
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                left: "0%",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                top: 10
+              }}
+            >
+              {!topTabBar
+                ? professional.gallery.map((item, i) => (
+                    <View key={i} style={{ padding: 4 }}>
+                      <Lightbox
+                        style={{}}
+                        willClose={() =>
+                          this.setState({
+                            imgHeight: 110,
+                            imgWidth: 110,
+                            Lightbox: false
+                          })
+                        }
+                        onOpen={() => {
+                          // this.setState({
+                          //   imgHeight: "60%",
+                          //   imgWidth: "96%",
+                          //   Lightbox: true
+                          // });
+                          Image.getSize(
+                            `${BASE_URL}${item.imgUrl}`,
+                            (width, height) => {
+                              const z = width / height;
+                              const y = WINDOW_WIDTH / z;
+                              this.setState({
+                                imgHeight: y,
+                                imgWidth: "100%"
+                              });
+                            }
+                          );
+                        }}
+                        swipeToDismiss={true}
+                        //   renderContent = {()=>this.renderCarousel()}
+                      >
+                        <Image
+                          source={{
+                            uri: `${BASE_URL}${item.imgUrl}`
+                          }}
+                          style={{
+                            height: this.state.imgHeight,
+                            width: this.state.imgWidth,
+                            borderRadius: 5,
+                            marginLeft: this.state.Lightbox ? "2%" : 0
+                          }}
+                        />
+                      </Lightbox>
+                    </View>
+                  ))
+                : family.gallery.map((item, i) => (
+                    <View key={i} style={{ padding: 4 }}>
+                      <Lightbox
+                        style={{}}
+                        willClose={() =>
+                          this.setState({
+                            imgHeight: 110,
+                            imgWidth: 110,
+                            Lightbox: false
+                          })
+                        }
+                        onOpen={() => {
+                          // this.setState({
+                          //   imgHeight: "60%",
+                          //   imgWidth: "96%",
+                          //   Lightbox: true
+                          // });
+                          Image.getSize(
+                            `${BASE_URL}${item.imgUrl}`,
+                            (width, height) => {
+                              const z = width / height;
+                              const y = WINDOW_WIDTH / z;
+                              this.setState({
+                                imgHeight: y,
+                                imgWidth: "100%"
+                              });
+                            }
+                          );
+                        }}
+                        swipeToDismiss={true}
+                        //   renderContent = {()=>this.renderCarousel()}
+                      >
+                        <Image
+                          source={{
+                            uri: `${BASE_URL}${item.imgUrl}`
+                          }}
+                          style={{
+                            height: this.state.imgHeight,
+                            width: this.state.imgWidth,
+                            borderRadius: 5,
+                            marginLeft: this.state.Lightbox ? "2%" : 0
+                          }}
+                        />
+                      </Lightbox>
+                    </View>
+                  ))}
+            </View>
+          ) : (
+            <ActivityIndicator
+              size={"small"}
+              color="#fff"
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                top: '50%'
+              }}
+            />
+          )}
 
-          <View
-            style={{
-              flex: 1,
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              left: "0%",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              top: 10
-            }}
-          >
-            {(topTabBar ? family.gallery : professional.gallery ).map((item, i) => (
-              <View key={i} style={{ padding: 4 }}>
-                <Lightbox
-                  style={{}}
-                  willClose={() =>
-                    this.setState({
-                      imgHeight: 110,
-                      imgWidth: 110,
-                      Lightbox: false
-                    })
-                  }
-                  onOpen={() => {
-                    this.setState({
-                      imgHeight: "60%",
-                      imgWidth: "96%",
-                      Lightbox: true
-                    });
-                    // Image.getSize(`${BASE_URL}${item.imgUrl}`, (width, height) =>  this.setState({ imgHeight: height, imgWidth: '100%' }));
-                  }}
-                  swipeToDismiss={true}
-                  //   renderContent = {()=>this.renderCarousel()}
-                >
-                  <Image
-                    source={{
-                      uri: `${BASE_URL}${item.imgUrl}`
-                    }}
-                    style={{
-                      height: this.state.imgHeight,
-                      width: this.state.imgWidth,
-                      borderRadius: 5,
-                      marginLeft: this.state.Lightbox ? "2%" : 0
-                    }}
-                  />
-                </Lightbox>
-              </View>
-            ))}
-          </View>
+
+
+{/* <TabView
+        navigationState={this.state}
+        renderScene={SceneMap({
+          first: FirstRoute,
+          second: SecondRoute,
+        })}
+        onIndexChange={index => this.setState({ index })}
+        initialLayout={{ width: Dimensions.get('window').width }}
+      /> */}
+
+
         </SafeAreaView>
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  scene: {
+    flex: 1,
+  },
+});
 
 function mapStateToProps(state) {
   return {

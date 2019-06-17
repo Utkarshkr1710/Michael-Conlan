@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 export const { width, height } = Dimensions.get("window");
-// import Shimmer from 'react-native-shimmer';
+import Shimmer from "react-native-shimmer";
 
 class FadeInView extends Component {
   state = {
@@ -27,7 +27,6 @@ class FadeInView extends Component {
         duration: 5000 // Make it take a while
       }
     ).start(); // Starts the animation
-
   }
 
   render() {
@@ -61,10 +60,15 @@ class SplashSceen extends Component {
             />
           </FadeInView>
           <View style={{ width: 350, marginTop: 50 }}>
-            {/* <Text style={{color: '#fff', fontSize: 30}}>Michael Conlan</Text> */}
-            {/* <Shimmer animationOpacity={2} pauseDuration={100} duration={2000} style={{top:230}}	> */}
-            <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
-            {/* </Shimmer> */}
+            <Text style={{ color: "#fff", fontSize: 30 }} />
+            <Shimmer
+              animationOpacity={2}
+              pauseDuration={100}
+              duration={2000}
+              style={{ top: 230 }}
+            >
+              <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
+            </Shimmer>
           </View>
         </ImageBackground>
       </View>
@@ -101,9 +105,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     textAlign: "center",
-    top: "640%",
+    top: "640%"
     // fontFamily: "sans-serif"
   }
 });
 
-export default SplashSceen
+export default SplashSceen;

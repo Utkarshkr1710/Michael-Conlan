@@ -7,7 +7,6 @@ import com.swmansion.reanimated.ReanimatedPackage;
 import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.oblador.shimmer.RNShimmerPackage;
 import cl.json.RNSharePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -34,7 +33,6 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeYouTube(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),
-            new RNShimmerPackage(),
             new RNSharePackage(),
             new RNGestureHandlerPackage()
       );

@@ -63,7 +63,7 @@ const CustomDrawerComponent = props => (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Image
             source={require("../../images/fav2.jpg")}
-            style={{ marginTop: 10, height: 130, width: 120 }}
+            style={{ marginTop: 10, height: 132, width: 120 }}
           />
         </View>
         <Text

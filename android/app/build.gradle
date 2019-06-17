@@ -153,7 +153,6 @@ dependencies {
     implementation project(':react-native-youtube')
     implementation project(':react-native-video')
     implementation project(':react-native-vector-icons')
-    implementation project(':react-native-shimmer')
     implementation project(':react-native-share')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])

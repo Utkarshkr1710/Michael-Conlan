@@ -64,7 +64,7 @@ class SplashSceen extends Component {
             <Shimmer
               animationOpacity={2}
               pauseDuration={100}
-              duration={2000}
+              duration={2500}
               style={{ top: 230 }}
             >
               <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     textAlign: "center",
-    top: "640%"
+    top: "640%",
+    letterSpacing: 2
     // fontFamily: "sans-serif"
   }
 });

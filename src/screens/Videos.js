@@ -35,7 +35,7 @@ class Videos extends Component {
                 name="arrow-right"
                 size={30}
                 color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos")}
+                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'training' })}
               />
             </View>
           </View>
@@ -76,9 +76,7 @@ class Videos extends Component {
                 name="arrow-right"
                 size={30}
                 color="white"
-                // onPress={() =>
-                //   Linking.openURL("https://www.youtube.com/watch?v=-2KpoMRb2KA")
-                // }
+                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'match' })}
               />
             </View>
           </View>
@@ -120,9 +118,7 @@ class Videos extends Component {
                 name="arrow-right"
                 size={30}
                 color="white"
-                // onPress={() =>
-                //   Linking.openURL("https://www.youtube.com/watch?v=-2KpoMRb2KA")
-                // }
+                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'gym' })}
               />
             </View>
           </View>
@@ -168,9 +164,7 @@ class Videos extends Component {
                 name="arrow-right"
                 size={30}
                 color="white"
-                // onPress={() =>
-                //   Linking.openURL("https://www.youtube.com/watch?v=-2KpoMRb2KA")
-                // }
+                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'exclusive' })}
               />
             </View>
           </View>

@@ -4,24 +4,19 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   Image,
   Dimensions
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
+import { connect } from 'react-redux'
+
+const uuidv4 = require("uuid/v4");
+
 export const { width, height } = Dimensions.get("window");
 
-export default class componentName extends Component {
+class All extends Component {
   static navigationOptions = {
-    // headerLeft: (
-    //   <Icon
-    //     style={{ paddingLeft: 10 }}
-    //     name="arrow-left"
-    //     size={30}
-    //     color="white"
-    //     onPress={() => navigate.openDrawer()}
-    //   />
-    // ),
+
     headerTitle: "Training Videos",
 
     headerStyle: {
@@ -36,201 +31,84 @@ export default class componentName extends Component {
   };
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      category: ""
+    };
   }
 
+  componentWillMount = () => {
+    const category = this.props.navigation.getParam("category", "NO-ID");
+    this.setState({ category });
+  };
+
   render() {
+    const { category } = this.state;
+    const { videoData } = this.props;
+    const { latest, gym, match, exclusive, training } = videoData;
     return (
       <View style={styles.container}>
         <ScrollView>
           <View
+            key={uuidv4()}
             style={{
               flex: 1,
               flexDirection: "row",
-              justifyContent: "space-around",
+              justifyContent: "center",
               alignItems: "center",
-              marginTop: 20
+              marginTop: 20,
+              flexWrap: "wrap"
             }}
           >
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
+            {(category === "latest"
+              ? latest.video
+              : category === "training"
+              ? training.video
+              : category === "gym"
+              ? gym.video
+              : category === "exclusive"
+              ? exclusive.video
+              : match.video
+            ).map((item, i) => (
+              <View
+                key={uuidv4()}
+                style={{
+                  width: "45%",
+                  height: 110,
+                  backgroundColor: "#fefefe",
+                  borderRadius: 10,
+                  margin: "1.5%",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
               >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
+                <TouchableOpacity
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            borderRadius: 10
+                          }}
+                          onPress={() =>
+                            this.props.navigation.navigate("Match1", {
+                              videoId: item.url, category
+                            })
+                          }
+                        >
+                          <Image
+                            source={{
+                              uri: `https://img.youtube.com/vi/${
+                                item.url
+                              }/hqdefault.jpg`
+                            }}
+                            style={{
+                              width: "99%",
+                              height: "99%",
+                              borderRadius: 10
+                            }}
+                          />
+                        </TouchableOpacity>
+              </View>
+            ))}
           </View>
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-              marginTop: 20
-            }}
-          >
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-              marginTop: 20
-            }}
-          >
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 120, width: 170, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          </View>
-
-          {/* <View style={styles.videos}>
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                  
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10,}}
-                />
-                
-              </TouchableWithoutFeedback>
-            </View>
-
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          </View>
-
-          <View style={styles.videos}>
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          </View>
-          <View style={styles.videos}>
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          </View>
-          <View style={styles.videos}>
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-
-            <View style={{ paddingLeft: 20, marginTop: 20 }}>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Match1")}
-              >
-                <Image
-                  source={require("../../images/Train.jpg")}
-                  style={{ height: 100, width: 150, borderRadius: 10 }}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          </View> */}
         </ScrollView>
       </View>
     );
@@ -247,3 +125,12 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   }
 });
+
+
+function mapStateToProps(state) {
+  return {
+    videoData: state.videoData
+  };
+}
+
+export default connect(mapStateToProps)(All);

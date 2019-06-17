@@ -16,15 +16,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export default class Shares extends Component {
   static navigationOptions = {
-    // headerLeft: (
-    //   <Icon
-    //     style={{ paddingLeft: 10 }}
-    //     name="ios-menu"
-    //     size={30}
-    //     color="white"
-    //     onPress={() => this.props.navigation.navigate.openDrawer()}
-    //   />
-    // ),
     headerTitle: "#TheConlanRevolution",
     headerRight: null,
 

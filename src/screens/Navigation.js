@@ -7,7 +7,11 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  Dimensions
+  Dimensions,
+  AppRegistry,
+  Clipboard,
+  ToastAndroid,
+  AlertIOS
 } from "react-native";
 
 import Home from "./Home";
@@ -18,7 +22,6 @@ import Videos from "./Videos";
 import Match from "./Match";
 import All from "./All";
 import Bio from "./Bio";
-import Gall from "./Gall";
 import Sponsers from "./Sponsers";
 import Legal from "./Legal";
 import Terms from "./Terms";
@@ -26,7 +29,7 @@ import Policy from "./Policy";
 import Lisence from "./Lisence";
 import Shares from "./Shares";
 
-import Gallery from './Gallery'
+import Gallery from "./Gallery";
 
 import {
   createDrawerNavigator,
@@ -43,6 +46,9 @@ import Icon from "react-native-vector-icons/Entypo";
 import Iconss from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 class NavRoutes extends Component {
+  state={
+    s: 'ferkbfjrhb'
+  }
   render() {
     return <AppContainer />;
   }
@@ -86,7 +92,7 @@ const CustomDrawerComponent = props => (
           style={{
             color: "white",
             fontSize: 20,
-            textAlign: "center",
+            textAlign: "center"
             // fontFamily: "sans-serif"
           }}
         >
@@ -120,9 +126,9 @@ const HomeTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Icon
             name="home"
-            size={Platform.OS === 'ios' ? 20 : 20}
+            size={Platform.OS === "ios" ? 20 : 20}
             color={tintColor}
-            style={{ marginTop: Platform.OS === 'ios' ? 1.5 : 20 }}
+            style={{ marginTop: Platform.OS === "ios" ? 1.5 : 20 }}
           />
         )
       }
@@ -133,9 +139,9 @@ const HomeTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Iconss
             name="video"
-            size={Platform.OS === 'ios' ? 20 : 20}
+            size={Platform.OS === "ios" ? 20 : 20}
             color={tintColor}
-            style={{ marginTop: Platform.OS === 'ios' ? 1.5 : 20 }}
+            style={{ marginTop: Platform.OS === "ios" ? 1.5 : 20 }}
           />
         )
       }
@@ -146,9 +152,9 @@ const HomeTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome
             name="photo"
-            size={Platform.OS === 'ios' ? 20 : 20}
+            size={Platform.OS === "ios" ? 20 : 20}
             color={tintColor}
-            style={{ marginTop: Platform.OS === 'ios' ? 1.5 : 20 }}
+            style={{ marginTop: Platform.OS === "ios" ? 1.5 : 20 }}
           />
         )
       }
@@ -161,7 +167,7 @@ const HomeTabNavigator = createBottomTabNavigator(
             name="md-notifications"
             size={24}
             color={tintColor}
-            style={{ marginTop: Platform.OS === 'ios' ? 2 : 20 }}
+            style={{ marginTop: Platform.OS === "ios" ? 2 : 20 }}
           />
         )
       }
@@ -177,9 +183,9 @@ const HomeTabNavigator = createBottomTabNavigator(
       inactiveTintColor: "white",
       inactiveBackgroundColor: "#FF883E",
       labelStyle: {
-        fontSize: 15,
+        fontSize: 13,
         //padding: 10,
-        marginTop: Platform.OS === 'ios' ? 0 : 10
+        marginTop: Platform.OS === "ios" ? 0 : 8
       }
     },
     navigationOptions: ({ navigation }) => {
@@ -195,7 +201,7 @@ const HomeTabNavigator = createBottomTabNavigator(
           fontWeight: "bold",
           justifyContent: "center",
           alignItems: "center",
-          flex: 1,
+          flex: 1
           // fontFamily: "sans-serif"
         }
       };
@@ -339,7 +345,22 @@ const HomeStackNavigator = createStackNavigator(
         };
       }
     },
-    Match1: { screen: Match }
+    Match1: {
+      screen: Match,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10 }}
+              name="back"
+              size={30}
+              color="white"
+              onPress={() => navigation.navigate("AllVideos")}
+            />
+          )
+        };
+      }
+    }
   },
 
   {
@@ -370,7 +391,6 @@ const HomeStackNavigator = createStackNavigator(
 
 const AppDrawerNavigator = createDrawerNavigator(
   {
-
     Home: { screen: HomeStackNavigator },
     Gallery: { screen: Gallery },
     Bio: { screen: Bio },

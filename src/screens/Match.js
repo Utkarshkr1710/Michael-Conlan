@@ -15,20 +15,21 @@ import YouTube, {
   YouTubeStandaloneIOS,
   YouTubeStandaloneAndroid
 } from "react-native-youtube";
-import Icon from "react-native-vector-icons/Entypo";
+
+const uuidv4 = require("uuid/v4");
 
 class Match extends PureComponent {
   static navigationOptions = {
-    headerLeft: (
-      <Icon
-        style={{ paddingLeft: 10 }}
-        name="back"
-        size={30}
-        color="white"
-        onPress={() => this.props.navigation.navigate.openDrawer()}
-        // onPress={() => navigate("Home")}
-      />
-    ),
+    // headerLeft: (
+    //   <Icon
+    //     style={{ paddingLeft: 10 }}
+    //     name="back"
+    //     size={30}
+    //     color="white"
+    //     onPress={() => this.props.navigation.navigate.openDrawer()}
+    //     // onPress={() => navigate("Home")}
+    //   />
+    // ),
     headerTitle: "Videos",
     headerRight: null,
 
@@ -164,7 +165,6 @@ class Match extends PureComponent {
                           margin: "1.5%",
                           justifyContent: "center",
                           alignItems: "center",
-                          borderRadius: 10,
                           shadowColor: "#aaa",
                           shadowOffset: {
                             width: 0.25,

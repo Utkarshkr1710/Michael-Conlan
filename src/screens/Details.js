@@ -18,7 +18,6 @@ import YouTube, {
 import Icon from "react-native-vector-icons/Feather";
 
 class Details extends Component {
- 
   state = {
     isReady: false,
     status: null,
@@ -34,7 +33,7 @@ class Details extends Component {
   };
 
   static navigationOptions = {
-    headerTitle: 'Next Fight',
+    headerTitle: "Next Fight",
     headerRight: null,
 
     headerStyle: {
@@ -47,7 +46,6 @@ class Details extends Component {
       //flex: 1
     }
   };
-
 
   render() {
     const { nextMatchData } = this.props;
@@ -125,7 +123,12 @@ class Details extends Component {
               padding: 10
             }}
           >
-            Event Date & Time: {nextMatchData.data[0].timeDate ? nextMatchData.data[0].timeDate : '22 Jun 2019'}
+            Who:{" "}
+            {nextMatchData.data[0]
+              ? `${nextMatchData.data[0].oppFirst} Vs ${
+                  nextMatchData.data[0].oppSecond
+                }`
+              : ""}
           </Text>
         </View>
 
@@ -145,7 +148,7 @@ class Details extends Component {
               // fontFamily: "Roboto"
             }}
           >
-            Venue: {nextMatchData.data[0].venue}
+            When: {nextMatchData.data[0].timeDate}
           </Text>
         </View>
 
@@ -165,7 +168,7 @@ class Details extends Component {
               // fontFamily: "Roboto"
             }}
           >
-            Head To Head: {nextMatchData.data[0].h2hmatch}
+            Where: {nextMatchData.data[0].venue}
           </Text>
         </View>
 

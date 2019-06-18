@@ -24,6 +24,96 @@ class Videos extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
+
+        <View style={styles.training}>
+            <View>
+              <Text style={{ color: "white", fontSize: 20 }}>
+                Exclusive Videos
+              </Text>
+            </View>
+            <View>
+              <Icon
+                name="arrow-right"
+                size={30}
+                color="white"
+                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'exclusive' })}
+              />
+            </View>
+          </View>
+
+          {/* {Videos} */}
+
+          <View style={{ marginBottom: 20 }}>
+            <ScrollView horizontal={true}>
+              {videoData.exclusive.video.map((item, i) => (
+                <View key={i} style={{ paddingLeft: 20 }}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() =>
+                      this.props.navigation.navigate("Match1", {
+                        videoId: item.url, category: 'exclusive'
+                      })
+                    }
+                  >
+                    <Image
+                      source={{
+                        uri: `https://img.youtube.com/vi/${
+                          item.url
+                        }/hqdefault.jpg`
+                      }}
+                      style={{ height: 120, width: 200, borderRadius: 10 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+
+
+            {/* {Match Videos} */}
+            <View style={styles.training}>
+            <View>
+              <Text style={{ color: "white", fontSize: 20 }}>Fight Videos</Text>
+            </View>
+            <View>
+              <Icon
+                name="arrow-right"
+                size={30}
+                color="white"
+                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'match' })}
+              />
+            </View>
+          </View>
+
+          {/* {Matches} */}
+          <View>
+            <ScrollView horizontal={true}>
+              {videoData.match.video.map((item, i) => (
+                <View key={i} style={{ paddingLeft: 20 }}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() =>
+                      this.props.navigation.navigate("Match1", {
+                        videoId: item.url, category: 'match'
+                      })
+                    }
+                  >
+                    <Image
+                      source={{
+                        uri: `https://img.youtube.com/vi/${
+                          item.url
+                        }/hqdefault.jpg`
+                      }}
+                      style={{ height: 120, width: 200, borderRadius: 10 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+
+       
+
           <View style={styles.training}>
             <View>
               <Text style={{ color: "white", fontSize: 20 }}>
@@ -66,47 +156,7 @@ class Videos extends Component {
             </ScrollView>
           </View>
 
-          {/* {Match Videos} */}
-          <View style={styles.training}>
-            <View>
-              <Text style={{ color: "white", fontSize: 20 }}>Match Videos</Text>
-            </View>
-            <View>
-              <Icon
-                name="arrow-right"
-                size={30}
-                color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'match' })}
-              />
-            </View>
-          </View>
-
-          {/* {Matches} */}
-          <View>
-            <ScrollView horizontal={true}>
-              {videoData.match.video.map((item, i) => (
-                <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() =>
-                      this.props.navigation.navigate("Match1", {
-                        videoId: item.url, category: 'match'
-                      })
-                    }
-                  >
-                    <Image
-                      source={{
-                        uri: `https://img.youtube.com/vi/${
-                          item.url
-                        }/hqdefault.jpg`
-                      }}
-                      style={{ height: 120, width: 200, borderRadius: 10 }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
+        
 
           {/* {Gym Session} */}
           <View style={styles.training}>
@@ -153,49 +203,7 @@ class Videos extends Component {
 
           {/* {Exclusive Videos} */}
 
-          <View style={styles.training}>
-            <View>
-              <Text style={{ color: "white", fontSize: 20 }}>
-                Exclusive Videos
-              </Text>
-            </View>
-            <View>
-              <Icon
-                name="arrow-right"
-                size={30}
-                color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'exclusive' })}
-              />
-            </View>
-          </View>
-
-          {/* {Videos} */}
-
-          <View style={{ marginBottom: 20 }}>
-            <ScrollView horizontal={true}>
-              {videoData.exclusive.video.map((item, i) => (
-                <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() =>
-                      this.props.navigation.navigate("Match1", {
-                        videoId: item.url, category: 'exclusive'
-                      })
-                    }
-                  >
-                    <Image
-                      source={{
-                        uri: `https://img.youtube.com/vi/${
-                          item.url
-                        }/hqdefault.jpg`
-                      }}
-                      style={{ height: 120, width: 200, borderRadius: 10 }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
+       
         </ScrollView>
       </View>
     );

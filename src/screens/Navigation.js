@@ -28,6 +28,7 @@ import Terms from "./Terms";
 import Policy from "./Policy";
 import Lisence from "./Lisence";
 import Shares from "./Shares";
+import Fun from "./Fun";
 
 import Gallery from "./Gallery";
 
@@ -59,7 +60,7 @@ const CustomDrawerComponent = props => (
     <View
       style={{
         height: 250,
-        backgroundColor: "#FF883E",
+        backgroundColor: "black",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center"
@@ -68,13 +69,13 @@ const CustomDrawerComponent = props => (
       <View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Image
-            source={require("../../images/fav2.jpg")}
+            source={require("../../images/logoo.jpg")}
             style={{ marginTop: 10, height: 132, width: 120 }}
           />
         </View>
         <Text
           style={{
-            color: "white",
+            color: "#159B62",
             fontSize: 24,
             fontWeight: "bold",
             textAlign: "center",
@@ -90,7 +91,7 @@ const CustomDrawerComponent = props => (
       <View>
         <Text
           style={{
-            color: "white",
+            color: "#FF883E",
             fontSize: 20,
             textAlign: "center"
             // fontFamily: "sans-serif"
@@ -179,9 +180,9 @@ const HomeTabNavigator = createBottomTabNavigator(
     },
     tabBarOptions: {
       activeTintColor: "white",
-      activeBackgroundColor: "#159B62",
+      activeBackgroundColor: "#FF883E",
       inactiveTintColor: "white",
-      inactiveBackgroundColor: "#FF883E",
+      inactiveBackgroundColor: "#159B62",
       labelStyle: {
         fontSize: 13,
         //padding: 10,
@@ -214,7 +215,32 @@ const HomeStackNavigator = createStackNavigator(
     HomeTabNavigator: HomeTabNavigator,
     Videos: { screen: Videos },
     Notification: { screen: Notification },
-    Details: { screen: Details },
+    Fun :{screen: Fun, navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: (
+          <Icon
+            style={{ paddingLeft: 10 }}
+            name="back"
+            size={30}
+            color="white"
+            onPress={() => navigation.navigate("Home")}
+          />
+        )
+      };
+    } },
+    Details: { screen: Details, navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: (
+          <Icon
+            style={{ paddingLeft: 10 }}
+            name="back"
+            size={30}
+            color="white"
+            onPress={() => navigation.navigate("Home")}
+          />
+        )
+      };
+    } },
     SeeAll: { screen: seematches },
     AllVideos: {
       screen: All,
@@ -395,6 +421,7 @@ const AppDrawerNavigator = createDrawerNavigator(
     Gallery: { screen: Gallery },
     Bio: { screen: Bio },
     Videos: { screen: Videos },
+    // Facts:{screen:Fun},
     Sponsers: { screen: Sponsers },
     Legal: { screen: Legal }
   },

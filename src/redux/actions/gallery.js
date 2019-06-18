@@ -1,29 +1,29 @@
 import axios from "axios";
-import { GET_FAMILY_GALLERY, GET_PROFESIONAL_GALLERY } from "./types";
+import { GET_GALLERY, } from "./types";
 import { GALLERY_API } from "../api";
 
 
-export function getFamilyGallery() {
+export function getGallery() {
   const request = axios
     .get(`${GALLERY_API}?category=family`)
     .then(res => res.data)
     .catch(err => console.log(err));
 
   return {
-    type: GET_FAMILY_GALLERY,
+    type: GET_GALLERY,
     payload: request
   };
 }
 
-export function getProfessionalGallery() {
+// export function getProfessionalGallery() {
 
-    const request = axios
-      .get(`${GALLERY_API}?category=professional`)
-      .then(res => res.data)
-      .catch(err => console.log(err));
+//     const request = axios
+//       .get(`${GALLERY_API}?category=professional`)
+//       .then(res => res.data)
+//       .catch(err => console.log(err));
   
-      return {
-          type: GET_PROFESIONAL_GALLERY,
-          payload: request
-      }
-  }
+//       return {
+//           type: GET_PROFESIONAL_GALLERY,
+//           payload: request
+//       }
+//   }

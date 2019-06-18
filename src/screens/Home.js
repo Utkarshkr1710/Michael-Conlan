@@ -91,8 +91,8 @@ class Home extends Component {
     const { navigate } = this.props.navigation;
     const { data, fact } = this.state;
     const { sliderData, nextMatchData, videoData, funFacts } = this.props;
+    // console.warn(videoData)
     const BASE_URL = `http://172.245.17.145:5015`;
-
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -128,7 +128,7 @@ class Home extends Component {
                 flex: 1,
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginTop: 30
+                marginTop: 20
               }}
             >
               <View>
@@ -136,7 +136,8 @@ class Home extends Component {
                   style={{
                     fontSize: 18,
                     paddingLeft: 20,
-                    color: "white"
+                    color: "white",
+                    fontWeight: "bold"
                   }}
                 >
                   Next Fight
@@ -147,13 +148,15 @@ class Home extends Component {
                   style={{
                     fontSize: 18,
                     paddingRight: 20,
-                    color: "white"
+                    color: "white",
+                    fontWeight: "bold"
                   }}
                 >
-                  {nextMatchData &&
+                  View
+                  {/* {nextMatchData &&
                     `#${nextMatchData.data[0].oppFirst}V${
                       nextMatchData.data[0].oppSecond
-                    }`}
+                    }`} */}
                 </Text>
               </View>
             </View>
@@ -206,7 +209,8 @@ class Home extends Component {
                   style={{
                     fontSize: 18,
                     paddingLeft: 20,
-                    color: "white"
+                    color: "white",
+                    fontWeight: "bold"
                   }}
                 >
                   Latest Videos
@@ -215,9 +219,14 @@ class Home extends Component {
 
               <View>
                 <Text
-                  style={{ fontSize: 18, color: "white", paddingRight: 20 }}
+                  style={{
+                    fontSize: 18,
+                    color: "white",
+                    paddingRight: 20,
+                    fontWeight: "bold"
+                  }}
                 >
-                  See all
+                  View all
                 </Text>
               </View>
             </View>
@@ -225,7 +234,7 @@ class Home extends Component {
 
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
-              {videoData ? (
+              {videoData && videoData.latest ? (
                 videoData.latest.video.map((item, i) => (
                   <View key={i} style={{ paddingLeft: 20 }}>
                     <TouchableOpacity
@@ -263,32 +272,49 @@ class Home extends Component {
           </View>
 
           {/* {Fun Facts} */}
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 20
-            }}
-          >
-            <View>
-              <Text
-                style={{
-                  fontSize: 20,
-                  paddingLeft: 20,
-                  color: "white"
-                }}
-              >
-                Fun Facts
-              </Text>
+          <TouchableWithoutFeedback onPress={() => navigate("Fun")}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 20
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    paddingLeft: 20,
+                    color: "white",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Fun Facts
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    paddingRight: 20,
+                    color: "white",
+                    fontWeight: "bold"
+                  }}
+                >
+                  View all
+                  {/* {nextMatchData &&
+                    `#${nextMatchData.data[0].oppFirst}V${
+                      nextMatchData.data[0].oppSecond
+                    }`} */}
+                </Text>
+              </View>
             </View>
-          </View>
-
+          </TouchableWithoutFeedback>
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
               {funFacts ? (
-                funFacts.data.map((item, i) => (
+                funFacts.data.map((item, i) => (i<4 &&
                   <View key={i} style={{ paddingLeft: 20 }}>
                     <View
                       style={{
@@ -353,7 +379,7 @@ class Home extends Component {
                 /*fontFamily: "sans-serif",*/ fontSize: 22
               }}
             >
-              FOLLOW ME ON
+              Follow Me
             </Text>
           </View>
           <View style={{ marginTop: 50, marginBottom: 20 }}>
@@ -465,7 +491,7 @@ function mapStateToProps(state) {
     sliderData: state.sliderData.data,
     nextMatchData: state.nextMatchData.data,
     videoData: state.videoData,
-    funFacts: state.funFacts.data,
+    funFacts: state.funFacts.data
     // gallery: state.gallery
   };
 }

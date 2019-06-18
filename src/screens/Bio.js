@@ -1,11 +1,16 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet ,Image,ScrollView,ImageBackground} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  ImageBackground
+} from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
-
 
 export default class Bio extends Component {
   static navigationOptions = {
-   
     headerTitle: "Bio",
     headerRight: null,
 
@@ -27,54 +32,57 @@ export default class Bio extends Component {
   render() {
     return (
       <View style={styles.container}>
-       <ImageBackground
+        <ImageBackground
           source={require("../../images/bio.jpg")}
-          style={{flex:1}}
+          style={{ flex: 1, backgroundColor: "transparent" }}
         >
-        <View style={{ margin: 20, alignItems: "center" }}>
-          <Text
-            style={{
-              color: "white",
-              // fontFamily: "roboto sans-serif",
-              fontSize: 22,
-              textAlign: "justify"
-            }}
-          >
-            “TO REPRESENT MY COUNTRY ON THE WORLD STAGE IS AN HONOUR”
-          </Text>
-        </View>
-        <View style={{ margin: 20 }}>
-          <Text
-            style={{
-              color: "white",
-              // fontFamily: "roboto sans-serif",
-              fontSize: 20,
-              textAlign: "justify"
-            }}
-          >
-            The epitome of passion, the strive for excellence, and pursuit of
-            the truth.
-          </Text>
-        </View>
+          <View style={{ margin: 20, alignItems: "center" }}>
+            <Text
+              style={{
+                color: "white",
+                // fontFamily: "roboto sans-serif",
+                fontSize: 22,
+                textAlign: "center",
+                opacity: 1
+              }}
+            >
+              “TO REPRESENT MY COUNTRY ON THE WORLD STAGE IS AN HONOUR”
+            </Text>
+          </View>
+          <View style={{ margin: 20 }}>
+            <Text
+              style={{
+                color: "white",
+                // fontFamily: "roboto sans-serif",
+                fontSize: 20,
+                textAlign: "center",
+                opacity: 1
+              }}
+            >
+              The epitome of passion, the strive for excellence, and pursuit of
+              the truth.
+            </Text>
+          </View>
 
-        <View style={{ margin: 20 }}>
-          <Text
-            style={{
-              color: "white",
-              // fontFamily: "roboto sans-serif",
-              fontSize: 20,
-              textAlign: "justify"
-            }}
-          >
-            Ireland is bursting with pride to call Michael Conlan one of their own. The Belfast-born boxer has fight in his veins. Michael has been one of Ireland’s most successful amateur fighters of all time. His illustrious amateur career saw him win World, European and Commonwealth Gold, as well obtaining Bronze at the London Olympics 2012.
-
-          </Text>
-        </View>
-       
-      
-          
+          <View style={{ margin: 20 }}>
+            <Text
+              style={{
+                color: "white",
+                // fontFamily: "roboto sans-serif",
+                fontSize: 20,
+                textAlign: "center",
+                opacity: 1
+              }}
+            >
+              Ireland is bursting with pride to call Michael Conlan one of their
+              own. The Belfast-born boxer has fight in his veins. Michael has
+              been one of Ireland’s most successful amateur fighters of all
+              time. His illustrious amateur career saw him win World, European
+              and Commonwealth Gold, as well obtaining Bronze at the London
+              Olympics 2012.
+            </Text>
+          </View>
         </ImageBackground>
-     
       </View>
     );
   }
@@ -82,7 +90,6 @@ export default class Bio extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "black"
+    flex: 1
   }
 });

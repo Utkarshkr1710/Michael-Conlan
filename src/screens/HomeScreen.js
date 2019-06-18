@@ -6,7 +6,7 @@ import { getSlider } from "../redux/actions/slider";
 import { getNextMatch } from "../redux/actions/upcomingmatch";
 import { getLatestVideo, getExclusiveVideo, getGymVideo, getTrainingVideo, getMatchVideo } from "../redux/actions/video";
 import { getFunfacts } from '../redux/actions/funfacts'
-import { getFamilyGallery, getProfessionalGallery } from '../redux/actions/gallery'
+import { getGallery } from '../redux/actions/gallery'
 
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
@@ -30,8 +30,8 @@ class HomeScreen extends PureComponent {
     this.props.dispatch(getTrainingVideo());
     this.props.dispatch(getFunfacts());
 
-    this.props.dispatch(getFamilyGallery());
-    this.props.dispatch(getProfessionalGallery());
+    this.props.dispatch(getGallery());
+    
   }
 
   performTimeConsumingTask = async () => {

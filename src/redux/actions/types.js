@@ -14,7 +14,6 @@ export const GET_MATCH_VIDEO = 'get_match_video'
 
 export const GET_EXCLUSIVE_VIDEO = 'get_exclusive_video'
 
-export const GET_FAMILY_GALLERY = 'get_family_gallery'
-export const GET_PROFESIONAL_GALLERY = 'get_professional_gallery'
+export const GET_GALLERY = 'get_gallery'
 
 export const GET_FUNFACTS = 'get_funfacts'

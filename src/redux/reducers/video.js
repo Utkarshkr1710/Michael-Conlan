@@ -6,7 +6,9 @@ import {
   GET_TRAINING_VIDEO
 } from "../actions/types";
 
-initialState = {};
+initialState = ({
+     
+})
 
 export default function(state = initialState, action) {
   switch (action.type) {

@@ -65,7 +65,7 @@ class SplashSceen extends Component {
               animationOpacity={2}
               pauseDuration={100}
               duration={2500}
-              style={{ top: 230 }}
+              style={{ top: 200 }}
             >
               <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
             </Shimmer>

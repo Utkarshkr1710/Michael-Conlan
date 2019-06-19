@@ -9,13 +9,14 @@ import {
   PixelRatio,
   Dimensions,
   Platform,
-  ActivityIndicator
+  ActivityIndicator,
+  Button
 } from "react-native";
 import YouTube, {
   YouTubeStandaloneIOS,
   YouTubeStandaloneAndroid
 } from "react-native-youtube";
-import Icon from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/Entypo";
 
 class Details extends Component {
   state = {
@@ -27,24 +28,9 @@ class Details extends Component {
     isLooping: true,
     duration: 0,
     currentTime: 0,
-    fullscreen: false,
+    fullscreen: true,
     containerMounted: false,
     containerWidth: null
-  };
-
-  static navigationOptions = {
-    headerTitle: "Next Fight",
-    headerRight: null,
-
-    headerStyle: {
-      backgroundColor: "#159B62"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      textAlign: "center"
-      //flex: 1
-    }
   };
 
   render() {
@@ -64,6 +50,36 @@ class Details extends Component {
             this.setState({ containerWidth: width });
         }}
       >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#159B62",
+            flexDirection: "row",
+            height: 50
+          }}
+        >
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Icon
+              style={{ paddingLeft: 10 }}
+              name="back"
+              size={30}
+              color="white"
+              onPress={() => this.props.navigation.navigate("Home")}
+            />
+          </View>
+
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: 30
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+              Next Fight
+            </Text>
+          </View>
+        </View>
         {this.state.containerMounted && (
           <YouTube
             ref={component => {
@@ -71,6 +87,7 @@ class Details extends Component {
             }}
             // You must have an API Key for the player to load in Android
             apiKey="AIzaSyDzFa-lZN3AqogAa_EndIXWg6CNSR7Agyo"
+            lightboxMode="true"
             // Un-comment one of videoId / videoIds / playlist.
             // You can also edit these props while Hot-Loading in development mode to see how
             // it affects the loaded native module
@@ -106,6 +123,30 @@ class Details extends Component {
             }
           />
         )}
+        {/* <View style={styles.buttonGroup}>
+          
+          <View>
+            
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.setState(s => ({ isPlaying: !s.isPlaying }))}
+            >
+              <Text style={styles.buttonText}>
+                {this.state.status == "playing" ? "Pause" : "Play"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {!this.state.fullscreen && (
+            <View style={{}}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.setState({ fullscreen: true })}
+              >
+                <Text style={styles.buttonText}>Set Fullscreen</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View> */}
 
         <View
           style={{
@@ -124,11 +165,7 @@ class Details extends Component {
             }}
           >
             Who:{" "}
-            {nextMatchData.data[0]
-              ? `${nextMatchData.data[0].oppFirst} Vs ${
-                  nextMatchData.data[0].oppSecond
-                }`
-              : ""}
+            {nextMatchData.data[0] ? ` ${nextMatchData.data[0].oppSecond}` : ""}
           </Text>
         </View>
 
@@ -172,19 +209,13 @@ class Details extends Component {
           </Text>
         </View>
 
-        {/* <View style={{paddingLeft:20,marginTop:10 }}>
-            <Text
-              style={{ color: "white", fontSize: 20, fontFamily: "Roboto" }}
-            >
-              Description:
-            </Text>
-          </View> */}
+       
         <View style={{ marginTop: 20, backgroundColor: "#333230", flex: 1 }}>
           <Text
             style={{
               padding: 10,
               color: "white",
-              fontSize: 20,
+              fontSize: 18,
               // fontFamily: "Roboto",
               textAlign: "justify"
             }}
@@ -228,7 +259,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: "blue"
+    color: "white"
   },
   buttonTextSmall: {
     fontSize: 15

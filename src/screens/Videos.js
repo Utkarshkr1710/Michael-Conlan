@@ -24,10 +24,9 @@ class Videos extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-
-        <View style={styles.training}>
+          <View style={styles.training}>
             <View>
-              <Text style={{ color: "white", fontSize: 20 }}>
+              <Text style={{ color: "white", fontSize: 20,fontWeight: "bold" }}>
                 Exclusive Videos
               </Text>
             </View>
@@ -36,14 +35,18 @@ class Videos extends Component {
                 name="arrow-right"
                 size={30}
                 color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'exclusive' })}
+                onPress={() =>
+                  this.props.navigation.navigate("AllVideos", {
+                    category: "exclusive"
+                  })
+                }
               />
             </View>
           </View>
 
           {/* {Videos} */}
 
-          <View style={{ marginBottom: 20 }}>
+          <View style={{}}>
             <ScrollView horizontal={true}>
               {videoData.exclusive.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
@@ -51,7 +54,8 @@ class Videos extends Component {
                     activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.url, category: 'exclusive'
+                        videoId: item.url,
+                        category: "exclusive"
                       })
                     }
                   >
@@ -69,18 +73,21 @@ class Videos extends Component {
             </ScrollView>
           </View>
 
-
-            {/* {Match Videos} */}
-            <View style={styles.training}>
+          {/* {Match Videos} */}
+          <View style={styles.training}>
             <View>
-              <Text style={{ color: "white", fontSize: 20 }}>Fight Videos</Text>
+              <Text style={{ color: "white", fontSize: 20 ,fontWeight: "bold"}}>Fight Videos</Text>
             </View>
             <View>
               <Icon
                 name="arrow-right"
                 size={30}
                 color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'match' })}
+                onPress={() =>
+                  this.props.navigation.navigate("AllVideos", {
+                    category: "match"
+                  })
+                }
               />
             </View>
           </View>
@@ -94,7 +101,8 @@ class Videos extends Component {
                     activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.url, category: 'match'
+                        videoId: item.url,
+                        category: "match"
                       })
                     }
                   >
@@ -112,12 +120,12 @@ class Videos extends Component {
             </ScrollView>
           </View>
 
-       
 
+          {/* {Latest Session} */}
           <View style={styles.training}>
             <View>
-              <Text style={{ color: "white", fontSize: 20 }}>
-                Training Videos
+              <Text style={{ color: "white", fontSize: 20 ,fontWeight: "bold"}}>
+                Latest Videos
               </Text>
             </View>
             <View>
@@ -125,20 +133,27 @@ class Videos extends Component {
                 name="arrow-right"
                 size={30}
                 color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'training' })}
+                onPress={() =>
+                  this.props.navigation.navigate("AllVideos", {
+                    category: "latest"
+                  })
+                }
               />
             </View>
           </View>
 
-          <View>
+          {/* {Gym} */}
+
+          <View style={{  }}>
             <ScrollView horizontal={true}>
-              {videoData.training.video.map((item, i) => (
+              {videoData.latest.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.url, category: 'training'
+                        videoId: item.url,
+                        category: "latest"
                       })
                     }
                   >
@@ -156,34 +171,36 @@ class Videos extends Component {
             </ScrollView>
           </View>
 
-        
-
-          {/* {Gym Session} */}
           <View style={styles.training}>
             <View>
-              <Text style={{ color: "white", fontSize: 20 }}>Gym Sessions</Text>
+              <Text style={{ color: "white", fontSize: 20 ,fontWeight: "bold"}}>
+                Training Videos
+              </Text>
             </View>
             <View>
               <Icon
                 name="arrow-right"
                 size={30}
                 color="white"
-                onPress={() => this.props.navigation.navigate("AllVideos", { category: 'gym' })}
+                onPress={() =>
+                  this.props.navigation.navigate("AllVideos", {
+                    category: "training"
+                  })
+                }
               />
             </View>
           </View>
 
-          {/* {Gym} */}
-
-          <View>
+          <View style={{marginBottom: 20}}>
             <ScrollView horizontal={true}>
-              {videoData.gym.video.map((item, i) => (
+              {videoData.training.video.map((item, i) => (
                 <View key={i} style={{ paddingLeft: 20 }}>
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() =>
                       this.props.navigation.navigate("Match1", {
-                        videoId: item.url, category: 'gym'
+                        videoId: item.url,
+                        category: "training"
                       })
                     }
                   >
@@ -191,7 +208,7 @@ class Videos extends Component {
                       source={{
                         uri: `https://img.youtube.com/vi/${
                           item.url
-                        }/hqdefault.jpg`
+                        }/mqdefault.jpg`
                       }}
                       style={{ height: 120, width: 200, borderRadius: 10 }}
                     />
@@ -201,9 +218,6 @@ class Videos extends Component {
             </ScrollView>
           </View>
 
-          {/* {Exclusive Videos} */}
-
-       
         </ScrollView>
       </View>
     );

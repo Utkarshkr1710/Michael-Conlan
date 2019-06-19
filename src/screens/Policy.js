@@ -31,7 +31,12 @@ export default class Policy extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      privacy:''
     };
+  }
+  componentDidMount() {
+    const privacy = this.props.navigation.getParam("data", "NO-ID");
+    this.setState({privacy})
   }
 
   render() {
@@ -39,7 +44,7 @@ export default class Policy extends Component {
 
     return (
         <View style={styles.container}> 
-        <Text> Terms </Text>
+        <Text style={styles.heading}> {this.state.privacy} </Text>
       </View>
     );
   }
@@ -49,10 +54,13 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: "black"
     },
-    heading: {
-      justifyContent: "center",
-      color: "white",
-      fontSize: 30
-    }
+      heading: {
+        justifyContent: "center",
+        padding: 10,
+        color: "white",
+        fontSize: 20,
+        // fontFamily: "Roboto",
+        textAlign: "justify"
+      }
   });
   

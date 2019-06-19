@@ -8,3 +8,9 @@ export const GALLERY_API = `${BASE_URL}/gallery`
 export const VIDEO_API = `${BASE_URL}/video`
 
 export const FUNFACTS_API = `${BASE_URL}/funfacts`
+
+export const LEGAL_API = `${BASE_URL}/legal`
+
+export const SPONSOR_API = `${BASE_URL}/sponsors`
+
+export const BIO_API = `${BASE_URL}/bio`

@@ -7,6 +7,9 @@ import { getNextMatch } from "../redux/actions/upcomingmatch";
 import { getLatestVideo, getExclusiveVideo, getGymVideo, getTrainingVideo, getMatchVideo } from "../redux/actions/video";
 import { getFunfacts } from '../redux/actions/funfacts'
 import { getGallery } from '../redux/actions/gallery'
+import { getBio } from '../redux/actions/bio'
+import { getSponsor } from '../redux/actions/sponsor'
+import { getLegal } from '../redux/actions/legal'
 
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
@@ -31,6 +34,12 @@ class HomeScreen extends PureComponent {
     this.props.dispatch(getFunfacts());
 
     this.props.dispatch(getGallery());
+
+    this.props.dispatch(getBio());
+
+    this.props.dispatch(getLegal());
+    this.props.dispatch(getSponsor());
+
     
   }
 

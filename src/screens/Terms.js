@@ -31,15 +31,22 @@ export default class Terms extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      term: ''
     };
   }
+
+  componentDidMount() {
+    const term = this.props.navigation.getParam("data", "NO-ID");
+    this.setState({term})
+  }
+  
 
   render() {
     const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}> 
-        <Text> Terms </Text>
+        <Text style={styles.heading}> {this.state.term} </Text>
       </View>
     );
   }
@@ -51,8 +58,11 @@ const styles = StyleSheet.create({
     },
     heading: {
       justifyContent: "center",
+      padding: 10,
       color: "white",
-      fontSize: 30
+      fontSize: 20,
+      // fontFamily: "Roboto",
+      textAlign: "justify"
     }
   });
   

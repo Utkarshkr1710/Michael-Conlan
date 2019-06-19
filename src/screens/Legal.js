@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 export const { width, height } = Dimensions.get("window");
+import {connect} from 'react-redux'
 
-export default class Legal extends Component {
+ class Legal extends Component {
   static navigationOptions = {
     headerTitle: "Legal Policies",
     headerRight: null,
@@ -32,8 +33,9 @@ export default class Legal extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
+    const {legal} = this.props;
     return (
+      legal ? 
       <View style={styles.container}>
         <View
           style={{
@@ -45,7 +47,7 @@ export default class Legal extends Component {
           <View style={{ paddingLeft: 20 }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigate("Terms")}
+              onPress={() => navigate("Terms",{ data: legal.data.legal[0].terms })}
             >
               <Text
                 style={{ color: "white", fontSize: 20, /*fontFamily: "Roboto"*/ }}
@@ -63,7 +65,7 @@ export default class Legal extends Component {
           <View style={{ paddingLeft: 20 }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigate("Policy")}
+              onPress={() => navigate("Policy",{ data: legal.data.legal[0].privacy })}
             >
               <Text
                 style={{ color: "white", fontSize: 20, /*fontFamily: "Roboto"*/ }}
@@ -87,12 +89,12 @@ export default class Legal extends Component {
           <View style={{ paddingLeft: 20 }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigate("Lisence")}
+              onPress={() => navigate("Lisence",{ data: legal.data.legal[0].license })}
             >
               <Text
                 style={{ color: "white", fontSize: 20, /*fontFamily: "Roboto"*/ }}
               >
-                Lisence{" "}
+                License{" "}
               </Text>
             </TouchableOpacity>
           </View>
@@ -118,7 +120,16 @@ export default class Legal extends Component {
             1.0.0
           </Text>
         </View>
-      </View>
+      </View> :
+       <ActivityIndicator
+       style={{
+         flex: 1,
+         justifyContent: "center",
+         alignItems: "center"
+       }}
+       size={"small"}
+       color={"#aaa"}
+     />
     );
   }
 }
@@ -133,3 +144,10 @@ const styles = StyleSheet.create({
     fontSize: 30
   }
 });
+function mapStateToProps(state) {
+  return {
+    legal: state.legal
+  };
+}
+
+export default connect(mapStateToProps)(Legal);

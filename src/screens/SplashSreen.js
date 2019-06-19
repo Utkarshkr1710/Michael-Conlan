@@ -64,8 +64,9 @@ class SplashSceen extends Component {
             <Shimmer
               animationOpacity={2}
               pauseDuration={100}
-              duration={2500}
+              duration={2400}
               style={{ top: 200 }}
+              opacity={0.1}
             >
               <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
             </Shimmer>
@@ -73,8 +74,6 @@ class SplashSceen extends Component {
         </ImageBackground>
       </View>
 
-      //  </FadeInView>
-      //  </ImageBackground>
     );
   }
 }
@@ -106,8 +105,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     top: "640%",
-    letterSpacing: 2
-    // fontFamily: "sans-serif"
+    letterSpacing: 2,
+    fontFamily: "sans-serif-thin"
   }
 });
 

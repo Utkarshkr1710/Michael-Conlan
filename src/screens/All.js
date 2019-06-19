@@ -17,7 +17,7 @@ export const { width, height } = Dimensions.get("window");
 class All extends Component {
   static navigationOptions = {
 
-    headerTitle: "Training Videos",
+    headerTitle: "Watch Videos",
 
     headerStyle: {
       backgroundColor: "#159B62"

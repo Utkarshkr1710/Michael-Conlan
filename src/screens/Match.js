@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { connect } from "react-redux";
+import Icon from "react-native-vector-icons/Entypo";
 
 import YouTube, {
   YouTubeStandaloneIOS,
@@ -19,30 +20,6 @@ import YouTube, {
 const uuidv4 = require("uuid/v4");
 
 class Match extends PureComponent {
-  static navigationOptions = {
-    // headerLeft: (
-    //   <Icon
-    //     style={{ paddingLeft: 10 }}
-    //     name="back"
-    //     size={30}
-    //     color="white"
-    //     onPress={() => this.props.navigation.navigate.openDrawer()}
-    //     // onPress={() => navigate("Home")}
-    //   />
-    // ),
-    headerTitle: "Videos",
-    headerRight: null,
-
-    headerStyle: {
-      backgroundColor: "#159B62"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      textAlign: "center"
-      //flex: 1
-    }
-  };
   state = {
     isReady: false,
     status: null,
@@ -53,7 +30,7 @@ class Match extends PureComponent {
     duration: 0,
     currentTime: 0,
     fullscreen: false,
-    containerMounted: false,
+    containerMounted: true,
     containerWidth: null,
     videoId: "tlxOGZMZ_Bc",
     category: "latest"
@@ -83,6 +60,34 @@ class Match extends PureComponent {
             this.setState({ containerWidth: width });
         }}
       >
+        <View
+          style={{
+            backgroundColor: "#159B62",
+            flexDirection: "row",
+            height: 50
+          }}
+        >
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Icon
+              style={{ paddingLeft: 10 }}
+              name="back"
+              size={30}
+              color="white"
+              onPress={() => this.props.navigation.navigate("Videos")}
+            />
+          </View>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              paddingLeft: 30
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+              Video
+            </Text>
+          </View>
+        </View>
         {this.state.containerMounted && (
           <YouTube
             ref={component => {
@@ -123,6 +128,42 @@ class Match extends PureComponent {
             }
           />
         )}
+        <View style={styles.buttonGroup}>
+          <View>
+            {/* <Text style={styles.buttonText}> */}
+            {this.state.status == "playing" ? (
+              <Icon
+                name="controller-paus"
+                size={30}
+                color="white"
+                onPress={() =>
+                  this.setState(s => ({ isPlaying: !s.isPlaying }))
+                }
+              />
+            ) : (
+              <Icon
+                name="controller-play"
+                size={30}
+                color="white"
+                onPress={() =>
+                  this.setState(s => ({ isPlaying: !s.isPlaying }))
+                }
+              />
+            )}
+            {/* </Text> */}
+          </View>
+          {!this.state.fullscreen && (
+            <View style={{}}>
+              <Icon
+                style={{ paddingLeft: 10 }}
+                name="resize-full-screen"
+                size={30}
+                color="white"
+                onPress={() => this.setState({ fullscreen: true })}
+              />
+            </View>
+          )}
+        </View>
         <ScrollView style={{ width: "100%", height: "100%" }}>
           <View
             style={{
@@ -226,7 +267,9 @@ const styles = StyleSheet.create({
   },
   buttonGroup: {
     flexDirection: "row",
-    alignSelf: "center"
+    justifyContent:'space-between',
+    paddingLeft:20,
+    paddingRight: 20,
   },
   button: {
     paddingVertical: 4,
@@ -235,7 +278,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: "blue"
+    color: "white"
   },
   buttonTextSmall: {
     fontSize: 15

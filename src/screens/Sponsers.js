@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image ,Linking} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Linking
+} from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import { connect } from "react-redux";
+const uuidV4 = require("uuid")
 
-export default class Sponsers extends Component {
+class Sponsers extends Component {
   static navigationOptions = {
-   
-    headerTitle: "Sponsers",
+    headerTitle: "Sponsors",
     headerRight: null,
 
     headerStyle: {
@@ -24,7 +32,10 @@ export default class Sponsers extends Component {
   }
 
   render() {
-    return (
+    const { sponsors } = this.props;
+    const BASE_URL = `http://172.245.17.145:5015`;
+
+    return sponsors.data ? (
       <View style={styles.container}>
         <View style={{ flex: 1, flexDirection: "column" }}>
           <View style={{ alignItems: "center", marginTop: 20 }}>
@@ -36,39 +47,35 @@ export default class Sponsers extends Component {
                 fontWeight: "bold"
               }}
             >
-              PROUD SPONSERS
+              PROUD SPONSORS
             </Text>
           </View>
-          <View style={{ alignItems: "center", marginTop: 40 }}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() =>
-                Linking.openURL("https://www.toprank.com/")
-              }
-            >
-              <Image
-                source={require("../../images/toprank.jpg")}
-                style={{ height: 120, width: 200, borderRadius: 10 }}
-              />
-            </TouchableOpacity>
+          <View style={{flex:1,flexDirection:'column',alignItems:'center',marginTop:20}}>
+            {sponsors.data.sponsor.map((item, i) => (
+              <TouchableOpacity key={uuidV4()}
+                activeOpacity={0.8}
+                onPress={() => Linking.openURL(item.websiteURL)}
+                style={{margin:20}}
+              >
+                <Image
+                  source={{uri:`${BASE_URL}${item.imgURL}`}}
+                  style={{ height: 120, width: 200, borderRadius: 10 }}
+                />
+              </TouchableOpacity>
+            ))}
           </View>
-
-          <View style={{ alignItems: "center", marginTop: 40 }}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() =>
-                Linking.openURL("https://mtkglobal.com/")
-              }
-            >
-              <Image
-                source={require("../../images/mtkn.jpg")}
-                style={{ height: 120, width: 200, borderRadius: 10 }}
-              />
-            </TouchableOpacity>
-          </View>
-
         </View>
       </View>
+    ) : (
+      <ActivityIndicator
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+        size={"small"}
+        color={"#aaa"}
+      />
     );
   }
 }
@@ -78,3 +85,10 @@ const styles = StyleSheet.create({
     backgroundColor: "black"
   }
 });
+function mapStateToProps(state) {
+  return {
+    sponsors: state.sponsor
+  };
+}
+
+export default connect(mapStateToProps)(Sponsers);

@@ -8,8 +8,9 @@ import {
   ImageBackground
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import { connect } from "react-redux";
 
-export default class Bio extends Component {
+class Bio extends Component {
   static navigationOptions = {
     headerTitle: "Bio",
     headerRight: null,
@@ -30,10 +31,13 @@ export default class Bio extends Component {
   }
 
   render() {
-    return (
+    const { bio } = this.props;
+    const BASE_URL = `http://172.245.17.145:5015`;
+
+    return bio ? (
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../images/bio.jpg")}
+           source={{uri:`${BASE_URL}${bio.data.bio[0].imgURL}`}}
           style={{ flex: 1, backgroundColor: "transparent" }}
         >
           <View style={{ margin: 20, alignItems: "center" }}>
@@ -46,7 +50,7 @@ export default class Bio extends Component {
                 opacity: 1
               }}
             >
-              “TO REPRESENT MY COUNTRY ON THE WORLD STAGE IS AN HONOUR”
+             {bio.data.bio[0].title}
             </Text>
           </View>
           <View style={{ margin: 20 }}>
@@ -59,8 +63,7 @@ export default class Bio extends Component {
                 opacity: 1
               }}
             >
-              The epitome of passion, the strive for excellence, and pursuit of
-              the truth.
+               {bio.data.bio[0].h1}
             </Text>
           </View>
 
@@ -74,16 +77,21 @@ export default class Bio extends Component {
                 opacity: 1
               }}
             >
-              Ireland is bursting with pride to call Michael Conlan one of their
-              own. The Belfast-born boxer has fight in his veins. Michael has
-              been one of Ireland’s most successful amateur fighters of all
-              time. His illustrious amateur career saw him win World, European
-              and Commonwealth Gold, as well obtaining Bronze at the London
-              Olympics 2012.
+               {bio.data.bio[0].h2}
             </Text>
           </View>
         </ImageBackground>
       </View>
+    ) : (
+      <ActivityIndicator
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+        size={"small"}
+        color={"#aaa"}
+      />
     );
   }
 }
@@ -93,3 +101,10 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+function mapStateToProps(state) {
+  return {
+    bio: state.bio
+  };
+}
+
+export default connect(mapStateToProps)(Bio);

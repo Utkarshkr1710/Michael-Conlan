@@ -228,19 +228,7 @@ const HomeStackNavigator = createStackNavigator(
         )
       };
     } },
-    Details: { screen: Details, navigationOptions: ({ navigation }) => {
-      return {
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="back"
-            size={30}
-            color="white"
-            onPress={() => navigation.navigate("Home")}
-          />
-        )
-      };
-    } },
+   
     SeeAll: { screen: seematches },
     AllVideos: {
       screen: All,
@@ -371,22 +359,7 @@ const HomeStackNavigator = createStackNavigator(
         };
       }
     },
-    Match1: {
-      screen: Match,
-      navigationOptions: ({ navigation }) => {
-        return {
-          headerLeft: (
-            <Icon
-              style={{ paddingLeft: 10 }}
-              name="back"
-              size={30}
-              color="white"
-              onPress={() => navigation.navigate("AllVideos")}
-            />
-          )
-        };
-      }
-    }
+
   },
 
   {
@@ -434,8 +407,14 @@ const AppDrawerNavigator = createDrawerNavigator(
 const AppSwitchNavigator = createSwitchNavigator({
   //welcome: { screen: HomeScreen },
   Dashboard: { screen: AppDrawerNavigator },
-  Match1: { screen: Match }
-});
+  Match1: { screen: Match },
+  Details:{screen:Details,}
+},
+{
+  backBehavior: 'initialRoute'
+},
+);
+
 
 const AppContainer = createAppContainer(AppSwitchNavigator, AppDrawerNavigator);
 

@@ -192,7 +192,7 @@ class Details extends Component {
         <View
           style={{
             marginTop: 10,
-            backgroundColor: "#ffaa3e",
+            backgroundColor: "#FF883E",
             flex: 1,
             height: 50
           }}

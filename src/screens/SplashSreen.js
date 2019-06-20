@@ -23,8 +23,8 @@ class FadeInView extends Component {
       // Animate over time
       this.state.fadeAnim, // The animated value to drive
       {
-        toValue: 1, // Animate to opacity: 1 (opaque)
-        duration: 5000 // Make it take a while
+        toValue: 1, // Animate to opacity: 1 (opaque)s
+        duration: 6000 // Make it take a while
       }
     ).start(); // Starts the animation
   }
@@ -59,14 +59,15 @@ class SplashSceen extends Component {
               style={styles.logo}
             />
           </FadeInView>
-          <View style={{ width: 350, marginTop: 50 }}>
+          <View style={{ width: 350, marginTop: 30 }}>
             <Text style={{ color: "#fff", fontSize: 30 }} />
             <Shimmer
               animationOpacity={2}
               pauseDuration={100}
-              duration={2400}
-              style={{ top: 200 }}
-              opacity={0.1}
+              duration={2800}
+              style={{ top: 190 }}
+              opacity={0.15}
+              intensity={0.3}
             >
               <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
             </Shimmer>

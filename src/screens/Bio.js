@@ -34,12 +34,16 @@ class Bio extends Component {
     const { bio } = this.props;
     const BASE_URL = `http://172.245.17.145:5015`;
 
-    return bio ? (
+    return bio.data ? (
       <View style={styles.container}>
         <ImageBackground
            source={{uri:`${BASE_URL}${bio.data.bio[0].imgURL}`}}
-          style={{ flex: 1, backgroundColor: "transparent" }}
+          style={{ flex: 1, }}
         >
+        <View style={{flex:1,backgroundColor:"#000",opacity:0.7}}>
+
+
+        
           <View style={{ margin: 20, alignItems: "center" }}>
             <Text
               style={{
@@ -79,6 +83,7 @@ class Bio extends Component {
             >
                {bio.data.bio[0].h2}
             </Text>
+          </View>
           </View>
         </ImageBackground>
       </View>

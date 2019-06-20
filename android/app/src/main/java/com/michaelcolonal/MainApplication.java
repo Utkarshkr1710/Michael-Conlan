@@ -3,18 +3,19 @@ package com.michaelcolonal;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.swmansion.reanimated.ReanimatedPackage;
 import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.oblador.shimmer.RNShimmerPackage;
 import cl.json.RNSharePackage;
+import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.rnfs.RNFSPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,15 +31,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReanimatedPackage(),
             new ReactNativeYouTube(),
-            new RNFSPackage(),
-
             new ReactVideoPackage(),
             new VectorIconsPackage(),
             new RNShimmerPackage(),
             new RNSharePackage(),
-            new RNGestureHandlerPackage()
+            new ReanimatedPackage(),
+            new RNGestureHandlerPackage(),
+            new RNFSPackage()
       );
     }
 

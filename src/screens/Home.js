@@ -376,10 +376,11 @@ class Home extends Component {
             <Text
               style={{
                 color: "white",
-                /*fontFamily: "sans-serif",*/ fontSize: 22
+                /*fontFamily: "sans-serif",*/ fontSize: 22,
+                fontWeight:'bold'
               }}
             >
-              Follow Me
+              Follow Me:
             </Text>
           </View>
           <View style={{ marginTop: 50, marginBottom: 20 }}>
@@ -415,7 +416,7 @@ class Home extends Component {
               <Icon
                 name="twitter"
                 size={30}
-                color="#ffaa3e"
+                color="#FF883E"
                 onPress={() =>
                   Linking.openURL(
                     "https://twitter.com/mickconlan11?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"

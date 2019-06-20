@@ -107,14 +107,11 @@ const CustomDrawerComponent = props => (
       <DrawerItems
         activeBackgroundColor="white"
         activeTintColor="black"
+       
         {...props}
+        style={{}} labelStyle={{color: 'black'}}
       />
-      {/* <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',marginTop:100}}>
-        <Text style={{color:'black',fontSize:18,fontFamily:'sans-serif'}}>version</Text>
-
-        <Text style={{color:'black',fontSize:18,fontFamily:'sans-serif'}}>1.0.0</Text>
-
-        </View> */}
+     
     </ScrollView>
   </SafeAreaView>
 );
@@ -394,7 +391,6 @@ const AppDrawerNavigator = createDrawerNavigator(
     Gallery: { screen: Gallery },
     Bio: { screen: Bio },
     Videos: { screen: Videos },
-    // Facts:{screen:Fun},
     Sponsers: { screen: Sponsers },
     Legal: { screen: Legal }
   },
@@ -405,7 +401,6 @@ const AppDrawerNavigator = createDrawerNavigator(
 );
 
 const AppSwitchNavigator = createSwitchNavigator({
-  //welcome: { screen: HomeScreen },
   Dashboard: { screen: AppDrawerNavigator },
   Match1: { screen: Match },
   Details:{screen:Details,}

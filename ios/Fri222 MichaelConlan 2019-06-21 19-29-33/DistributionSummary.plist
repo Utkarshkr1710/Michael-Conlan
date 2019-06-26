@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MichaelConlan.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>278419D9A4D84AD125CC7BD40560C2A4C556A0BA</string>
+				<key>dateExpires</key>
+				<string>13/08/19</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>GVFSN73C2H.org.reactjs.native.example.MichaelConlan</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>GVFSN73C2H</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>GVFSN73C2H.org.reactjs.native.example.MichaelConlan</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>MichaelConlan.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>1ccc1614-8d1c-431e-a868-8353e93ccb87</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>GVFSN73C2H</string>
+				<key>name</key>
+				<string>Digivolve Limited</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

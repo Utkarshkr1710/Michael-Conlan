@@ -46,33 +46,8 @@ class Home extends Component {
       paused: false,
       progress: 0,
       duration: 0,
-      cap: [{ img: require("../../images/Mic1.jpg"), buy: "View Details" }],
-      data: [
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Train.jpg")
-        },
-        {
-          videoId: "1559653301202_Mc.mp4",
-          img: require("../../images/Mic1.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic2.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic3.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic4.jpg")
-        },
-        {
-          videoId: "1559651518089_mc_app.mp4",
-          img: require("../../images/Mic5.jpg")
-        }
-      ]
+      BASE_URL: "https://michaelconlanapp.com"
+     
     };
   }
   renderItemComponent = ({ item }) => {
@@ -81,7 +56,7 @@ class Home extends Component {
         <Image
           // style={{ height: 300, width: 385 }}
           style={styles.image}
-          source={{ uri: `http://172.245.17.145:5015${item.imgURL}` }}
+          source={{ uri: `${this.state.BASE_URL}${item.imgURL}` }}
         />
       </View>
     );
@@ -92,7 +67,7 @@ class Home extends Component {
     const { data, fact } = this.state;
     const { sliderData, nextMatchData, videoData, funFacts } = this.props;
     // console.warn(videoData)
-    const BASE_URL = `http://172.245.17.145:5015`;
+    // const BASE_URL = `${this.state.BASE_URL}
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -109,7 +84,7 @@ class Home extends Component {
                   : [
                       {
                         imgURL:
-                          "http://172.245.17.145:5015/uploads/gallery/1.jpg"
+                          `${this.state.BASE_URL}/uploads/gallery/1.jpg`
                       }
                     ]
               }
@@ -171,7 +146,7 @@ class Home extends Component {
                 {nextMatchData ? (
                   <Image
                     source={{
-                      uri: `${BASE_URL}${nextMatchData.data[0].bannerUrl}`
+                      uri: `${this.state.BASE_URL}${nextMatchData.data[0].bannerUrl}`
                     }}
                     style={{
                       width: "100%",
@@ -213,7 +188,7 @@ class Home extends Component {
                     fontWeight: "bold"
                   }}
                 >
-                  Latest Videos
+                  Exclusive Videos
                 </Text>
               </View>
 
@@ -234,15 +209,15 @@ class Home extends Component {
 
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
-              {videoData && videoData.latest ? (
-                videoData.latest.video.map((item, i) => (
+              {videoData && videoData.exclusive ? (
+                videoData.exclusive.video.map((item, i) => (
                   <View key={i} style={{ paddingLeft: 20 }}>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() =>
                         this.props.navigation.navigate("Match1", {
                           videoId: item.url,
-                          category: "latest"
+                          category: "exclusive"
                         })
                       }
                     >
@@ -326,7 +301,7 @@ class Home extends Component {
                     >
                       <View style={{ alignItems: "center" }}>
                         <Image
-                          source={{ uri: `${BASE_URL}${item.imgURl}` }}
+                          source={{ uri: `${this.state.BASE_URL}${item.imgURl}` }}
                           style={{
                             height: 100,
                             width: 150,

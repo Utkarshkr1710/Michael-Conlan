@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 export const { width, height } = Dimensions.get("window");
-import Icons from "react-native-vector-icons/Feather";
+// import Icons from "react-native-vector-icons/Feather";
 
 export default class Cart extends Component {
   static navigationOptions = {

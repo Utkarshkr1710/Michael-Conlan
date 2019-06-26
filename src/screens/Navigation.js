@@ -22,13 +22,15 @@ import Videos from "./Videos";
 import Match from "./Match";
 import All from "./All";
 import Bio from "./Bio";
-import Sponsers from "./Sponsers";
+import Sponsors from "./Sponsors";
 import Legal from "./Legal";
 import Terms from "./Terms";
 import Policy from "./Policy";
 import Lisence from "./Lisence";
 import Shares from "./Shares";
 import Fun from "./Fun";
+
+import GalleryScreen from "./GalleryScreen";
 
 import Gallery from "./Gallery";
 
@@ -46,10 +48,11 @@ import Icons from "react-native-vector-icons/Ionicons";
 import Icon from "react-native-vector-icons/Entypo";
 import Iconss from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import AntDesignIcon from "react-native-vector-icons/AntDesign";
 class NavRoutes extends Component {
-  state={
-    s: 'ferkbfjrhb'
-  }
+  state = {
+    s: "ferkbfjrhb"
+  };
   render() {
     return <AppContainer />;
   }
@@ -107,13 +110,35 @@ const CustomDrawerComponent = props => (
       <DrawerItems
         activeBackgroundColor="white"
         activeTintColor="black"
-       
         {...props}
-        style={{}} labelStyle={{color: 'black'}}
+        style={{}}
+        labelStyle={{ color: "black" }}
       />
-     
     </ScrollView>
   </SafeAreaView>
+);
+
+const GalleryStack = createStackNavigator(
+  {
+    Gallery: { screen: Gallery, navigationOptions: { header: null } },
+    GalleryScreen: {
+      screen: GalleryScreen,
+      navigationOptions: {
+        header: null,
+        headerLeft: <AntDesignIcon name="back" size={22} style={{top: 5, left: 5}} color={"white"} />,
+        headerStyle:{backgroundColor: "#000", height: 10}
+      }
+    }
+  },
+  {
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state.routes[navigation.state.index];
+      return {
+        header: null,
+        headerTitle: routeName
+      };
+    }
+  }
 );
 
 const HomeTabNavigator = createBottomTabNavigator(
@@ -145,7 +170,7 @@ const HomeTabNavigator = createBottomTabNavigator(
       }
     },
     Gallery: {
-      screen: Gallery,
+      screen: GalleryStack,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome
@@ -212,20 +237,23 @@ const HomeStackNavigator = createStackNavigator(
     HomeTabNavigator: HomeTabNavigator,
     Videos: { screen: Videos },
     Notification: { screen: Notification },
-    Fun :{screen: Fun, navigationOptions: ({ navigation }) => {
-      return {
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="back"
-            size={30}
-            color="white"
-            onPress={() => navigation.navigate("Home")}
-          />
-        )
-      };
-    } },
-   
+    Fun: {
+      screen: Fun,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: (
+            <Icon
+              style={{ paddingLeft: 10 }}
+              name="back"
+              size={30}
+              color="white"
+              onPress={() => navigation.navigate("Home")}
+            />
+          )
+        };
+      }
+    },
+
     SeeAll: { screen: seematches },
     AllVideos: {
       screen: All,
@@ -259,9 +287,9 @@ const HomeStackNavigator = createStackNavigator(
         };
       }
     },
-    Gallery: { screen: Gallery },
-    Sponsers: {
-      screen: Sponsers,
+    Gallery: { screen: GalleryStack },
+    Sponsors: {
+      screen: Sponsors,
       navigationOptions: ({ navigation }) => {
         return {
           headerLeft: (
@@ -355,10 +383,8 @@ const HomeStackNavigator = createStackNavigator(
           )
         };
       }
-    },
-
+    }
   },
-
   {
     defaultNavigationOptions: ({ navigation }) => {
       return {
@@ -388,7 +414,7 @@ const HomeStackNavigator = createStackNavigator(
 const AppDrawerNavigator = createDrawerNavigator(
   {
     Home: { screen: HomeStackNavigator },
-    Gallery: { screen: Gallery },
+    Gallery: { screen: GalleryStack },
     Bio: { screen: Bio },
     Videos: { screen: Videos },
     Sponsers: { screen: Sponsers },
@@ -400,16 +426,16 @@ const AppDrawerNavigator = createDrawerNavigator(
   }
 );
 
-const AppSwitchNavigator = createSwitchNavigator({
-  Dashboard: { screen: AppDrawerNavigator },
-  Match1: { screen: Match },
-  Details:{screen:Details,}
-},
-{
-  backBehavior: 'initialRoute'
-},
+const AppSwitchNavigator = createSwitchNavigator(
+  {
+    Dashboard: { screen: AppDrawerNavigator },
+    Match1: { screen: Match },
+    Details: { screen: Details, navigationOptions: {header: null} }
+  },
+  {
+    backBehavior: "initialRoute"
+  }
 );
-
 
 const AppContainer = createAppContainer(AppSwitchNavigator, AppDrawerNavigator);
 

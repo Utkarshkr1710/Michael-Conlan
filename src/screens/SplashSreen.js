@@ -7,7 +7,8 @@ import {
   Dimensions,
   Animated,
   StatusBar,
-  Image
+  Image,
+  Platform
 } from "react-native";
 
 export const { width, height } = Dimensions.get("window");
@@ -59,14 +60,16 @@ class SplashSceen extends Component {
               style={styles.logo}
             />
           </FadeInView>
-          <View style={{ width: 350, marginTop: 30 }}>
+          <View
+            style={{ width: 350, marginTop: Platform.OS === "ios" ? 45 : 30 }}
+          >
             <Text style={{ color: "#fff", fontSize: 30 }} />
             <Shimmer
               animationOpacity={2}
               pauseDuration={100}
               duration={2800}
-              style={{ top: 190 }}
-              opacity={0.15}
+              style={{ top: Platform.OS === "ios" ? 220 : 190 }}
+              opacity={Platform.OS === "ios" ? 0.15 : 0.15}
               intensity={0.3}
             >
               <Text style={styles.bottomText}>The Fighting Pride of Éire</Text>
@@ -74,7 +77,6 @@ class SplashSceen extends Component {
           </View>
         </ImageBackground>
       </View>
-
     );
   }
 }
@@ -105,9 +107,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     textAlign: "center",
-    top: "640%",
+    top: Platform.OS === "ios" ? "640%" : "640%",
+    // marginTop: 70,
     letterSpacing: 2,
-    fontFamily: "sans-serif-thin"
+    fontFamily: Platform.OS === "ios" ? undefined : "sans-serif-thin"
+    // backgroundColor: "white"
   }
 });
 

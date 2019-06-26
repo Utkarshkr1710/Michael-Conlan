@@ -9,7 +9,7 @@ import {
   ActivityIndicator
 
 } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
+// import Icon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
 
 class Fun extends Component {
@@ -34,7 +34,7 @@ class Fun extends Component {
 
   render() {
     const {  funFacts } = this.props;
-    const BASE_URL = `http://172.245.17.145:5015`;
+    const BASE_URL = `https://michaelconlanapp.com`;
     
     return (
       <View style={styles.container}>

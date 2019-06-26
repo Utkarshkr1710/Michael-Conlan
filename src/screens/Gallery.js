@@ -1,4 +1,6 @@
 import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+
 import {
   ScrollView,
   SafeAreaView,
@@ -6,164 +8,211 @@ import {
   View,
   Image,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  Platform,
+  TouchableOpacity,
+  Text
 } from "react-native";
+import FastImage from "react-native-fast-image";
 
-const uuidv4 = require('uuid')
+import Icon from "react-native-vector-icons/AntDesign";
 
-// import Carousel from "react-native-looped-carousel";
-import Img from "./img";
+const uuidv4 = require("uuid");
 
-import Lightbox from "react-native-lightbox";
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
-// import { connect } from "react-redux";
-
-export default class Gallery extends PureComponent {
+class Gallery extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/20.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/21.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/22.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/23.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/24.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/25.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/26.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/27.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/28.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/29.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/30.jpg" },
-        
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/31.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/32.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/33.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/34.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/35.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/36.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/37.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/38.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/39.jpg" },
-        
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/40.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/41.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/42.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/43.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/44.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/45.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/46.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/47.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/48.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/49.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/50.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/51.jpg" },
-        { imgUrl: "https://www.michaelconlanapp.com/uploads/gallery/52.jpg" }
-        ],
+      data: [],
       imgHeight: 110,
       imgWidth: 110,
       lightbox: false,
       topTabBar: false,
       loading: true,
-      URL: 'https://michaelconlanapp.com'
+      URL: "https://michaelconlanapp.com",
+      // URL: "http://172.245.17.145:5015",
+      screenWidth: WINDOW_WIDTH,
+      currentPos: true
     };
   }
 
-  _renderCarousel = ( currentPage) => (
+  componentWillMount = () => {
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 2000);
+    if (this.props.gallery) {
+      if (this.props.gallery.data) {
+        this.setState({
+          data: this.props.gallery.data.gallery
+        });
+      }
+    }
+  };
 
-        <Image
-          // key={j}
-          style={{ flex: 1 }}
-          resizeMode="contain"
-          source={{
-            uri: "https://www.michaelconlanapp.com/uploads/gallery/52.jpg"
-          }}
-        />
-    
-  );
+  // scrollToImage = i => {
+  //   scrollXPos = WINDOW_WIDTH * 3;
+  //   this.scroller.scrollTo({ x: scrollXPos, y: 0 });
+  // };
 
   render() {
-    // const BASE_URL = `https://www.michaelconlanapp.com`;
-    // const { gallery } = this.props;
-    // const { data } = gallery;
-    const { imgHeight, imgWidth, loading, lightbox,URL } = this.state;
-    // console.warn(data)
+    const {
+      imgHeight,
+      imgWidth,
+      loading,
+      lightbox,
+      URL,
+      data,
+      screenWidth,
+      currentPos
+    } = this.state;
 
+    const totalWidth = data.length * WINDOW_WIDTH;
+
+    if (currentPos) {
+      setTimeout(() => {
+        scrollXPos = this.state.screenWidth;
+        this.scroller.scrollTo({ x: scrollXPos, y: 0 });
+      }, 30);
+    }
+
+    // if (lightbox && !currentPos && totalWidth >= screenWidth) {
+    //   setTimeout(() => {
+    //     scrollXPos = this.state.screenWidth + WINDOW_WIDTH;
+    //     this.scroller.scrollTo({ x: scrollXPos, y: 0 });
+    //     this.setState({ screenWidth: scrollXPos });
+    //   }, 6000);
+    // }
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: "#000" }}>
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
-          {true ? (
-            <View
-              style={{
-                flex: 1,
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                left: "0%",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                top: 10
-              }}
-            >
-              {this.state.data.map((item, i) => (
-                <View key={i} style={{ padding: 4 }}>
-                  <Lightbox
-                    style={{}}
-                    willClose={() =>
-                      this.setState({
-                        imgHeight: 110,
-                        imgWidth: 110,
-                        lightbox: false
-                      })
-                    }
-                    onOpen={() => {
-                      this.setState({
-                        imgHeight: "65%",
-                        imgWidth: WINDOW_WIDTH,
-                        lightbox: true
-                      });
-                      // Image.getSize(
-                      //   `${item.imgUrl}`,
-                      //   (width, height) => {
-                      //     const z = width / height;
-                      //     const y = WINDOW_WIDTH / z;
-                      //     this.setState({
-                      //       imgHeight: y,
-                      //       imgWidth: "100%",
-                      //       lightbox: true
-                      //     });
-                          
-                      //   }
-                      // );
-                    }}
-                    swipeToDismiss={true}
-                    // renderContent={() => this._renderCarousel( i)}
-                  >
-                  <Image source={{uri: item.imgUrl}} style={{height: imgHeight, width: imgWidth}} />
-                    {/* <Img
-                      uri={item.imgUrl}
-                      height={imgHeight}
-                      width={imgWidth}
-                      lightbox={lightbox}
-                    /> */}
-                  </Lightbox>
-                </View>
-              ))}
-            </View>
-          ) : (
-            <ActivityIndicator
-              style={{
-                flex: 1,
-                marginTop: 200,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-              size={"small"}
-              color={"#aeaeae"}
+      <View style={{ flex: 1, backgroundColor: "#000" }}>
+        {loading && (
+          <View
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#000",
+              justifyContent: "center",
+              alignItems: "center",
+              opacity: 1
+            }}
+          >
+            <ActivityIndicator size={"small"} color={"#fff"} />
+            <Text style={{ color: "#fff", marginTop: 7.5 }}>Loading...</Text>
+          </View>
+        )}
+
+        {lightbox && (
+          <View
+            style={{
+              width: "100%",
+              height: 40,
+              justifyContent: "center",
+              // alignItems: "center",
+              backgroundColor: "#000"
+            }}
+          >
+            <Icon
+              name={"close"}
+              size={22}
+              style={{ marginLeft: 10 }}
+              color={"white"}
+              onPress={() =>
+                this.setState({
+                  imgHeight: 110,
+                  imgWidth: 110,
+                  lightbox: false,
+                  currentPos: true,
+                  screenWidth: WINDOW_WIDTH
+                })
+              }
             />
-          )}
-        </SafeAreaView>
-      </ScrollView>
+          </View>
+        )}
+
+        <ScrollView
+          horizontal={lightbox}
+          ref={scroller => {
+            this.scroller = scroller;
+          }}
+        >
+          <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
+            {data.length > 0 ? (
+              <View
+                style={{
+                  flex: 1,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  left: "0%",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  top: 10
+                }}
+              >
+                {data.length > 0 &&
+                  data.map((item, i) => (
+                    <View key={uuidv4()} style={{ padding: lightbox ? 0 : 4 }}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          const scrollXPos = WINDOW_WIDTH * i;
+                          this.props.navigation.navigate("GalleryScreen", {
+                            scrollXPos,
+                            imgUrl: item.imgUrl,
+                            i
+                          });
+
+                          // this.setState({
+                          //   imgHeight: 350,
+                          //   imgWidth: WINDOW_WIDTH,
+                          //   // Platform.OS === "ios" ? 350 : WINDOW_WIDTH,
+                          //   lightbox: true,
+                          //   screenWidth: scrollXPos
+                          // });
+                          // setTimeout(() => {
+                          //   this.setState({ currentPos: false });
+                          // }, 1000);
+                        }}
+                      >
+                        {/* <Image
+                          source={{ uri: `${URL}${item.imgUrl}` }}
+                          style={{
+                            height: imgHeight,
+                            width: imgWidth,
+                            borderRadius: 5
+                          }}
+                        /> */}
+                        <FastImage
+                          style={{
+                            height: imgHeight,
+                            width: imgWidth,
+                            borderRadius: 5
+                          }}
+                          source={{
+                            uri: `${URL}${item.imgUrl}`,
+                            headers: { Authorization: "someAuthToken" },
+                            priority: FastImage.priority.high
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+              </View>
+            ) : (
+              <ActivityIndicator
+                style={{
+                  flex: 1,
+                  marginTop: 200,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+                size={"small"}
+                color={"#aeaeae"}
+              />
+            )}
+          </SafeAreaView>
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -180,10 +229,10 @@ const styles = StyleSheet.create({
   }
 });
 
-// function mapStateToProps(state) {
-//   return {
-//     gallery: state.gallery
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    gallery: state.gallery
+  };
+}
 
-// export default connect(mapStateToProps)(Gallery);
+export default connect(mapStateToProps)(Gallery);

@@ -120,57 +120,9 @@ class Videos extends Component {
             </ScrollView>
           </View>
 
-
-          {/* {Latest Session} */}
-          <View style={styles.training}>
-            <View>
-              <Text style={{ color: "white", fontSize: 20 ,fontWeight: "bold"}}>
-                Latest Videos
-              </Text>
-            </View>
-            <View>
-              <Icon
-                name="arrow-right"
-                size={30}
-                color="white"
-                onPress={() =>
-                  this.props.navigation.navigate("AllVideos", {
-                    category: "latest"
-                  })
-                }
-              />
-            </View>
-          </View>
-
           {/* {Gym} */}
 
-          <View style={{  }}>
-            <ScrollView horizontal={true}>
-              {videoData.latest.video.map((item, i) => (
-                <View key={i} style={{ paddingLeft: 20 }}>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() =>
-                      this.props.navigation.navigate("Match1", {
-                        videoId: item.url,
-                        category: "latest"
-                      })
-                    }
-                  >
-                    <Image
-                      source={{
-                        uri: `https://img.youtube.com/vi/${
-                          item.url
-                        }/mqdefault.jpg`
-                      }}
-                      style={{ height: 120, width: 200, borderRadius: 10 }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-
+       
           <View style={styles.training}>
             <View>
               <Text style={{ color: "white", fontSize: 20 ,fontWeight: "bold"}}>

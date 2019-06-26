@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  Platform
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
@@ -32,7 +33,7 @@ class Bio extends Component {
 
   render() {
     const { bio } = this.props;
-    const BASE_URL = `http://172.245.17.145:5015`;
+    const BASE_URL = `https://michaelconlanapp.com`;
 
     return bio.data ? (
       <View style={styles.container}>

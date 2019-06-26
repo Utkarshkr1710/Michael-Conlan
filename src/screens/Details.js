@@ -17,6 +17,7 @@ import YouTube, {
   YouTubeStandaloneAndroid
 } from "react-native-youtube";
 import Icon from "react-native-vector-icons/Entypo";
+import { SafeAreaView } from "react-navigation";
 
 class Details extends Component {
   state = {
@@ -24,7 +25,7 @@ class Details extends Component {
     status: null,
     quality: null,
     error: null,
-    isPlaying: true,
+    isPlaying: false,
     isLooping: true,
     duration: 0,
     currentTime: 0,
@@ -37,93 +38,96 @@ class Details extends Component {
     const { nextMatchData } = this.props;
 
     return nextMatchData ? (
-      <ScrollView
-        style={styles.container}
-        onLayout={({
-          nativeEvent: {
-            layout: { width }
-          }
-        }) => {
-          if (!this.state.containerMounted)
-            this.setState({ containerMounted: true });
-          if (this.state.containerWidth !== width)
-            this.setState({ containerWidth: width });
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "#159B62",
-            flexDirection: "row",
-            height: 50
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#159B62" }}>
+        <ScrollView
+          style={styles.container}
+          onLayout={({
+            nativeEvent: {
+              layout: { width }
+            }
+          }) => {
+            if (!this.state.containerMounted)
+              this.setState({ containerMounted: true });
+            if (this.state.containerWidth !== width)
+              this.setState({ containerWidth: width });
           }}
         >
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Icon
-              style={{ paddingLeft: 10 }}
-              name="back"
-              size={30}
-              color="white"
-              onPress={() => this.props.navigation.navigate("Home")}
-            />
-          </View>
-
           <View
             style={{
-              justifyContent: "center",
-              alignItems: "center",
-              paddingLeft: 30
+              flex: 1,
+              backgroundColor: "#159B62",
+              flexDirection: "row",
+              height: 50
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
-              Next Fight
-            </Text>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Icon
+                style={{ paddingLeft: 10 }}
+                name="back"
+                size={30}
+                color="white"
+                onPress={() => this.props.navigation.navigate("Home")}
+              />
+            </View>
+
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                paddingLeft: 30
+              }}
+            >
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", color: "white" }}
+              >
+                Next Fight
+              </Text>
+            </View>
           </View>
-        </View>
-        {this.state.containerMounted && (
-          <YouTube
-            ref={component => {
-              this._youTubeRef = component;
-            }}
-            // You must have an API Key for the player to load in Android
-            apiKey="AIzaSyDzFa-lZN3AqogAa_EndIXWg6CNSR7Agyo"
-            lightboxMode="true"
-            // Un-comment one of videoId / videoIds / playlist.
-            // You can also edit these props while Hot-Loading in development mode to see how
-            // it affects the loaded native module
-            videoId={
-              nextMatchData ? nextMatchData.data[0].ytVideoUrl : "tlxOGZMZ_Bc"
-            }
-            // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
-            // playlistId="PLF797E961509B4EB5"
-            play={this.state.isPlaying}
-            loop={this.state.isLooping}
-            fullscreen={this.state.fullscreen}
-            controls={1}
-            style={[
-              {
-                height: PixelRatio.roundToNearestPixel(
-                  this.state.containerWidth / (16 / 9)
-                )
-              },
-              styles.player
-            ]}
-            onError={e => this.setState({ error: e.error })}
-            onReady={e => this.setState({ isReady: true })}
-            onChangeState={e => this.setState({ status: e.state })}
-            onChangeQuality={e => this.setState({ quality: e.quality })}
-            onChangeFullscreen={e =>
-              this.setState({ fullscreen: e.isFullscreen })
-            }
-            onProgress={e =>
-              this.setState({
-                duration: e.duration,
-                currentTime: e.currentTime
-              })
-            }
-          />
-        )}
-        {/* <View style={styles.buttonGroup}>
+          {this.state.containerMounted && (
+            <YouTube
+              ref={component => {
+                this._youTubeRef = component;
+              }}
+              // You must have an API Key for the player to load in Android
+              apiKey="AIzaSyDzFa-lZN3AqogAa_EndIXWg6CNSR7Agyo"
+              lightboxMode="true"
+              // Un-comment one of videoId / videoIds / playlist.
+              // You can also edit these props while Hot-Loading in development mode to see how
+              // it affects the loaded native module
+              videoId={
+                nextMatchData ? nextMatchData.data[0].ytVideoUrl : "tlxOGZMZ_Bc"
+              }
+              // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
+              // playlistId="PLF797E961509B4EB5"
+              play={this.state.isPlaying}
+              loop={this.state.isLooping}
+              fullscreen={this.state.fullscreen}
+              controls={1}
+              style={[
+                {
+                  height: PixelRatio.roundToNearestPixel(
+                    this.state.containerWidth / (16 / 9)
+                  )
+                },
+                styles.player
+              ]}
+              onError={e => this.setState({ error: e.error })}
+              onReady={e => this.setState({ isReady: true })}
+              onChangeState={e => this.setState({ status: e.state })}
+              onChangeQuality={e => this.setState({ quality: e.quality })}
+              onChangeFullscreen={e =>
+                this.setState({ fullscreen: e.isFullscreen })
+              }
+              onProgress={e =>
+                this.setState({
+                  duration: e.duration,
+                  currentTime: e.currentTime
+                })
+              }
+            />
+          )}
+          {/* <View style={styles.buttonGroup}>
           
           <View>
             
@@ -148,82 +152,86 @@ class Details extends Component {
           )}
         </View> */}
 
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: "#159B62",
-            flex: 1,
-            height: 50
-          }}
-        >
-          <Text
+          <View
             style={{
-              color: "white",
-              fontSize: 20,
-              // fontFamily: "Roboto",
-              padding: 10
+              marginTop: 10,
+              backgroundColor: "#159B62",
+              flex: 1,
+              height: 40
             }}
           >
-            Who:{" "}
-            {nextMatchData.data[0] ? ` ${nextMatchData.data[0].oppSecond}` : ""}
-          </Text>
-        </View>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+                // fontFamily: "Roboto",
+                padding: 10
+              }}
+            >
+              Who:{" "}
+              {nextMatchData.data[0]
+                ? `${nextMatchData.data[0].oppFirst} vs ${
+                    nextMatchData.data[0].oppSecond
+                  }`
+                : ""}
+            </Text>
+          </View>
 
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: "white",
-            flex: 1,
-            height: 50
-          }}
-        >
-          <Text
+          <View
             style={{
-              padding: 10,
-              color: "#000",
-              fontSize: 20
-              // fontFamily: "Roboto"
+              marginTop: 10,
+              backgroundColor: "white",
+              flex: 1,
+              height: 40
             }}
           >
-            When: {nextMatchData.data[0].timeDate}
-          </Text>
-        </View>
+            <Text
+              style={{
+                padding: 10,
+                color: "#000",
+                fontSize: 20
+                // fontFamily: "Roboto"
+              }}
+            >
+              When: {nextMatchData.data[0].timeDate}
+            </Text>
+          </View>
 
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: "#FF883E",
-            flex: 1,
-            height: 50
-          }}
-        >
-          <Text
+          <View
             style={{
-              padding: 10,
-              color: "white",
-              fontSize: 20
-              // fontFamily: "Roboto"
+              marginTop: 10,
+              backgroundColor: "#FF883E",
+              flex: 1,
+              height: 40
             }}
           >
-            Where: {nextMatchData.data[0].venue}
-          </Text>
-        </View>
+            <Text
+              style={{
+                padding: 10,
+                color: "white",
+                fontSize: 20
+                // fontFamily: "Roboto"
+              }}
+            >
+              Where: {nextMatchData.data[0].venue}
+            </Text>
+          </View>
 
-       
-        <View style={{ marginTop: 20, backgroundColor: "#333230", flex: 1 }}>
-          <Text
-            style={{
-              padding: 10,
-              color: "white",
-              fontSize: 18,
-              // fontFamily: "Roboto",
-              textAlign: "justify"
-            }}
-          >
-            {nextMatchData.data[0].matchDesc}
-          </Text>
-        </View>
-      </ScrollView>
+          <View style={{ marginTop: 20, backgroundColor: "#333230", flex: 1 }}>
+            <Text
+              style={{
+                padding: 10,
+                color: "white",
+                fontSize: 18,
+                // fontFamily: "Roboto",
+                textAlign: "justify"
+              }}
+            >
+              {nextMatchData.data[0].matchDesc}
+            </Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     ) : (
       <ActivityIndicator
         style={{
@@ -241,7 +249,7 @@ class Details extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black"
+    backgroundColor: "#000"
   },
   welcome: {
     fontSize: 20,

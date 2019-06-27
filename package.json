@@ -29,6 +29,7 @@
     "react-native-lightbox": "^0.8.0",
     "react-native-looped-carousel": "^0.1.13",
     "react-native-masonry-list": "^2.10.4",
+    "react-native-modal": "^11.0.2",
     "react-native-photo-browser": "^0.4.0",
     "react-native-pinch-zoom-view": "^0.2.0",
     "react-native-progress": "^3.6.0",

@@ -118,28 +118,13 @@ const CustomDrawerComponent = props => (
   </SafeAreaView>
 );
 
-const GalleryStack = createStackNavigator(
-  {
-    Gallery: { screen: Gallery, navigationOptions: { header: null } },
-    GalleryScreen: {
-      screen: GalleryScreen,
-      navigationOptions: {
-        header: null,
-        headerLeft: <AntDesignIcon name="back" size={22} style={{top: 5, left: 5}} color={"white"} />,
-        headerStyle:{backgroundColor: "#000", height: 10}
-      }
-    }
-  },
-  {
-    navigationOptions: ({ navigation }) => {
-      const { routeName } = navigation.state.routes[navigation.state.index];
-      return {
-        header: null,
-        headerTitle: routeName
-      };
-    }
-  }
-);
+const GalleryStack = createStackNavigator({
+  Gallery: { screen: Gallery, navigationOptions: { header: null } },
+  // GalleryScreen: {
+  //   screen: GalleryScreen,
+  //   navigationOptions: { header: null }
+  // }
+});
 
 const HomeTabNavigator = createBottomTabNavigator(
   {
@@ -287,7 +272,12 @@ const HomeStackNavigator = createStackNavigator(
         };
       }
     },
-    Gallery: { screen: GalleryStack },
+    Gallery: {
+      screen: GalleryStack,
+      navigationOptions: {
+        header: null
+      }
+    },
     Sponsors: {
       screen: Sponsors,
       navigationOptions: ({ navigation }) => {
@@ -383,6 +373,26 @@ const HomeStackNavigator = createStackNavigator(
           )
         };
       }
+    },
+    GalleryScreen: {
+      screen: GalleryScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerStyle: {backgroundColor: "#159B62"},
+        headerTitle: (
+          <Text style={{fontSize: 17, color: '#fff', fontWeight: 'bold'}}>
+            Gallery
+          </Text>
+        ),
+        headerLeft: (
+          <Icon
+            style={{ paddingLeft: 4 }}
+            onPress={() => navigation.navigate("Gallery")}
+            name="back"
+            size={26}
+            color={"#fff"}
+          />
+        )
+      })
     }
   },
   {
@@ -417,7 +427,7 @@ const AppDrawerNavigator = createDrawerNavigator(
     Gallery: { screen: GalleryStack },
     Bio: { screen: Bio },
     Videos: { screen: Videos },
-    Sponsers: { screen: Sponsers },
+    Sponsors: { screen: Sponsors },
     Legal: { screen: Legal }
   },
   {
@@ -430,7 +440,7 @@ const AppSwitchNavigator = createSwitchNavigator(
   {
     Dashboard: { screen: AppDrawerNavigator },
     Match1: { screen: Match },
-    Details: { screen: Details, navigationOptions: {header: null} }
+    Details: { screen: Details, navigationOptions: { header: null } }
   },
   {
     backBehavior: "initialRoute"

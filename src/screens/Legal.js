@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 export const { width, height } = Dimensions.get("window");
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 
- class Legal extends Component {
+class Legal extends Component {
   static navigationOptions = {
     headerTitle: "Legal Policies",
     headerRight: null,
@@ -33,11 +33,10 @@ import {connect} from 'react-redux'
 
   render() {
     const { navigate } = this.props.navigation;
-    const {legal} = this.props;
-    return (
-      legal ? 
+    const { legal } = this.props;
+    return legal ? (
       <View style={styles.container}>
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
@@ -50,7 +49,7 @@ import {connect} from 'react-redux'
               onPress={() => navigate("Terms",{ data: legal.data.legal[0].terms })}
             >
               <Text
-                style={{ color: "white", fontSize: 20, /*fontFamily: "Roboto"*/ }}
+                style={{ color: "white", fontSize: 20 }}
               >
                 Terms Of Use{" "}
               </Text>
@@ -59,27 +58,37 @@ import {connect} from 'react-redux'
           <View style={{ paddingRight: 20 }}>
             <Icon name="ios-arrow-forward" size={30} color="white" />
           </View>
-        </View>
-
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View style={{ paddingLeft: 20 }}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => navigate("Policy",{ data: legal.data.legal[0].privacy })}
-            >
+        </View> */}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            navigate("Policy", { data: legal.data.legal[0].privacy })
+          }
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 10
+            }}
+          >
+            <View style={{ paddingLeft: 20 }}>
               <Text
-                style={{ color: "white", fontSize: 20, /*fontFamily: "Roboto"*/ }}
+                style={{
+                  color: "white",
+                  fontSize: 20 /*fontFamily: "Roboto"*/
+                }}
               >
                 Privacy Policy{" "}
               </Text>
-            </TouchableOpacity>
+            </View>
+            <View style={{ paddingRight: 20 }}>
+              <Icon name="ios-arrow-forward" size={30} color="white" />
+            </View>
           </View>
-          <View style={{ paddingRight: 20 }}>
-            <Icon name="ios-arrow-forward" size={30} color="white" />
-          </View>
-        </View>
+        </TouchableOpacity>
 
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
@@ -92,7 +101,7 @@ import {connect} from 'react-redux'
               onPress={() => navigate("Lisence",{ data: legal.data.legal[0].license })}
             >
               <Text
-                style={{ color: "white", fontSize: 20, /*fontFamily: "Roboto"*/ }}
+                style={{ color: "white", fontSize: 20 }}
               >
                 License{" "}
               </Text>
@@ -101,7 +110,7 @@ import {connect} from 'react-redux'
           <View style={{ paddingRight: 20 }}>
             <Icon name="ios-arrow-forward" size={30} color="white" />
           </View>
-        </View>
+        </View> */}
 
         <View
           style={{
@@ -120,16 +129,17 @@ import {connect} from 'react-redux'
             1.0.0
           </Text>
         </View>
-      </View> :
-       <ActivityIndicator
-       style={{
-         flex: 1,
-         justifyContent: "center",
-         alignItems: "center"
-       }}
-       size={"small"}
-       color={"#aaa"}
-     />
+      </View>
+    ) : (
+      <ActivityIndicator
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+        size={"small"}
+        color={"#aaa"}
+      />
     );
   }
 }

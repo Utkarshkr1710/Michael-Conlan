@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Image, Dimensions } from "react-native";
+import { Image, Dimensions, View, Text } from "react-native";
 const WINDOW_WIDTH = Dimensions.get("window").width;
 import FastImage from "react-native-fast-image";
 // import PinchZoomView from "react-native-pinch-zoom-view";
@@ -31,18 +31,31 @@ export default class ImageComponent extends PureComponent {
 
     return (
       // <PinchZoomView scalable={true} minScale={0.5} maxScale={2}>
-        <FastImage
-          style={{ width: imgWidth, height: imgHeight }}
-          source={{
-            uri: uri,
-            headers: { Authorization: "someAuthToken" },
-            priority:
-              uri === imgProps
-                ? FastImage.priority.high
-                : FastImage.priority.low
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center"
           }}
-          // resizeMode={FastImage.resizeMode.contain}
-        />
+        >
+          <FastImage
+            style={{
+              width: imgWidth,
+              height: imgHeight,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+            source={{
+              uri: uri,
+              headers: { Authorization: "someAuthToken" },
+              priority:
+                uri === imgProps
+                  ? FastImage.priority.high
+                  : FastImage.priority.low
+            }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </View>
       // </PinchZoomView>
 
       // <Image

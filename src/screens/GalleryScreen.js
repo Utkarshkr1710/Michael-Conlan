@@ -23,6 +23,7 @@ const uuidv4 = require("uuid");
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
 class GalleryScreen extends PureComponent {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -75,7 +76,7 @@ class GalleryScreen extends PureComponent {
       currentPos
     } = this.state;
 
-    const totalWidth = data.length * WINDOW_WIDTH;
+    // const totalWidth = data.length * WINDOW_WIDTH;
     const scrollXPos = this.props.navigation.getParam("scrollXPos", "NO-ID");
     const imgProps = this.props.navigation.getParam("imgUrl", "NO-ID");
     const currentI = this.props.navigation.getParam("i", "NO-ID");
@@ -132,7 +133,7 @@ class GalleryScreen extends PureComponent {
             <Text style={{ color: "#fff", marginTop: 7.5 }}>Loading...</Text>
           </View>
         )}
-
+{/* 
         <View
           style={{
             position: "relative",
@@ -150,7 +151,7 @@ class GalleryScreen extends PureComponent {
             color={"white"}
             onPress={() => this.props.navigation.navigate("Gallery")}
           />
-        </View>
+        </View> */}
 
         <ScrollView
           horizontal={true}

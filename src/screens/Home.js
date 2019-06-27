@@ -47,7 +47,6 @@ class Home extends Component {
       progress: 0,
       duration: 0,
       BASE_URL: "https://michaelconlanapp.com"
-     
     };
   }
   renderItemComponent = ({ item }) => {
@@ -83,8 +82,7 @@ class Home extends Component {
                   ? sliderData.data
                   : [
                       {
-                        imgURL:
-                          `${this.state.BASE_URL}/uploads/gallery/1.jpg`
+                        imgURL: `${this.state.BASE_URL}/uploads/gallery/1.jpg`
                       }
                     ]
               }
@@ -146,7 +144,9 @@ class Home extends Component {
                 {nextMatchData ? (
                   <Image
                     source={{
-                      uri: `${this.state.BASE_URL}${nextMatchData.data[0].bannerUrl}`
+                      uri: `${this.state.BASE_URL}${
+                        nextMatchData.data[0].bannerUrl
+                      }`
                     }}
                     style={{
                       width: "100%",
@@ -289,42 +289,47 @@ class Home extends Component {
           <View style={{ marginTop: 20 }}>
             <ScrollView horizontal={true}>
               {funFacts ? (
-                funFacts.data.map((item, i) => (i<4 &&
-                  <View key={i} style={{ paddingLeft: 20 }}>
-                    <View
-                      style={{
-                        flex: 1,
-                        backgroundColor: "#433D3E",
-                        width: 320,
-                        borderRadius: 10
-                      }}
-                    >
-                      <View style={{ alignItems: "center" }}>
-                        <Image
-                          source={{ uri: `${this.state.BASE_URL}${item.imgURl}` }}
+                funFacts.data.map(
+                  (item, i) =>
+                    i < 4 && (
+                      <View key={i} style={{ paddingLeft: 20 }}>
+                        <View
                           style={{
-                            height: 100,
-                            width: 150,
-                            borderRadius: 10,
-                            marginTop: 10
-                          }}
-                        />
-                      </View>
-                      <View style={{ alignItems: "center", margin: 30 }}>
-                        <Text
-                          style={{
-                            fontSize: 22,
-                            // fontFamily: "sans-serif",
-                            textAlign: "center",
-                            color: "white"
+                            flex: 1,
+                            backgroundColor: "#433D3E",
+                            width: 320,
+                            borderRadius: 10
                           }}
                         >
-                          {item.title}
-                        </Text>
+                          <View style={{ alignItems: "center" }}>
+                            <Image
+                              source={{
+                                uri: `${this.state.BASE_URL}${item.imgURl}`
+                              }}
+                              style={{
+                                height: 100,
+                                width: 150,
+                                borderRadius: 10,
+                                marginTop: 10
+                              }}
+                            />
+                          </View>
+                          <View style={{ alignItems: "center", margin: 30 }}>
+                            <Text
+                              style={{
+                                fontSize: 22,
+                                // fontFamily: "sans-serif",
+                                textAlign: "center",
+                                color: "white"
+                              }}
+                            >
+                              {item.title}
+                            </Text>
+                          </View>
+                        </View>
                       </View>
-                    </View>
-                  </View>
-                ))
+                    )
+                )
               ) : (
                 <ActivityIndicator
                   size={"small"}
@@ -352,7 +357,7 @@ class Home extends Component {
               style={{
                 color: "white",
                 /*fontFamily: "sans-serif",*/ fontSize: 22,
-                fontWeight:'bold'
+                fontWeight: "bold"
               }}
             >
               Follow Me:

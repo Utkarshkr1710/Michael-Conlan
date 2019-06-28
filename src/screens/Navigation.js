@@ -119,7 +119,7 @@ const CustomDrawerComponent = props => (
 );
 
 const GalleryStack = createStackNavigator({
-  Gallery: { screen: Gallery, navigationOptions: { header: null } },
+  Gallery: { screen: Gallery, navigationOptions: { header: null } }
   // GalleryScreen: {
   //   screen: GalleryScreen,
   //   navigationOptions: { header: null }
@@ -166,19 +166,6 @@ const HomeTabNavigator = createBottomTabNavigator(
           />
         )
       }
-    },
-    Notification: {
-      screen: Notification,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icons
-            name="md-notifications"
-            size={24}
-            color={tintColor}
-            style={{ marginTop: Platform.OS === "ios" ? 2 : 20 }}
-          />
-        )
-      }
     }
   },
   {
@@ -221,7 +208,19 @@ const HomeStackNavigator = createStackNavigator(
   {
     HomeTabNavigator: HomeTabNavigator,
     Videos: { screen: Videos },
-    Notification: { screen: Notification },
+    Notification: { screen: Notification, navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: (
+          <Icon
+            style={{ paddingLeft: 10 }}
+            name="back"
+            size={30}
+            color="white"
+            onPress={() => navigation.navigate("Home")}
+          />
+        )
+      };
+    } },
     Fun: {
       screen: Fun,
       navigationOptions: ({ navigation }) => {
@@ -377,9 +376,9 @@ const HomeStackNavigator = createStackNavigator(
     GalleryScreen: {
       screen: GalleryScreen,
       navigationOptions: ({ navigation }) => ({
-        headerStyle: {backgroundColor: "#159B62"},
+        headerStyle: { backgroundColor: "#159B62" },
         headerTitle: (
-          <Text style={{fontSize: 17, color: '#fff', fontWeight: 'bold'}}>
+          <Text style={{ fontSize: 17, color: "#fff", fontWeight: "bold" }}>
             Gallery
           </Text>
         ),
@@ -408,6 +407,22 @@ const HomeStackNavigator = createStackNavigator(
           />
         ),
         headerRight: (
+          <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Icons
+            style={{ paddingRight: 30 }}
+            name="md-notifications"
+            size={30}
+            color="white"
+            onPress={() => navigation.navigate("Notification")}
+          />
+
           <Icon
             style={{ paddingRight: 10 }}
             name="share"
@@ -415,6 +430,7 @@ const HomeStackNavigator = createStackNavigator(
             color="white"
             onPress={() => navigation.navigate("Share")}
           />
+        </View>
         )
       };
     }
@@ -423,12 +439,72 @@ const HomeStackNavigator = createStackNavigator(
 
 const AppDrawerNavigator = createDrawerNavigator(
   {
-    Home: { screen: HomeStackNavigator },
-    Gallery: { screen: GalleryStack },
-    Bio: { screen: Bio },
-    Videos: { screen: Videos },
-    Sponsors: { screen: Sponsors },
-    Legal: { screen: Legal }
+    Dashboard: {
+      screen: HomeStackNavigator,
+      navigationOptions: {
+        drawerLabel: () => null
+      }
+    },
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <Icon name="home" size={17} style={{ color: tintColor }} />
+        ),
+        drawerLabel: "Home"
+      }
+    },
+    Gallery: {
+      screen: GalleryScreen,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <FontAwesome name="photo" size={17} style={{ color: tintColor }} />
+        ),
+        drawerLabel: "Gallery"
+      }
+    },
+    Bio: {
+      screen: Bio,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <Icons name="md-person" size={17} style={{ color: tintColor }} />
+        ),
+        drawerLabel: "Bio"
+      }
+    },
+    Videos: {
+      screen: Videos,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <Iconss name="video" size={17} color={"#000"}
+          style={{opacity: 1}} />
+        ),
+        drawerLabel: "Videos"
+      }
+    },
+    Sponsors: {
+      screen: Sponsors,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <FontAwesome
+            name="handshake-o"
+            size={17}
+            color={"#000"}
+            style={{opacity: 1}}
+          />
+        ),
+        drawerLabel: "Sponsors"
+      }
+    },
+    Legal: {
+      screen: Legal,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <FontAwesome name="legal" size={17} style={{ color: tintColor }} />
+        ),
+        drawerLabel: "Legal"
+      }
+    }
   },
   {
     contentComponent: CustomDrawerComponent,

@@ -38,7 +38,7 @@ class Match extends PureComponent {
     category: "latest"
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const videoIdParam = this.props.navigation.getParam("videoId", "NO-ID");
     const category = this.props.navigation.getParam("category", "NO-ID");
     this.setState({ videoId: videoIdParam, category });
@@ -202,7 +202,7 @@ class Match extends PureComponent {
                     (item, i) =>
                       item.url != this.state.videoId && (
                         <View
-                          key={i}
+                          key={uuidv4()}
                           style={{
                             width: "45%",
                             height: 110,

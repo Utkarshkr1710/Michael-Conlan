@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Linking
+  Linking,
+  ScrollView
 } from "react-native";
 // import Icon from "react-native-vector-icons/Entypo";
 import { connect } from "react-redux";
@@ -51,6 +52,7 @@ class Sponsors extends Component {
             </Text>
           </View>
           <View style={{flex:1,flexDirection:'column',alignItems:'center',marginTop:20}}>
+           <ScrollView>
             {sponsors.data.sponsor.map((item, i) => (
               <TouchableOpacity key={uuidV4()}
                 activeOpacity={0.8}
@@ -63,6 +65,7 @@ class Sponsors extends Component {
                 />
               </TouchableOpacity>
             ))}
+            </ScrollView>
           </View>
         </View>
       </View>

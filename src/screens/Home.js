@@ -19,6 +19,7 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from "react-native";
+import FastImage from "react-native-fast-image";
 
 import SwiperFlatList from "react-native-swiper-flatlist";
 
@@ -52,10 +53,14 @@ class Home extends Component {
   renderItemComponent = ({ item }) => {
     return (
       <View>
-        <Image
-          // style={{ height: 300, width: 385 }}
-          style={styles.image}
-          source={{ uri: `${this.state.BASE_URL}${item.imgURL}` }}
+        <FastImage
+        style={styles.image}
+          source={{
+            uri: `${this.state.BASE_URL}${item.imgURL}`,
+            headers: { Authorization: "homeScollImages" },
+            priority: FastImage.priority.high
+          }}
+          resizeMode={FastImage.resizeMode.cover}
         />
       </View>
     );
@@ -142,17 +147,21 @@ class Home extends Component {
                 onPress={() => navigate("Details")}
               >
                 {nextMatchData ? (
-                  <Image
-                    source={{
+                   <FastImage
+                   style={{
+                    width: "100%",
+                    height: 200
+                  }}
+                     source={{
                       uri: `${this.state.BASE_URL}${
                         nextMatchData.data[0].bannerUrl
-                      }`
-                    }}
-                    style={{
-                      width: "100%",
-                      height: 200
-                    }}
-                  />
+                      }`,
+                       headers: { Authorization: "upcomingMatchBanner" },
+                       priority: FastImage.priority.high
+                     }}
+                     resizeMode={FastImage.resizeMode.cover}
+                   />
+               
                 ) : (
                   <ActivityIndicator
                     style={{

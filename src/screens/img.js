@@ -14,10 +14,9 @@ export default class ImageComponent extends PureComponent {
       imgPos: false
     };
   }
-
-  render() {
-    const { uri, height, width, lightbox, imgProps } = this.props;
+  componentDidMount() {
     const { imgHeight, imgWidth, imgPos } = this.state;
+    const { uri, height, width, lightbox, imgProps } = this.props;
 
     Image.getSize(uri, (width, height) => {
       const z = width / height;
@@ -28,6 +27,15 @@ export default class ImageComponent extends PureComponent {
         imgPos: true
       });
     });
+  }
+  
+  componentWillUnmount() {
+   
+  }
+
+  render() {
+    const { uri, height, width, lightbox, imgProps } = this.props;
+    const { imgHeight, imgWidth, imgPos } = this.state;
 
     return (
       // <PinchZoomView scalable={true} minScale={0.5} maxScale={2}>
@@ -53,7 +61,7 @@ export default class ImageComponent extends PureComponent {
                   ? FastImage.priority.high
                   : FastImage.priority.low
             }}
-            resizeMode={FastImage.resizeMode.cover}
+            resizeMode={FastImage.resizeMode.contain}
           />
         </View>
       // </PinchZoomView>

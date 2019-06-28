@@ -45,7 +45,24 @@ export default class Shares extends Component {
       phone: ""
     };
   }
-
+  _handleSubmitShare = () => {
+    let shareImageBase64 = {
+      title: "#TheConlanRevolutions",
+      message: "Hey Download Michael Conlan App",
+      url: "https://www.whatsapp.com/download/",
+      subject: "Share Link" // for email
+    };
+    if (
+      this.state.name !== "" &&
+      this.state.email !== "" &&
+      this.state.phone !== ""
+    ) {
+      Share.open(shareImageBase64);
+      this.setState({ isModalVisible: !this.state.isModalVisible });
+    } else {
+      alert("Please fill all the mandatory inputs.");
+    }
+  };
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
   };
@@ -73,13 +90,6 @@ export default class Shares extends Component {
       title: "React Native",
       message: "Hola mundo",
       url: "http://facebook.github.io/react-native/",
-      subject: "Share Link" // for email
-    };
-
-    let shareImageBase64 = {
-      title: "#TheConlanRevolutions",
-      message: "Hey Download Michael Conlan App",
-      url: "https://www.whatsapp.com/download/",
       subject: "Share Link" // for email
     };
 
@@ -159,11 +169,7 @@ export default class Shares extends Component {
                   <TouchableOpacity
                     style={styles.button}
                     // onPress={this.toggleModal}
-                    onPress={() => 
-                      Share.open(shareImageBase64)
-                      // this.setState({ isModalVisible: !this.state.isModalVisible });
-                      // console.warn("KJK")
-                    }
+                    onPress={() => this._handleSubmitShare()}
                   >
                     <Text
                       style={{
@@ -174,7 +180,7 @@ export default class Shares extends Component {
                         textAlign: "center"
                       }}
                     >
-                      Submit/Share
+                      Share Now
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -227,7 +233,7 @@ export default class Shares extends Component {
                 color: "white",
                 fontSize: 20,
                 // fontFamily: "sans-serif",
-                fontWeight: "bold",
+                // fontWeight: "bold",
                 textAlign: "center"
               }}
             >

@@ -38,7 +38,7 @@ class Gallery extends PureComponent {
     };
   }
 
-  componentWillMount = () => {
+  componentDidMount(){
     setTimeout(() => {
       this.setState({ loading: false });
     }, 2000);

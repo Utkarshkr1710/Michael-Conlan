@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ const uuidv4 = require("uuid/v4");
 
 export const { width, height } = Dimensions.get("window");
 
-class All extends Component {
+class All extends PureComponent {
   static navigationOptions = {
 
     headerTitle: "Watch Videos",
@@ -36,7 +36,7 @@ class All extends Component {
     };
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     const category = this.props.navigation.getParam("category", "NO-ID");
     this.setState({ category });
   };

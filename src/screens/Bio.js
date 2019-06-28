@@ -51,7 +51,7 @@ class Bio extends Component {
                 color: "white",
                 // fontFamily: "roboto sans-serif",
                 fontSize: 22,
-                textAlign: "center",
+                textAlign: "justify",
                 opacity: 1
               }}
             >
@@ -64,7 +64,7 @@ class Bio extends Component {
                 color: "white",
                 // fontFamily: "roboto sans-serif",
                 fontSize: 20,
-                textAlign: "center",
+                textAlign: "justify",
                 opacity: 1
               }}
             >
@@ -78,12 +78,10 @@ class Bio extends Component {
                 color: "white",
                 // fontFamily: "roboto sans-serif",
                 fontSize: 20,
-                textAlign: "center",
+                textAlign: "justify",
                 opacity: 1
               }}
-            >
-               {bio.data.bio[0].h2}
-            </Text>
+            >{bio.data.bio[0].h2}</Text>
           </View>
           </View>
         </ImageBackground>
